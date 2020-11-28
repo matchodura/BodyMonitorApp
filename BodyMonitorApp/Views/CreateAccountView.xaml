@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="BodyMonitorApp.CreateAccountView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BodyMonitorApp"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    
+
+    <Grid  Background="LightSalmon" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+
+
+        <DockPanel Grid.Column="1"  Margin="20">
+
+            <DockPanel DockPanel.Dock="Top">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Login" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
+                    <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=UserLogin, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2">
+                       
+                    </TextBox>
+
+                    <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Password" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+                    <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=UserPassword, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2"/>
+                    
+                    <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Repeat Password" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
+
+                    <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=UserPasswordConfirmation, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2"/>
+
+                    <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Age" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
+                    <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=UserAge,StringFormat={}{0:MM/dd/yyyy}, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2"/>
+
+                    <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Height" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4"/>
+                    <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" />
+
+
+                    <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Name" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5"/>
+                    <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=UserName, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2"/>
+
+                    <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="E-mail" VerticalAlignment="Center" Grid.Column="1" Grid.Row="6"/>
+                    <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=UserMail, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="2"/>
+
+                    <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Gender" VerticalAlignment="Center" Grid.Column="1" Grid.Row="7"/>
+                    <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=UserGender, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="2"/>
+
+                  
+                    <Button Content="Create Account" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
+                        Command="{Binding CreateAccountCommand}" 
+                        Width="100" Grid.Column="2" Grid.Row="8" Grid.ColumnSpan="2"/>
+                    
+
+
+                </Grid>
+
+            </DockPanel>
+
+            <!--<ContentControl Margin="10" Content="{Binding Path=CurrentLogin}" />
+        -->
+        </DockPanel>
+    </Grid>
+    
+    
+</UserControl>
+    
