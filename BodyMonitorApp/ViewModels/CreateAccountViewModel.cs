@@ -18,6 +18,7 @@ namespace BodyMonitorApp
     public class CreateAccountViewModel : ObservableObject, IPageViewModel
     {
 
+        #region fields
 
         private string _userLogin;
         private string _userPassword;
@@ -26,14 +27,12 @@ namespace BodyMonitorApp
         private int _userHeight;
         private string _userName;
         private string _userMail;
-        private string _userGender;
-
-       
-        
+        private string _userGender;             
         private ICommand _createAccountCommand;
 
+        #endregion fields
 
-
+        #region properties/commands
         public string Name
         {
             get
@@ -42,7 +41,6 @@ namespace BodyMonitorApp
             }
             set {; }
         }
-
       
         public string UserLogin
         {
@@ -69,7 +67,6 @@ namespace BodyMonitorApp
                 }
             }
         }
-
 
         public string UserPasswordConfirmation
         {
@@ -165,10 +162,12 @@ namespace BodyMonitorApp
             }
         }
 
+        #endregion properties
 
+        #region methods
         public void CreateAccount()
         {
-
+            //TODO add method to queries class
             AccountModel account = new AccountModel
             {
                 UserLogin = UserLogin,
@@ -224,9 +223,8 @@ namespace BodyMonitorApp
 
         }
 
-
-
+        #endregion methods
 
     }
-    
+
 }

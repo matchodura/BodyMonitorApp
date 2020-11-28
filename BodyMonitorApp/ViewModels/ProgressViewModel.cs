@@ -13,24 +13,31 @@ using System.Windows.Input;
 
 namespace BodyMonitorApp
 {
-
-   
-
     public class ProgressViewModel : ObservableObject, IPageViewModel
     {
+
+        #region fields
+
+        private Visibility _visibility = Visibility.Hidden;
+        private Visibility _buttonVisiblity = Visibility.Hidden;
+        private ComboBoxHistory _selectedItem;
+        private ProgressModel _currentProgress;
+        private DateTime _calendarDate;
+        private ICommand _addItemCommand;
+
+        #endregion
+
+
+        #region properties/commands             
+
         public string Name
         {
             get
             {
                 return "Progress";
             }
-            set {;}
+            set {; }
         }
-
-        private Visibility _visibility = Visibility.Hidden;
-
-        private Visibility _buttonVisiblity = Visibility.Hidden;
-
         public Visibility Visibility
         {
             get
@@ -57,12 +64,7 @@ namespace BodyMonitorApp
                 OnPropertyChanged("ButtonVisibility");
             }
         }
-
-
         public ObservableCollection<ComboBoxHistory> ComboBoxChoices { get; set; }
-
-        private ComboBoxHistory _selectedItem;
-
         public ComboBoxHistory SelectedItem
         {
             get { return _selectedItem; }
@@ -71,7 +73,7 @@ namespace BodyMonitorApp
                 if (_selectedItem != value)
                 {
                     _selectedItem = value;
-                    
+
                     OnPropertyChanged("SelectedItem");
 
                     if (SelectedItem.Symbol == "Add new item!")
@@ -83,62 +85,35 @@ namespace BodyMonitorApp
 
                         test.UserId = UserId;
                         CurrentProgress = test;
-                      
+
 
                     }
 
-                    else if(SelectedItem.Symbol == "View Values")
+                    else if (SelectedItem.Symbol == "View Values")
                     {
                         CurrentProgress = null;
                         ButtonVisibility = Visibility.Hidden;
-                        
-                       
-                       
+
+
+
                     }
                     else
                     {
                         ButtonVisibility = Visibility.Hidden;
                         CurrentProgress = null;
                     }
-                   
-                 
+
+
                 }
             }
         }
-
-
-        private DateTime _calendarDate;
-
-        public DateTime CalendarDate
-        {
-            get { return _calendarDate; }
-            set
-            {
-                if (_calendarDate != value)
-                {
-                    _calendarDate = value;
-
-                    if (SelectedItem.Symbol == "View Values")
-                    {
-                        GetUserValues();
-                    }
-
-                    OnPropertyChanged("CalendarDate");
-
-                    
-                }
-            }
-        }
-
-        private ICommand _addItemCommand;
-
-       
+        #endregion
 
         public ProgressViewModel()
         {
 
             ComboBoxChoices = new ObservableCollection<ComboBoxHistory>();
-            ComboBoxChoices.Add(new ComboBoxHistory() { Symbol = "-----"});
+            ComboBoxChoices.Add(new ComboBoxHistory() { Symbol = "-----" });
             ComboBoxChoices.Add(new ComboBoxHistory() { Symbol = "Add new item!" });
             ComboBoxChoices.Add(new ComboBoxHistory() { Symbol = "View Values" });
 
@@ -149,47 +124,14 @@ namespace BodyMonitorApp
             CurrentProgress = test;
 
 
-
-           
-
         }
 
-        private ProgressModel _currentProgress;
-
-        public ProgressModel CurrentProgress
-        {
-            get { return _currentProgress; }
-
-            set
-            {
-                if (value != _currentProgress)
-                {
-                    _currentProgress = value;
-                    OnPropertyChanged("CurrentProgress");
-                }
-            }
-
-        }
-
-        public int UserId { get; set; }
-        public ICommand AddItemCommand
-        {
-            get
-            {
-                if (_addItemCommand == null)
-                {
-                    _addItemCommand = new RelayCommand(
-                        param => AddItems());
-
-                }
-                return _addItemCommand;
-            }
-        }
+        #region methods
 
         public void AddItems()
         {
 
-            
+
             ProgressModel progress = new ProgressModel
             {
                 UserId = CurrentProgress.UserId,
@@ -198,12 +140,12 @@ namespace BodyMonitorApp
                 DateAdded = CalendarDate
             };
 
-        
+
 
             try
             {
 
-               // DateTime currentTime = DateTime.Now.Time;
+                // DateTime currentTime = DateTime.Now.Time;
 
 
                 // get connection string from Connections Helper Class
@@ -214,7 +156,7 @@ namespace BodyMonitorApp
 
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand(sql, conn);              
+                SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = progress.UserId;
                 cmd.Parameters.Add("@DateAdded", SqlDbType.DateTime).Value = progress.DateAdded;
                 cmd.Parameters.Add("@Biceps", SqlDbType.Decimal).Value = progress.Biceps;
@@ -238,16 +180,15 @@ namespace BodyMonitorApp
                 MessageBox.Show(errorMessage);
             }
         }
-
         public void GetUserValues()
         {
             ProgressModel progress = new ProgressModel
             {
                 UserId = UserId,
-             
+
             };
 
-
+            //TODO add method to queries class
             //sql
 
             try
@@ -321,5 +262,82 @@ namespace BodyMonitorApp
         {
             UserId = userId;
         }
+
+        #endregion methods
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public DateTime CalendarDate
+        {
+            get { return _calendarDate; }
+            set
+            {
+                if (_calendarDate != value)
+                {
+                    _calendarDate = value;
+
+                    if (SelectedItem.Symbol == "View Values")
+                    {
+                        GetUserValues();
+                    }
+
+                    OnPropertyChanged("CalendarDate");
+
+                    
+                }
+            }
+        }
+
+       
+
+       
+
+     
+       
+
+        public ProgressModel CurrentProgress
+        {
+            get { return _currentProgress; }
+
+            set
+            {
+                if (value != _currentProgress)
+                {
+                    _currentProgress = value;
+                    OnPropertyChanged("CurrentProgress");
+                }
+            }
+
+        }
+
+        public int UserId { get; set; }
+        public ICommand AddItemCommand
+        {
+            get
+            {
+                if (_addItemCommand == null)
+                {
+                    _addItemCommand = new RelayCommand(
+                        param => AddItems());
+
+                }
+                return _addItemCommand;
+            }
+        }
+
+      
     }
 }

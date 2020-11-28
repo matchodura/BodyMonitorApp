@@ -13,7 +13,14 @@ namespace BodyMonitorApp
     public class ProfileInfoViewModel : ObservableObject, IPageViewModel
     {
 
+        #region fields
+
         private AccountModel _currentAccount;
+        private Visibility _visibility = Visibility.Hidden;
+
+        #endregion fields
+
+        #region properties/commands
 
         public string Name
         {
@@ -22,10 +29,7 @@ namespace BodyMonitorApp
                 return "Profile Info";
             }
             set {;}
-        }
-
-        
-        private Visibility _visibility = Visibility.Hidden;
+        }                      
         public Visibility Visibility
         {
             get
@@ -39,8 +43,6 @@ namespace BodyMonitorApp
                 OnPropertyChanged("Visibility");
             }
         }
-
-
         public AccountModel CurrentAccount
         {
             get { return _currentAccount; }
@@ -55,13 +57,16 @@ namespace BodyMonitorApp
             }
 
         }
+        #endregion
 
+
+        #region methods
         public void SetUserValues(int userId)
         {
 
             AccountModel currentAccount = new AccountModel();
 
-            //to do select z bazy
+            //TODO add method to queries class
 
 
             try
@@ -128,5 +133,6 @@ namespace BodyMonitorApp
            
         }
 
+        #endregion methods
     }
 }

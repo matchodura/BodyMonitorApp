@@ -30,7 +30,7 @@ namespace BodyMonitorApp
             {
                 return "Charts";
             }
-            set {; }
+            set {;}
         }
 
         private bool[] _modeArray = new bool[] { true, false, false };
@@ -96,7 +96,6 @@ namespace BodyMonitorApp
 
         public List<ChartValueDate> ChartValueDate { get; set; }
 
-
         public ChartValues<DateModel> Values { get; set; }
 
         private Visibility _visibility = Visibility.Hidden;
@@ -157,7 +156,10 @@ namespace BodyMonitorApp
         public static List<int> TimeRangeValues { get; set; }
         public List<string> BodyPartsChoices { get; set; }
 
-
+        /// <summary>
+        /// ChartsView constructor, creates list of columns in database, time range for data to be displayed on the chart and
+        /// sets values of properties of buttons on the view
+        /// </summary>
         public ChartsViewModel()
         {
 
@@ -181,20 +183,34 @@ namespace BodyMonitorApp
         }
 
         #region methods
+
+
+        /// <summary>
+        /// Gets ChartModel data type from SQL query based on logged in User
+        /// </summary>
+        /// <param name="userId"></param>
         public void SetUserValues(int userId)
         {
-            //get data from sql query   
+            
             Queries query = new Queries(userId);
             ChartModel = query.GetUserValues();
 
         }
 
                
+      
+
+
         // TODO: change the way in which selected time range is chosen and set(radiobuttons and array)
+
+        /// <summary>
+        /// Sets Time Range of data e.g all, 7 days, 30 days, based on current selected mode in view
+        /// </summary>
+        /// <param name="mode"></param>
         public void SetTimeRange(int mode)
         {
 
-          
+            
             int timeSubstract = 0;
             switch (mode)
             {
@@ -231,7 +247,10 @@ namespace BodyMonitorApp
 
         }
 
-
+        /// <summary>
+        /// Sets Chart values based on string value of column name in database
+        /// </summary>
+        /// <param name="bodyPartName"></param>
         public void SetChartValues(string bodyPartName)
         {
             List<ChartValueDate> chartValueDate = new List<ChartValueDate>();
@@ -276,7 +295,10 @@ namespace BodyMonitorApp
                         
         }
 
-
+        /// <summary>
+        /// Updates chart with filtered by date values
+        /// </summary>
+        /// <param name="filteredValues"></param>
         public void UpdateChart(List<ChartValueDate> filteredValues)
         {
 
@@ -284,7 +306,6 @@ namespace BodyMonitorApp
             var dayConfig = Mappers.Xy<DateModel>()
                           .X(dayModel => dayModel.DateTime.Ticks)
                           .Y(dayModel => dayModel.Value);
-
 
 
 

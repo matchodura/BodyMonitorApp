@@ -17,32 +17,22 @@ namespace BodyMonitorApp
     {
 
         #region fields
+
         private string _userLogin;
         private string _userPassword;
         private string _name;
-
         private LoginModel _currentLogin;
-
         private ICommand _loginUserCommand;
-
 
         #endregion
 
         public LoginViewModel()
         {
-
             _name = "Login";
             LoginModel login = new LoginModel();
-
             login.LoggedIn = false;
-
             CurrentLogin = login;
-
-
         }
-
-
-
 
         #region properties
 
@@ -87,10 +77,7 @@ namespace BodyMonitorApp
                 }
             }
         }
-
-
-        public SecureString SecurePassword { private get; set; }
-
+      
         public LoginModel CurrentLogin
         {
             get { return _currentLogin; }
@@ -105,7 +92,6 @@ namespace BodyMonitorApp
             }
 
         }
-
                 
         public ICommand LoginUserCommand
         {
@@ -120,7 +106,6 @@ namespace BodyMonitorApp
                 return _loginUserCommand;
             }
         }
-        #endregion
 
         private Visibility _visibility = Visibility.Hidden;
         public Visibility Visibility
@@ -138,7 +123,7 @@ namespace BodyMonitorApp
         }
 
 
-       
+        #endregion
 
         public bool LoginUser()
         {

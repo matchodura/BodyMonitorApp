@@ -12,26 +12,122 @@ namespace BodyMonitorApp
 {
     public class ApplicationViewModel : ObservableObject
     {
-        #region Fields
+        #region private Fields
 
         private ICommand _changePageCommand;
-
         private ICommand _logoutUserCommand;
-
-        private IPageViewModel _currentPageViewModel;
-
-        //lista ze stronami przed zalogowaniem
-        private List<IPageViewModel> _pageViewModels;
-
-        //lista ze stronami po zalogowaniu
+        private IPageViewModel _currentPageViewModel;                
+        private List<IPageViewModel> _pageViewModels;             
         private List<IPageViewModel> _userPageViewModels;
-
         private Visibility _buttonVisiblity = Visibility.Hidden;
+
+        #endregion     
+
+        #region Properties / Commands
+        
+
+        public HomeViewModel HomeVM { get; set; }
+        public LoginViewModel LoginVM { get; set; }
+        public AboutViewModel AboutVM { get; set; }
+        public LoggedInViewModel LoggedInVM { get; set; }
+        public CreateAccountViewModel CreateAccountVM { get; set; }
+        public ForgotPasswordViewModel ForgotPasswordVM { get; set; }
+        public ProfileInfoViewModel ProfileInfoVM { get; set; }
+        public ProgressViewModel ProgressVM { get; set; }
+        public WorkoutViewModel WorkoutVM { get; set; }
+        public ChartsViewModel ChartsVM { get; set; }      
+
+
+        public List<IPageViewModel> PageViewModels
+        {
+            get
+            {
+                if (_pageViewModels == null)
+                    _pageViewModels = new List<IPageViewModel>();
+
+                return _pageViewModels;
+            }
+        }
+        public List<IPageViewModel> UserPageViewModels
+        {
+            get
+            {
+                if (_userPageViewModels == null)
+                    _userPageViewModels = new List<IPageViewModel>();
+
+                return _userPageViewModels;
+            }
+
+                     
+        }
+        public IPageViewModel CurrentPageViewModel
+        {
+            get
+            {
+                return _currentPageViewModel;
+            }
+            set
+            {
+                if (_currentPageViewModel != value)
+                {
+                    _currentPageViewModel = value;
+                    OnPropertyChanged("CurrentPageViewModel");
+                }
+            }
+        }
+
+
+        public ICommand ChangePageCommand
+        {
+            get
+            {
+                if (_changePageCommand == null)
+                {
+                    _changePageCommand = new RelayCommand(
+                        p => ChangeViewModel((IPageViewModel)p),
+                        p => p is IPageViewModel);
+                }
+
+                return _changePageCommand;
+            }
+        }
+        public ICommand LogoutUserCommand
+        {
+            get
+            {
+                if (_logoutUserCommand == null)
+                {
+                    _logoutUserCommand = new RelayCommand(
+                        p => LogoutUser());
+
+                }
+
+                return _logoutUserCommand;
+            }
+        }
+        public ICommand LoginUserCommand { get; set; }
+        public ICommand ForgotPasswordSwitchPageCommand { get; set; }
+        public ICommand CreateAccountSwitchPageCommand { get; set; }
+
+
+        public Visibility ButtonVisibility
+        {
+            get
+            {
+                return _buttonVisiblity;
+            }
+            set
+            {
+                _buttonVisiblity = value;
+
+                OnPropertyChanged("ButtonVisibility");
+            }
+        }
+
 
 
 
         #endregion
-
 
         public ApplicationViewModel()
         {
@@ -71,137 +167,16 @@ namespace BodyMonitorApp
             CreateAccountSwitchPageCommand = new RelayCommand((p) => AccountCreationSwitchPage());
 
 
-            
+
             HomeVM.Visibility = Visibility.Visible;
             LoginVM.Visibility = Visibility.Visible;
             AboutVM.Visibility = Visibility.Visible;
 
         }
 
-        #region Properties / Commands
-
-        
-        public HomeViewModel HomeVM { get; set; }
-
-        public LoginViewModel LoginVM { get; set; }
-
-
-        public AboutViewModel AboutVM { get; set; }
-
-        public LoggedInViewModel LoggedInVM { get; set; }
-        public CreateAccountViewModel CreateAccountVM { get; set; }
-
-        public ForgotPasswordViewModel ForgotPasswordVM { get; set; }
-
-        public ProfileInfoViewModel ProfileInfoVM { get; set; }
-
-
-        public ProgressViewModel ProgressVM { get; set; }
-        public WorkoutViewModel WorkoutVM { get; set; }
-
-        public ChartsViewModel ChartsVM { get; set; }
-
-        public ICommand ChangePageCommand
-        {
-            get
-            {
-                if (_changePageCommand == null)
-                {
-                    _changePageCommand = new RelayCommand(
-                        p => ChangeViewModel((IPageViewModel)p),
-                        p => p is IPageViewModel);
-                }
-
-                return _changePageCommand;
-            }
-        }
-
-        public ICommand LogoutUserCommand
-        {
-            get
-            {
-                if (_logoutUserCommand == null)
-                {
-                    _logoutUserCommand = new RelayCommand(
-                        p => LogoutUser());
-                       
-                }
-
-                return _logoutUserCommand;
-            }
-        }
-
-
-        public List<IPageViewModel> PageViewModels
-        {
-            get
-            {
-                if (_pageViewModels == null)
-                    _pageViewModels = new List<IPageViewModel>();
-
-                return _pageViewModels;
-            }
-        }
-
-        public List<IPageViewModel> UserPageViewModels
-        {
-            get
-            {
-                if (_userPageViewModels == null)
-                    _userPageViewModels = new List<IPageViewModel>();
-
-                return _userPageViewModels;
-            }
-
-                     
-        }
-
-
-        public IPageViewModel CurrentPageViewModel
-        {
-            get
-            {
-                return _currentPageViewModel;
-            }
-            set
-            {
-                if (_currentPageViewModel != value)
-                {
-                    _currentPageViewModel = value;
-                    OnPropertyChanged("CurrentPageViewModel");
-                }
-            }
-        }
-
-
-        public ICommand LoginUserCommand { get; set; }
-
-        public ICommand ForgotPasswordSwitchPageCommand { get; set; }
-        public ICommand CreateAccountSwitchPageCommand { get; set; }
-
-
-        public Visibility ButtonVisibility
-        {
-            get
-            {
-                return _buttonVisiblity;
-            }
-            set
-            {
-                _buttonVisiblity = value;
-
-                OnPropertyChanged("ButtonVisibility");
-            }
-        }
-
-        
-
-
-        #endregion
-
         #region Methods
 
-        //zmiana strony
+        //changing the page
         private void ChangeViewModel(IPageViewModel viewModel)
         {
             if (!PageViewModels.Contains(viewModel))
@@ -212,45 +187,46 @@ namespace BodyMonitorApp
         }
 
 
-        //zmiana strony - robienie konta
+        /// <summary>
+        /// Changes current view to account creation page
+        /// </summary>
         public void AccountCreationSwitchPage()
         {
-
             CurrentPageViewModel = CreateAccountVM;
-
         }
 
 
-        //zmiana strony - zapomniane haslo
+        /// <summary>
+        /// Changes current view to forgot passord page
+        /// </summary>
         public void ForgotPasswordSwitchPage()
         {
-
-
             CurrentPageViewModel = ForgotPasswordVM;
         }
 
-        //logowanie użytkownika    
+
+        //loggin in of user
         public void LoginUserTool()
         {
-            //sprawdzenie czy login się zgadza
+            //validation of user credentials
             bool isValidated = LoginVM.LoginUser();
             int userId = LoginVM.CurrentLogin.UserId;
             
-
             if (isValidated)
             {
-
-                CurrentPageViewModel = LoggedInVM;
-                               
+                CurrentPageViewModel = LoggedInVM;                               
                 ButtonVisibility = Visibility.Visible;
-                SetUserPageVisibility(isValidated);
-
-                //wyślij id do Profile info vm, aby wybrać z bazy odpowiednie wartości
-                SetAccountInfo(userId);
+                SetUserPageVisibility(isValidated);                                             
+                SendUserId(userId);
             }
                        
         }
         
+
+        /// <summary>
+        /// Sets visibility of pages that can be displayed when user is logged in or out
+        /// </summary>
+        /// <param name="isTrue"></param>
         public void SetUserPageVisibility(bool isTrue)
         {
             if(isTrue)
@@ -271,18 +247,28 @@ namespace BodyMonitorApp
                 LoginVM.Visibility = Visibility.Visible;
             }
         }
-        public void SetAccountInfo(int val)
+
+
+        /// <summary>
+        /// Sends current userId to other pages - profile info, progress and charts
+        /// </summary>
+        /// <param name="val"></param>
+        public void SendUserId(int userId)
         {
             //user id to profile info
-            ProfileInfoVM.SetUserValues(val);
+            ProfileInfoVM.SetUserValues(userId);
 
             //user id to progress page
-            ProgressVM.SetUserValues(val);
+            ProgressVM.SetUserValues(userId);
 
             //user id to charts page
-            ChartsVM.SetUserValues(val);
+            ChartsVM.SetUserValues(userId);
         }
 
+
+        /// <summary>
+        /// logingg out of user, resets values of login/password and hides other pages that are displayed when user is logged in
+        /// </summary>
         public void LogoutUser()
         {
 

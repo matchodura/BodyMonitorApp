@@ -10,6 +10,15 @@ namespace BodyMonitorApp
 {
     public class WorkoutViewModel : ObservableObject, IPageViewModel
     {
+
+        #region fields
+
+        private Visibility _visibility = Visibility.Hidden;
+
+        #endregion
+
+        #region properties/commands
+
         public string Name
         {
             get
@@ -18,8 +27,6 @@ namespace BodyMonitorApp
             }
             set {;}
         }
-
-        private Visibility _visibility = Visibility.Hidden;
         public Visibility Visibility
         {
             get
@@ -33,5 +40,9 @@ namespace BodyMonitorApp
                 OnPropertyChanged("Visibility");
             }
         }
+
+        #endregion
     }
+
+
 }

@@ -15,7 +15,7 @@ namespace BodyMonitorApp
             {
                 return "About";
             }
-            set {; }
+            set {;}
         }
 
         private Visibility _visibility = Visibility.Hidden;

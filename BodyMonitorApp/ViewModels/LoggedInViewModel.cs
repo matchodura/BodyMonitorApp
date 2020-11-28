@@ -15,7 +15,7 @@ namespace BodyMonitorApp
             {
                 return "Logged In";
             }
-            set {; }
+            set {;}
         }
     }
     
