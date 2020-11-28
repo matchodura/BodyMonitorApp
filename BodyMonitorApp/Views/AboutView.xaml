@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid  Background="LightSalmon" >
-        <TextBlock Text="test commita" 
+        <TextBlock Text="xd" 
                    FontWeight="Bold" FontSize="18"
                    HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
