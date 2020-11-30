@@ -14,13 +14,22 @@ namespace BodyMonitorApp
     {
         public int UserId { get; set; }
 
+
+        public Queries()
+        {
+
+        }
+
         public Queries(int userId)
         {
             UserId = userId;
         }
 
 
-
+        /// <summary>
+        /// gets body values as list from db for current logged in user
+        /// </summary>
+        /// <returns></returns>
         public ChartModel GetUserValues()
         {
 
@@ -86,5 +95,56 @@ namespace BodyMonitorApp
 
         }
 
+
+        /// <summary>
+        /// creates user account based on credentials specified in viewmodel
+        /// </summary>
+        /// <returns></returns>
+        public void CreateUserAccount(AccountModel account)
+        {
+           
+            try
+            {
+
+                DateTime currentTime = DateTime.Now;
+
+
+                // get connection string from Connections Helper Class
+                SqlConnection conn = new SqlConnection(Connections.ConnectionString);
+
+                string sql = "INSERT INTO dbo.Users (UserLogin,UserPassword) values (@UserLogin,@UserPassword);" +
+                    "INSERT INTO dbo.UserData(id,UserHeight,UserName,UserAge,UserMail,UserGender,AccountCreated) values ((SELECT SCOPE_IDENTITY()),@UserHeight,@UserName,@UserAge,@UserMail,@UserGender,@AccountCreated)";
+
+
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.Add("@UserLogin", SqlDbType.VarChar).Value = account.UserLogin;
+                cmd.Parameters.Add("@UserPassword", SqlDbType.VarChar).Value = account.UserPassword;
+                cmd.Parameters.Add("@UserAge", SqlDbType.Date).Value = account.UserAge.Date;
+                cmd.Parameters.Add("@UserHeight", SqlDbType.Int).Value = account.UserHeight;
+                cmd.Parameters.Add("@UserName", SqlDbType.VarChar).Value = account.UserName;
+                cmd.Parameters.Add("@UserMail", SqlDbType.VarChar).Value = account.UserMail;
+                cmd.Parameters.Add("@UserGender", SqlDbType.Char).Value = account.UserGender;
+                cmd.Parameters.Add("@AccountCreated", SqlDbType.DateTime).Value = currentTime;
+
+
+                int result = cmd.ExecuteNonQuery();
+
+                if (result > 0)
+                {
+                    MessageBox.Show("Account Created!");
+                }
+
+
+            }
+
+            catch (SqlException ex)
+            {
+                string errorMessage = $"Error: {ex}";
+                MessageBox.Show(errorMessage);
+            }
+
+        }
     }
 }
