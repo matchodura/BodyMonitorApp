@@ -6,10 +6,9 @@
              xmlns:local="clr-namespace:BodyMonitorApp"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-       
-        <DataTemplate DataType="{x:Type local:AccountModel}">
-            
+    
+    <UserControl.Resources>       
+        <DataTemplate DataType="{x:Type local:AccountModel}">            
                 <Grid  Background="LightSalmon">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />

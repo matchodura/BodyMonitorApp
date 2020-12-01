@@ -17,6 +17,7 @@ namespace BodyMonitorApp
         private ICommand _changePageCommand;
         private ICommand _logoutUserCommand;
         private IPageViewModel _currentPageViewModel;                
+        private IPageViewModel _overlayViewModel;                
         private List<IPageViewModel> _pageViewModels;             
         private List<IPageViewModel> _userPageViewModels;
         private Visibility _buttonVisiblity = Visibility.Hidden;
@@ -30,8 +31,8 @@ namespace BodyMonitorApp
         public LoginViewModel LoginVM { get; set; }
         public AboutViewModel AboutVM { get; set; }
         public LoggedInViewModel LoggedInVM { get; set; }
-        public CreateAccountViewModel CreateAccountVM { get; set; }
-        public ForgotPasswordViewModel ForgotPasswordVM { get; set; }
+      //  public CreateAccountViewModel CreateAccountVM { get; set; }
+       // public ForgotPasswordViewModel ForgotPasswordVM { get; set; }
         public ProfileInfoViewModel ProfileInfoVM { get; set; }
         public ProgressViewModel ProgressVM { get; set; }
         public WorkoutViewModel WorkoutVM { get; set; }
@@ -76,6 +77,21 @@ namespace BodyMonitorApp
             }
         }
 
+        public IPageViewModel OverlayViewModel
+        {
+            get
+            {
+                return _overlayViewModel;
+            }
+            set
+            {
+                if (_overlayViewModel != value)
+                {
+                    _overlayViewModel = value;
+                    OnPropertyChanged("OverlayViewModel");
+                }
+            }
+        }
 
         public ICommand ChangePageCommand
         {
@@ -107,7 +123,13 @@ namespace BodyMonitorApp
         }
         public ICommand LoginUserCommand { get; set; }
         public ICommand ForgotPasswordSwitchPageCommand { get; set; }
-        public ICommand CreateAccountSwitchPageCommand { get; set; }
+      
+        public ICommand BackPageCommand { get; set; }
+
+
+        //new
+        public ICommand CreateAccountViewCommand { get; set; }
+        public ICommand ForgotPasswordViewCommand { get; set; }
 
 
         public Visibility ButtonVisibility
@@ -138,8 +160,8 @@ namespace BodyMonitorApp
 
 
             LoggedInVM = new LoggedInViewModel();
-            ForgotPasswordVM = new ForgotPasswordViewModel();
-            CreateAccountVM = new CreateAccountViewModel();
+           // ForgotPasswordVM = new ForgotPasswordViewModel();
+           // CreateAccountVM = new CreateAccountViewModel();
 
             ProfileInfoVM = new ProfileInfoViewModel();
             ProgressVM = new ProgressViewModel();
@@ -148,7 +170,7 @@ namespace BodyMonitorApp
 
             // Add available pages
             PageViewModels.Add(HomeVM);
-            PageViewModels.Add(LoginVM);
+           // PageViewModels.Add(LoginVM);
             PageViewModels.Add(AboutVM);
 
             // PageViewModels.Add(new ProductsViewModel());
@@ -159,12 +181,20 @@ namespace BodyMonitorApp
             UserPageViewModels.Add(ChartsVM);
 
             // Set starting page
+            OverlayViewModel = LoginVM;
             CurrentPageViewModel = PageViewModels[0];
 
 
             LoginUserCommand = new RelayCommand((p) => LoginUserTool());
-            ForgotPasswordSwitchPageCommand = new RelayCommand((p) => ForgotPasswordSwitchPage());
-            CreateAccountSwitchPageCommand = new RelayCommand((p) => AccountCreationSwitchPage());
+            //ForgotPasswordSwitchPageCommand = new RelayCommand((p) => ForgotPasswordSwitchPage());
+
+
+          //  CreateAccountSwitchPageCommand = new RelayCommand((p) => AccountCreationSwitchPage());
+
+            CreateAccountViewCommand = new RelayCommand((p) => CreateAccountView());
+            ForgotPasswordViewCommand = new RelayCommand((p) =>ForgotPasswordView());
+
+          //  BackPageCommand = new RelayCommand((p) => BackPage());
 
 
 
@@ -190,19 +220,35 @@ namespace BodyMonitorApp
         /// <summary>
         /// Changes current view to account creation page
         /// </summary>
-        public void AccountCreationSwitchPage()
+        //public void AccountCreationSwitchPage()
+        //{
+        //   // OverlayViewModel = CreateAccountVM;
+        //}
+        //public void BackPage()
+        //{
+        //    OverlayViewModel = LoginVM;
+        //}
+
+        public void ForgotPasswordView()
         {
-            CurrentPageViewModel = CreateAccountVM;
+            LoginVM.ForgotPassword();
         }
+
+        public void CreateAccountView()
+        {
+            LoginVM.CreateAccount();
+
+        }
+
 
 
         /// <summary>
         /// Changes current view to forgot passord page
         /// </summary>
-        public void ForgotPasswordSwitchPage()
-        {
-            CurrentPageViewModel = ForgotPasswordVM;
-        }
+        //public void ForgotPasswordSwitchPage()
+        //{
+        //    OverlayViewModel = ForgotPasswordVM;
+        //}
 
 
         //loggin in of user
@@ -214,6 +260,7 @@ namespace BodyMonitorApp
             
             if (isValidated)
             {
+                OverlayViewModel = null;
                 CurrentPageViewModel = LoggedInVM;                               
                 ButtonVisibility = Visibility.Visible;
                 SetUserPageVisibility(isValidated);                                             
@@ -281,7 +328,7 @@ namespace BodyMonitorApp
 
                 LoginVM.UserPassword = null;
                 LoginVM.UserLogin = null;
-
+                OverlayViewModel = LoginVM;
                 CurrentPageViewModel = PageViewModels[0];
                 ButtonVisibility = Visibility.Hidden;
 

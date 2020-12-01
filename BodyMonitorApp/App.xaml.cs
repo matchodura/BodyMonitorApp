@@ -21,5 +21,40 @@ namespace BodyMonitorApp
             app.DataContext = context;
             app.Show();
         }
+
+        //private void ApplicationStart(object sender, StartupEventArgs e)
+        //{
+
+        //    LoginView app = new LoginView();
+        //    LoginViewModel context = new LoginViewModel();
+        //    app.DataContext = context;
+        //    app.Show();
+
+
+
+        //    // Determine if login was successful
+        //    if (app.DataContext is LoginViewModel loginVM)
+        //    {
+        //        MessageBox.Show("test");
+        //        if(loginVM.CurrentLogin.LoggedIn)
+        //        {
+        //            MessageBox.Show("Essa");
+        //        }
+
+        //        //if (!loginVM.LoginSuccessful)
+        //        //{
+        //        //    // handle any cleanup and close/shutdown app
+        //        //}
+        //    }
+
+        //    //show your MainWindow
+
+        //    ApplicationView main = new ApplicationView();
+        //    ApplicationViewModel contextMain = new ApplicationViewModel();
+        //    main.DataContext = contextMain;
+        //    main.Show();
+        //}
+
+
     }
 }

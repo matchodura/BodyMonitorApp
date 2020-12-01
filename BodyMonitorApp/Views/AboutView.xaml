@@ -6,9 +6,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid  Background="LightSalmon" >
-        <TextBlock Text="xd" 
+        <TextBlock Text="no elo" 
                    FontWeight="Bold" FontSize="18"
                    HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <RadioButton Content="RadioButton" HorizontalAlignment="Left" Margin="160,91,0,0" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>

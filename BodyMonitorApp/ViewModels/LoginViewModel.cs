@@ -25,9 +25,37 @@ namespace BodyMonitorApp
         private ICommand _loginUserCommand;
 
         #endregion
+        private IPageViewModel _currentPageViewModel;
+        public IPageViewModel CurrentPageViewModel
+        {
+            get
+            {
+                return _currentPageViewModel;
+            }
+            set
+            {
+                if (_currentPageViewModel != value)
+                {
+                    _currentPageViewModel = value;
+                    OnPropertyChanged("CurrentPageViewModel");
+                }
+            }
+        }
 
+        private bool _isCheckedCreateAccount = false;
+        private bool _isCheckedForgotPassword = false;
+
+        public CreateAccountViewModel CreateAccountVM { get; set; }
+
+        public ForgotPasswordViewModel ForgotPasswordVM { get; set; }
         public LoginViewModel()
         {
+
+            CreateAccountVM = new CreateAccountViewModel();
+
+            ForgotPasswordVM = new ForgotPasswordViewModel();
+            
+
             _name = "Login";
             LoginModel login = new LoginModel();
             login.LoggedIn = false;
@@ -108,6 +136,8 @@ namespace BodyMonitorApp
         }
 
         private Visibility _visibility = Visibility.Hidden;
+      
+
         public Visibility Visibility
         {
             get
@@ -119,6 +149,50 @@ namespace BodyMonitorApp
                 _visibility = value;
 
                 OnPropertyChanged("Visibility");
+            }
+        }
+
+
+        public bool IsCheckedCreateAccount
+        {
+            get { return _isCheckedCreateAccount; }
+
+            set
+            {
+                _isCheckedCreateAccount = value;
+                OnPropertyChanged("IsCheckedCreateAccount");
+
+                if (value && !IsCheckedForgotPassword)
+                {
+                    CurrentPageViewModel = CreateAccountVM;
+                
+                }
+                                        
+
+                else
+                    CurrentPageViewModel = null;
+            }
+        }
+
+
+        public bool IsCheckedForgotPassword
+        {
+            get { return _isCheckedForgotPassword; }
+
+            set
+            {
+                _isCheckedForgotPassword = value;
+                OnPropertyChanged("IsCheckedForgotPassword");
+
+                if (value)
+                {
+                    CurrentPageViewModel = ForgotPasswordVM;
+                   // IsCheckedCreateAccount = false;
+                }
+                   
+
+                else
+                    CurrentPageViewModel = null;
             }
         }
 
@@ -221,6 +295,18 @@ namespace BodyMonitorApp
             
         }
            
+
+        public void CreateAccount()
+        {
+           // MessageBox.Show("elo");
+         //   CurrentPageViewModel = CreateAccountVM;
+        }
+
+        public void ForgotPassword()
+        {
+          //  CurrentPageViewModel = ForgotPasswordVM;
+        }
+
     }
 
 
