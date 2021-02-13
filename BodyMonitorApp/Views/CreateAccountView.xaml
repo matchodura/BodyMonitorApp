@@ -4,9 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BodyMonitorApp"
-             mc:Ignorable="d" 
-           
-             d:DesignHeight="250" d:DesignWidth="250">
+             mc:Ignorable="d" d:DesignWidth="250" Height="321">
 
 
 
@@ -33,6 +31,8 @@
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="20"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
@@ -72,12 +72,22 @@
 
                         <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Gender" VerticalAlignment="Center" Grid.Column="0" Grid.Row="7"/>
                         <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=UserGender, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="2"/>
+                        
+                       <!--new things-->
+
+                        <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Secret Question" VerticalAlignment="Center" Grid.Column="0" Grid.Row="8"/>
+                        <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=SecretQuestion, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="8" Grid.ColumnSpan="2"/>
+
+                        <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Secret Answer" VerticalAlignment="Center" Grid.Column="0" Grid.Row="9"/>
+                        <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=SecretAnswer, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2"/>
+
+
 
 
                         <Button Content="Create Account" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
                         Command="{Binding CreateAccountCommand}" 
-                        Width="100" Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="2"/>
-                       
+                        Width="100" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="2"/>
+
 
 
                     </Grid>

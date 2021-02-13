@@ -5,14 +5,17 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace BodyMonitorApp
 {
+
     public class ProgressViewModel : ObservableObject, IPageViewModel
     {
 
@@ -26,7 +29,35 @@ namespace BodyMonitorApp
         private ICommand _addItemCommand;
 
         #endregion
+        public ProgressModel CurrentProgress
+        {
+            get { return _currentProgress; }
 
+            set
+            {
+                if (value != _currentProgress)
+                {
+                    _currentProgress = value;
+                    OnPropertyChanged("CurrentProgress");
+                }
+            }
+
+        }
+
+        public int UserId { get; set; }
+        public ICommand AddItemCommand
+        {
+            get
+            {
+                if (_addItemCommand == null)
+                {
+                    _addItemCommand = new RelayCommand(
+                        param => AddItems());
+
+                }
+                return _addItemCommand;
+            }
+        }
 
         #region properties/commands             
 
@@ -107,7 +138,30 @@ namespace BodyMonitorApp
                 }
             }
         }
+
+        public DateTime CalendarDate
+        {
+            get { return _calendarDate; }
+            set
+            {
+                if (_calendarDate != value)
+                {
+                    _calendarDate = value;
+
+                    if (SelectedItem.Symbol == "View Values")
+                    {
+                        GetUserValues();
+                    }
+
+                    OnPropertyChanged("CalendarDate");
+
+
+                }
+            }
+        }
         #endregion
+        public HashSet<DateTime> Dates { get; } = new HashSet<DateTime>();
+
 
         public ProgressViewModel()
         {
@@ -123,6 +177,7 @@ namespace BodyMonitorApp
 
             CurrentProgress = test;
 
+          
 
         }
 
@@ -265,41 +320,7 @@ namespace BodyMonitorApp
 
         #endregion methods
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public DateTime CalendarDate
-        {
-            get { return _calendarDate; }
-            set
-            {
-                if (_calendarDate != value)
-                {
-                    _calendarDate = value;
-
-                    if (SelectedItem.Symbol == "View Values")
-                    {
-                        GetUserValues();
-                    }
-
-                    OnPropertyChanged("CalendarDate");
-
-                    
-                }
-            }
-        }
+      
 
        
 
@@ -308,35 +329,7 @@ namespace BodyMonitorApp
      
        
 
-        public ProgressModel CurrentProgress
-        {
-            get { return _currentProgress; }
-
-            set
-            {
-                if (value != _currentProgress)
-                {
-                    _currentProgress = value;
-                    OnPropertyChanged("CurrentProgress");
-                }
-            }
-
-        }
-
-        public int UserId { get; set; }
-        public ICommand AddItemCommand
-        {
-            get
-            {
-                if (_addItemCommand == null)
-                {
-                    _addItemCommand = new RelayCommand(
-                        param => AddItems());
-
-                }
-                return _addItemCommand;
-            }
-        }
+      
 
       
     }

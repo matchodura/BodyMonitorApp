@@ -237,7 +237,6 @@ namespace BodyMonitorApp
         public void CreateAccountView()
         {
             LoginVM.CreateAccount();
-
         }
 
 
@@ -314,16 +313,13 @@ namespace BodyMonitorApp
 
 
         /// <summary>
-        /// logingg out of user, resets values of login/password and hides other pages that are displayed when user is logged in
+        /// loging out of user, resets values of login/password and hides other pages that are displayed when user is logged in
         /// </summary>
         public void LogoutUser()
         {
-
-
             MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure to logout?", "Logout", System.Windows.MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-
                 SetUserPageVisibility(false);
 
                 LoginVM.UserPassword = null;
@@ -331,16 +327,11 @@ namespace BodyMonitorApp
                 OverlayViewModel = LoginVM;
                 CurrentPageViewModel = PageViewModels[0];
                 ButtonVisibility = Visibility.Hidden;
-
             }
-
-
 
         }
 
         #endregion
-
-
 
     }
 }

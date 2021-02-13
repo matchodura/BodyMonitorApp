@@ -31,6 +31,11 @@ namespace BodyMonitorApp
         private string _userGender;             
         private ICommand _createAccountCommand;
 
+        //new things
+
+        private string _secretQuestion;
+        private string _secretAnswer;
+
         #endregion fields
 
         #region properties/commands
@@ -149,6 +154,33 @@ namespace BodyMonitorApp
             }
         }
 
+        //new things
+        public string SecretQuestion
+        {
+            get { return _secretQuestion; }
+            set
+            {
+                if (value != _secretQuestion)
+                {
+                    _secretQuestion = value;
+                    OnPropertyChanged("SecretQuestion");
+                }
+            }
+        }
+
+
+        public string SecretAnswer
+        {
+            get { return _secretAnswer; }
+            set
+            {
+                if (value != _secretAnswer)
+                {
+                    _secretAnswer = value;
+                    OnPropertyChanged("SecretAnswer");
+                }
+            }
+        }
         public ICommand CreateAccountCommand
         {
             get
@@ -183,7 +215,9 @@ namespace BodyMonitorApp
                 UserHeight = UserHeight,
                 UserName = UserName,
                 UserMail = UserMail,
-                UserGender = UserGender
+                UserGender = UserGender,
+                SecretQuestion = SecretQuestion,
+                SecretAnswer = SecretAnswer
             };
 
             query.CreateUserAccount(account);

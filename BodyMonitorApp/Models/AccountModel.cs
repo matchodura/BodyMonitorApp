@@ -22,6 +22,10 @@ namespace BodyMonitorApp
         private string _userGender;
         private DateTime _accountCreated;
 
+        //new things
+        private string _secretQuestion;
+        private string _secretAnswer;
+
         #endregion
 
         #region properties
@@ -129,6 +133,36 @@ namespace BodyMonitorApp
                 {
                     _accountCreated = value;
                     OnPropertyChanged("AccountCreated");
+                }
+            }
+        }
+
+
+        //new things cd
+
+        public string SecretQuestion
+        {
+            get { return _secretQuestion; }
+            set
+            {
+                if (value != _secretQuestion)
+                {
+                    _secretQuestion = value;
+                    OnPropertyChanged("SecretQuestion");
+                }
+            }
+        }
+
+
+        public string SecretAnswer
+        {
+            get { return _secretAnswer; }
+            set
+            {
+                if (value != _secretAnswer)
+                {
+                    _secretAnswer = value;
+                    OnPropertyChanged("SecretAnswer");
                 }
             }
         }

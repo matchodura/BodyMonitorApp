@@ -8,45 +8,41 @@
              d:DesignHeight="300" d:DesignWidth="300">
     
     <UserControl.Resources>       
-        <DataTemplate DataType="{x:Type local:AccountModel}">            
-                <Grid  Background="LightSalmon">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
+      <DataTemplate DataType="{x:Type local:AccountModel}">
+            <Grid Background="LightSalmon">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="0" Grid.Row="0"  Text="Name" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding UserName}" Margin="5" Width="150" />
+                <TextBlock  Grid.Column="0" Grid.Row="0"  Text="Name" VerticalAlignment="Center" Margin="5" />
+                <TextBox  Grid.Row="0" Grid.Column="1"  Text="{Binding UserName}" Margin="5" Width="150" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="1"  Text="Age" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding UserAge}" Margin="5" Width="150" />
+                <TextBlock Grid.Column="0" Grid.Row="1"  Text="Age" VerticalAlignment="Center" Margin="5" />
+                <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding UserAge}" Margin="5" Width="150" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="2"  Text="Height" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Row="2" Grid.Column="1"  Text="{Binding UserHeight}" Margin="5" Width="150" />
+                <TextBlock Grid.Column="0" Grid.Row="2"  Text="Height" VerticalAlignment="Center" Margin="5" />
+                <TextBox Grid.Row="2" Grid.Column="1"  Text="{Binding UserHeight}" Margin="5" Width="150" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="3"  Text="Mail" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Row="3" Grid.Column="1"  Text="{Binding UserMail}" Margin="5" Width="150" />
-                   
-                    <TextBlock Grid.Column="0" Grid.Row="4"  Text="Gender" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Row="4" Grid.Column="1"  Text="{Binding UserGender}" Margin="5" Width="150" />
-                    
-                    <TextBlock Grid.Column="0" Grid.Row="5"  Text="Account created" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Row="5" Grid.Column="1"  Text="{Binding AccountCreated}" Margin="5" Width="150" />
-                </Grid>
-           
+                <TextBlock Grid.Column="0" Grid.Row="3"  Text="Mail" VerticalAlignment="Center" Margin="5" />
+                <TextBox Grid.Row="3" Grid.Column="1"  Text="{Binding UserMail}" Margin="5" Width="150" />
+
+                <TextBlock Grid.Column="0" Grid.Row="4"  Text="Gender" VerticalAlignment="Center" Margin="5" />
+                <TextBox Grid.Row="4" Grid.Column="1"  Text="{Binding UserGender}" Margin="5" Width="150" />
+
+                <TextBlock Grid.Column="0" Grid.Row="5"  Text="Account created" VerticalAlignment="Center" Margin="5" />
+                <TextBox Grid.Row="5" Grid.Column="1"  Text="{Binding AccountCreated}" Margin="5" Width="150" />
+            </Grid>
         </DataTemplate>
     </UserControl.Resources>
-
-    <ContentControl  Content="{Binding Path=CurrentAccount}" Background="LightSalmon" />
-    
-
+    <ContentControl  Content="{Binding Path=CurrentAccount}" Background="LightSalmon" />    
 </UserControl>

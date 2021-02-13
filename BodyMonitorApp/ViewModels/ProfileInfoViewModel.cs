@@ -60,13 +60,24 @@ namespace BodyMonitorApp
         #endregion
 
 
+        public ProfileInfoViewModel()
+        {
+            var account = new AccountModel();
+
+
+            CurrentAccount = account;
+        }
+
+
+
+
         #region methods
         public void SetUserValues(int userId)
         {
 
             AccountModel currentAccount = new AccountModel();
 
-            //TODO add method to queries class
+            //TODO: add method to queries class
 
 
             try
@@ -76,9 +87,7 @@ namespace BodyMonitorApp
 
 
                 string sql = "SELECT * FROM dbo.UserData WHERE Id=@UserId";
-
-
-
+                              
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand(sql, conn);
@@ -94,16 +103,31 @@ namespace BodyMonitorApp
                     {
                         while (reader.Read())
                         {
+                            var test = DateTime.Now;
 
-                            
-                            currentAccount.UserAge = reader.GetDateTime(1);
+                            var tempDate = DateTime.Now;
+
+                            tempDate = reader.GetDateTime(1);
                             currentAccount.UserHeight = reader.GetInt32(2);
                             currentAccount.UserName = reader.GetString(3);
                             currentAccount.UserMail = reader.GetString(4);
                             currentAccount.UserGender = reader.GetString(5);
                             currentAccount.AccountCreated = reader.GetDateTime(6);
 
-                            CurrentAccount = currentAccount;
+
+                            var result = test.Year - tempDate.Year;
+
+                            //MessageBox.Show(result.ToString());
+
+                            //// var result = (test - tempDate).TotalDays/365;
+
+                            //// var resultint = Convert.ToInt32(Math.Floor(result));
+
+                            //DateTime dt = DateTime.Parse(result.ToString());
+                            ////var yourDateString = yourDateTime.ToString("dd/MM/yyyy");
+                            ////MessageBox.Show(yourDateString);
+                            //currentAccount.UserAge = dt;
+                            //CurrentAccount = currentAccount;
                            
                         }
 
@@ -128,9 +152,10 @@ namespace BodyMonitorApp
             }
 
 
+            CurrentAccount = currentAccount;
 
-           
-           
+
+
         }
 
         #endregion methods

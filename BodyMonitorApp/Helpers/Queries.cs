@@ -105,16 +105,13 @@ namespace BodyMonitorApp
            
             try
             {
-
                 DateTime currentTime = DateTime.Now;
-
 
                 // get connection string from Connections Helper Class
                 SqlConnection conn = new SqlConnection(Connections.ConnectionString);
 
                 string sql = "INSERT INTO dbo.Users (UserLogin,UserPassword) values (@UserLogin,@UserPassword);" +
-                    "INSERT INTO dbo.UserData(id,UserHeight,UserName,UserAge,UserMail,UserGender,AccountCreated) values ((SELECT SCOPE_IDENTITY()),@UserHeight,@UserName,@UserAge,@UserMail,@UserGender,@AccountCreated)";
-
+                    "INSERT INTO dbo.UserData(id,UserHeight,UserName,UserAge,UserMail,UserGender,AccountCreated,SecretQuestion,SecretAnswer) values ((SELECT SCOPE_IDENTITY()),@UserHeight,@UserName,@UserAge,@UserMail,@UserGender,@AccountCreated,@SecretQuestion,@SecretAnswer)";
 
                 conn.Open();
 
@@ -127,6 +124,8 @@ namespace BodyMonitorApp
                 cmd.Parameters.Add("@UserMail", SqlDbType.VarChar).Value = account.UserMail;
                 cmd.Parameters.Add("@UserGender", SqlDbType.Char).Value = account.UserGender;
                 cmd.Parameters.Add("@AccountCreated", SqlDbType.DateTime).Value = currentTime;
+                cmd.Parameters.Add("@SecretQuestion", SqlDbType.VarChar).Value = account.SecretQuestion;
+                cmd.Parameters.Add("@SecretAnswer", SqlDbType.VarChar).Value = account.SecretAnswer;
 
 
                 int result = cmd.ExecuteNonQuery();
@@ -135,7 +134,6 @@ namespace BodyMonitorApp
                 {
                     MessageBox.Show("Account Created!");
                 }
-
 
             }
 
@@ -146,5 +144,66 @@ namespace BodyMonitorApp
             }
 
         }
+
+
+        //TODO: return profile info - ProfileInfoViewModel has base for it
+        public AccountModel GetAccountModel(int userId)
+        {
+            var account = new AccountModel();
+
+            try
+            {
+                DateTime currentTime = DateTime.Now;
+
+                // get connection string from Connections Helper Class
+                SqlConnection conn = new SqlConnection(Connections.ConnectionString);
+
+               
+                string sqlAccount = "Select * FROM dbo.UserData WHERE @userId == Id";
+
+                string sql = "INSERT INTO dbo.Users (UserLogin,UserPassword) values (@UserLogin,@UserPassword);" +
+                    "INSERT INTO dbo.UserData(id,UserHeight,UserName,UserAge,UserMail,UserGender,AccountCreated,SecretQuestion,SecretAnswer) values ((SELECT SCOPE_IDENTITY()),@UserHeight,@UserName,@UserAge,@UserMail,@UserGender,@AccountCreated,@SecretQuestion,@SecretAnswer)";
+
+                conn.Open();
+
+               
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.Add("@UserLogin", SqlDbType.VarChar).Value = account.UserLogin;
+                cmd.Parameters.Add("@UserPassword", SqlDbType.VarChar).Value = account.UserPassword;
+                cmd.Parameters.Add("@UserAge", SqlDbType.Date).Value = account.UserAge.Date;
+                cmd.Parameters.Add("@UserHeight", SqlDbType.Int).Value = account.UserHeight;
+                cmd.Parameters.Add("@UserName", SqlDbType.VarChar).Value = account.UserName;
+                cmd.Parameters.Add("@UserMail", SqlDbType.VarChar).Value = account.UserMail;
+                cmd.Parameters.Add("@UserGender", SqlDbType.Char).Value = account.UserGender;
+                cmd.Parameters.Add("@AccountCreated", SqlDbType.DateTime).Value = currentTime;
+                cmd.Parameters.Add("@SecretQuestion", SqlDbType.VarChar).Value = account.SecretQuestion;
+                cmd.Parameters.Add("@SecretAnswer", SqlDbType.VarChar).Value = account.SecretAnswer;
+
+
+                int result = cmd.ExecuteNonQuery();
+
+                if (result > 0)
+                {
+                    MessageBox.Show("Account Created!");
+                  
+                }
+
+               
+            }
+
+            catch (SqlException ex)
+            {
+                string errorMessage = $"Error: {ex}";
+                MessageBox.Show(errorMessage);
+               
+            }
+
+
+            return account;
+        }
+
+
     }
+    
 }
