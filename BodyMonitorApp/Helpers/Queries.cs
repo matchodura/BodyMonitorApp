@@ -146,6 +146,16 @@ namespace BodyMonitorApp
         }
 
 
+        /// <summary>
+        /// Checks for secret password and it's answer
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+
+        
+
+
+
         //TODO: return profile info - ProfileInfoViewModel has base for it
         public AccountModel GetAccountModel(int userId)
         {

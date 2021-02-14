@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BodyMonitorApp.ProfileInfoView"
+﻿<!--<UserControl x:Class="BodyMonitorApp.ProfileInfoView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,9 +6,9 @@
              xmlns:local="clr-namespace:BodyMonitorApp"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    
-    <UserControl.Resources>       
-      <DataTemplate DataType="{x:Type local:AccountModel}">
+
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type local:AccountModel}">
             <Grid Background="LightSalmon">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -22,16 +22,22 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
 
                 <TextBlock  Grid.Column="0" Grid.Row="0"  Text="Name" VerticalAlignment="Center" Margin="5" />
-                <TextBox  Grid.Row="0" Grid.Column="1"  Text="{Binding UserName}" Margin="5" Width="150" />
+                <TextBlock  Grid.Row="0" Grid.Column="1" Margin="5" Width="150"
+                            Text="{Binding UserName}"
+                            Visibility="{Binding DataContext.TextBlockVisibility}"
+                            />
+
 
                 <TextBlock Grid.Column="0" Grid.Row="1"  Text="Age" VerticalAlignment="Center" Margin="5" />
                 <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding UserAge}" Margin="5" Width="150" />
 
                 <TextBlock Grid.Column="0" Grid.Row="2"  Text="Height" VerticalAlignment="Center" Margin="5" />
-                <TextBox Grid.Row="2" Grid.Column="1"  Text="{Binding UserHeight}" Margin="5" Width="150" />
+                <TextBox  IsReadOnly="True" Grid.Row="2" Grid.Column="1"  Text="{Binding UserHeight}" Margin="5" Width="150" />
 
                 <TextBlock Grid.Column="0" Grid.Row="3"  Text="Mail" VerticalAlignment="Center" Margin="5" />
                 <TextBox Grid.Row="3" Grid.Column="1"  Text="{Binding UserMail}" Margin="5" Width="150" />
@@ -41,8 +47,122 @@
 
                 <TextBlock Grid.Column="0" Grid.Row="5"  Text="Account created" VerticalAlignment="Center" Margin="5" />
                 <TextBox Grid.Row="5" Grid.Column="1"  Text="{Binding AccountCreated}" Margin="5" Width="150" />
+
+                <Button Content="Edit Data" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
+                        Command="{Binding DataContext.EditDataCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"                    
+                        Width="100" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2"/>
+
+                <Button Content="Update Data" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
+                        Command="{Binding DataContext.UpdateDataCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"                    
+                     
+                        Width="100" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2"/>
+
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
-    <ContentControl  Content="{Binding Path=CurrentAccount}" Background="LightSalmon" />    
+    <ContentControl  Content="{Binding Path=CurrentAccount}" Background="LightSalmon" />
+
+
+</UserControl>-->
+
+<UserControl x:Class="BodyMonitorApp.ProfileInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BodyMonitorApp"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+
+    <Grid Background="LightSalmon">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0"  Text="Name" VerticalAlignment="Center" Margin="5" />
+        <TextBlock Grid.Column="1" Grid.Row="0" Margin="5" Width="150"
+                            Text="{Binding CurrentAccount.UserName}"
+                            Visibility="{Binding TextBlockVisibility}"
+                            />
+        <TextBox Grid.Column="1" Grid.Row="0" Margin="5" Width="150"
+                            Text="{Binding CurrentAccount.UserName}"
+                            Visibility="{Binding EditBoxVisibility}"
+                            />
+
+        
+        <TextBlock Grid.Column="0" Grid.Row="1"  Text="Age" VerticalAlignment="Center" Margin="5" />
+        <TextBlock Grid.Column="1" Grid.Row="1"  Margin="5" Width="150"
+                            Text="{Binding CurrentAccount.UserAge}"
+                            Visibility="{Binding TextBlockVisibility}"
+                            />
+        <TextBox  Grid.Column="1" Grid.Row="1"  Margin="5" Width="150"
+                 Text="{Binding CurrentAccount.UserAge}"
+                 Visibility="{Binding EditBoxVisibility}"/>
+        
+        
+        <TextBlock Grid.Column="0" Grid.Row="2"  Text="Height" VerticalAlignment="Center" Margin="5"/>    
+        <TextBlock Grid.Column="1" Grid.Row="2"  Margin="5" Width="150"
+                            Text="{Binding CurrentAccount.UserHeight}"
+                            Visibility="{Binding TextBlockVisibility}"
+                            />
+        <TextBox Grid.Column="1" Grid.Row="2"  Margin="5" Width="150"
+                 Text="{Binding CurrentAccount.UserMail}"
+                 Visibility="{Binding EditBoxVisibility}"/>
+                
+
+        <TextBlock Grid.Column="0" Grid.Row="3"  Text="Mail" VerticalAlignment="Center" Margin="5"/>     
+        <TextBlock Grid.Column="1" Grid.Row="3"  Margin="5" Width="150"
+                            Text="{Binding CurrentAccount.UserMail}"
+                            Visibility="{Binding TextBlockVisibility}"
+                            />
+        <TextBox Grid.Column="1" Grid.Row="3"  Margin="5" Width="150"
+                 Text="{Binding CurrentAccount.UserMail}"
+                 Visibility="{Binding EditBoxVisibility}"/>
+
+                
+        <TextBlock Grid.Column="0" Grid.Row="4"  Text="Gender" VerticalAlignment="Center" Margin="5"/>
+        <TextBlock Grid.Column="1" Grid.Row="4"  Margin="5" Width="150"
+                            Text="{Binding CurrentAccount.UserGender}"
+                            Visibility="{Binding TextBlockVisibility}"
+                            />
+        <TextBox Grid.Column="1" Grid.Row="4"  Margin="5" Width="150"
+                 Text="{Binding CurrentAccount.UserGender}"
+                 Visibility="{Binding EditBoxVisibility}"/>
+
+        
+        <TextBlock Grid.Column="0" Grid.Row="5"  Text="Account created" VerticalAlignment="Center" Margin="5"/>   
+        <TextBlock Grid.Column="1" Grid.Row="5"  Margin="5" Width="150"
+                            Text="{Binding CurrentAccount.AccountCreated}"
+                            Visibility="{Binding TextBlockVisibility}"
+                            />
+        <TextBox Grid.Column="1" Grid.Row="5"  Margin="5" Width="150"
+                 Text="{Binding CurrentAccount.AccountCreated}"
+                 Visibility="{Binding EditBoxVisibility}"/>
+
+
+
+        <ToggleButton  Content="Edit Data" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
+                    Command="{Binding DataContext.EditDataCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"   
+                       IsChecked="{Binding IsChecked}"
+                    Width="100" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2"/>
+
+        <Button Content="Update Data" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
+                    Command="{Binding DataContext.UpdateDataCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"                    
+                     
+                    Width="100" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2"/>
+
+    </Grid>
 </UserControl>

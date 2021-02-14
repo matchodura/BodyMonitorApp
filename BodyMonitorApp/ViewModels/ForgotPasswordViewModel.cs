@@ -11,13 +11,13 @@ namespace BodyMonitorApp
     {
         public string Name
         {
-            get
-            {
-                return "Forgot password";
-            }
-            set {;}
+            get{ return "Forgot password";} set {;}
         }
 
+
+        public string SecretQuestion { get; set; }
+
+        public string SecretAnswer { get; set; }
 
     
     }

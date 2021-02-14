@@ -6,11 +6,6 @@
              xmlns:local="clr-namespace:BodyMonitorApp"
              mc:Ignorable="d" d:DesignWidth="250" Height="321">
 
-
-
-
-
-
     <Border BorderBrush="Black" CornerRadius="6" BorderThickness="10"  >
 
         <Grid  >

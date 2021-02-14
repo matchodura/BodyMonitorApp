@@ -176,8 +176,7 @@ namespace BodyMonitorApp
             ProgressModel test = new ProgressModel();
 
             CurrentProgress = test;
-
-          
+                    
 
         }
 

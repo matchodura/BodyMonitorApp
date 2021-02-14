@@ -132,6 +132,12 @@ namespace BodyMonitorApp
         public ICommand ForgotPasswordViewCommand { get; set; }
 
 
+
+        //new 2
+        public ICommand EditDataCommand { get; set; }
+        public ICommand UpdateDataCommand { get; set; }
+
+
         public Visibility ButtonVisibility
         {
             get
@@ -192,11 +198,14 @@ namespace BodyMonitorApp
           //  CreateAccountSwitchPageCommand = new RelayCommand((p) => AccountCreationSwitchPage());
 
             CreateAccountViewCommand = new RelayCommand((p) => CreateAccountView());
-            ForgotPasswordViewCommand = new RelayCommand((p) =>ForgotPasswordView());
+            ForgotPasswordViewCommand = new RelayCommand((p) => ForgotPasswordView());
 
-          //  BackPageCommand = new RelayCommand((p) => BackPage());
+            //  BackPageCommand = new RelayCommand((p) => BackPage());
 
+            //new profile info buttons
 
+            EditDataCommand = new RelayCommand((p) => EditProfileData());
+            UpdateDataCommand = new RelayCommand((p) => UpdateProfileData());
 
             HomeVM.Visibility = Visibility.Visible;
             LoginVM.Visibility = Visibility.Visible;
@@ -240,7 +249,16 @@ namespace BodyMonitorApp
         }
 
 
+        public void EditProfileData()
+        {
+            ProfileInfoVM.EditData();
+        }
 
+
+        public void UpdateProfileData()
+        {
+            ProfileInfoVM.UpdateData();
+        }
         /// <summary>
         /// Changes current view to forgot passord page
         /// </summary>
