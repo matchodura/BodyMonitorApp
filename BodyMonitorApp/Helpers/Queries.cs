@@ -14,8 +14,6 @@ namespace BodyMonitorApp
     {
         public int UserId { get; set; }
         
-
-
         public Queries()
         {
 
@@ -113,6 +111,116 @@ namespace BodyMonitorApp
             }
 
         }
+
+
+        public double GetHeight(string userLogin)
+        {
+
+            GetUserId(userLogin);
+            int height = 0;
+
+            try
+            {
+                SqlConnection conn = new SqlConnection(Connections.ConnectionString);
+
+
+                string sql = $"SELECT UserHeight FROM dbo.UserData WHERE Id=@UserId";
+
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = UserId;
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+
+                            height = reader.GetInt32(0);
+
+
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Record doesn't exist!");
+
+                    }
+
+                }
+
+            }
+
+
+            catch (SqlException ex)
+            {
+                string errorMessage = $"Error: {ex}";
+                MessageBox.Show(errorMessage);
+
+            }
+
+            return (double)height;
+        }
+
+
+
+        public double GetLastWeight(string userLogin)
+        {
+
+            GetUserId(userLogin);
+            decimal weight = 0;
+
+            try
+            {
+                SqlConnection conn = new SqlConnection(Connections.ConnectionString);
+
+
+                string sql = $"SELECT TOP (1) Weight FROM dbo.UserBodyValues WHERE UserId=@UserId ORDER BY DateAdded DESC";
+
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = UserId;
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+
+                            weight = reader.GetDecimal(0);
+                           
+
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Record doesn't exist!");
+
+                    }
+
+                }
+
+            }
+
+
+            catch (SqlException ex)
+            {
+                string errorMessage = $"Error: {ex}";
+                MessageBox.Show(errorMessage);
+
+            }
+
+            return (double)weight;
+        }
+
+
+    
 
         public SecretQuestion GetSecretQuestion(string userLogin)
         {

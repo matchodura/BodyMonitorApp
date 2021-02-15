@@ -7,11 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
 
-
-
-   
-
-
     <UserControl.Resources>
        
         <DataTemplate DataType="{x:Type local:ProgressModel}">
@@ -32,13 +27,16 @@
 
 
 
-                <TextBlock Grid.Column="0" Grid.Row="0"  Text="bicek:" VerticalAlignment="Center" Margin="5" />
-                <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Biceps}" Margin="5" Width="150" />
+                <TextBlock Grid.Column="0" Grid.Row="0"  Text="waga:" VerticalAlignment="Center" Margin="5" />
+                <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Weight}" Margin="5" Width="150" />
 
                 <TextBlock Grid.Column="0" Grid.Row="1"  Text="chest" VerticalAlignment="Center" Margin="5" />
                 <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Chest}" Margin="5" Width="150" />
 
-                <TextBlock Grid.Column="0" Grid.Row="2" Text= "{Binding UserId, StringFormat='Current User: {0}'}"/>
+                <TextBlock Grid.Column="0" Grid.Row="2"  Text="bicek:" VerticalAlignment="Center" Margin="5" />
+                <TextBox Grid.Row="2" Grid.Column="1"  Text="{Binding Biceps}" Margin="5" Width="150" />
+                
+                <!--<TextBlock Grid.Column="0" Grid.Row="2" Text= "{Binding UserId, StringFormat='Current User: {0}'}"/>-->
 
                
 

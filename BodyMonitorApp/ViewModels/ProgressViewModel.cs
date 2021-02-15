@@ -27,6 +27,9 @@ namespace BodyMonitorApp
         private ProgressModel _currentProgress;
         private DateTime _calendarDate;
         private ICommand _addItemCommand;
+      
+
+
 
         #endregion
         public ProgressModel CurrentProgress
@@ -159,6 +162,11 @@ namespace BodyMonitorApp
                 }
             }
         }
+
+
+       
+
+
         #endregion
         public HashSet<DateTime> Dates { get; } = new HashSet<DateTime>();
 
@@ -189,6 +197,7 @@ namespace BodyMonitorApp
             ProgressModel progress = new ProgressModel
             {
                 UserId = CurrentProgress.UserId,
+                Weight = CurrentProgress.Weight,
                 Biceps = CurrentProgress.Biceps,
                 Chest = CurrentProgress.Chest,
                 DateAdded = CalendarDate
@@ -205,7 +214,7 @@ namespace BodyMonitorApp
                 // get connection string from Connections Helper Class
                 SqlConnection conn = new SqlConnection(Connections.ConnectionString);
 
-                string sql = "INSERT INTO dbo.UserBodyValues (UserId,DateAdded,Biceps,Chest) values (@UserId,@DateAdded,@Biceps,@Chest)";
+                string sql = "INSERT INTO dbo.UserBodyValues (UserId,DateAdded,Weight,Biceps,Chest) values (@UserId,@DateAdded,@Weight,@Biceps,@Chest)";
 
 
                 conn.Open();
@@ -213,6 +222,7 @@ namespace BodyMonitorApp
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = progress.UserId;
                 cmd.Parameters.Add("@DateAdded", SqlDbType.DateTime).Value = progress.DateAdded;
+                cmd.Parameters.Add("@Weight", SqlDbType.Decimal).Value = progress.Weight;
                 cmd.Parameters.Add("@Biceps", SqlDbType.Decimal).Value = progress.Biceps;
                 cmd.Parameters.Add("@Chest", SqlDbType.Decimal).Value = progress.Chest;
 
@@ -272,6 +282,7 @@ namespace BodyMonitorApp
                         while (reader.Read())
                         {
 
+                            progress.Weight = reader.GetDecimal(4);
                             progress.Chest = reader.GetDecimal(6);
                             progress.Biceps = reader.GetDecimal(12);
 
@@ -283,6 +294,7 @@ namespace BodyMonitorApp
                             //currentAccount.UserGender = reader.GetString(5);
                             //currentAccount.AccountCreated = reader.GetDateTime(6);
 
+                        
                             CurrentProgress = progress;
 
                         }
@@ -312,6 +324,12 @@ namespace BodyMonitorApp
 
             //CurrentProgress = progress;
         }
+
+
+
+
+
+
         public void SetUserValues(int userId)
         {
             UserId = userId;

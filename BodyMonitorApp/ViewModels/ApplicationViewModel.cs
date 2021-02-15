@@ -279,7 +279,14 @@ namespace BodyMonitorApp
             if (isValidated)
             {
                 OverlayViewModel = null;
-                CurrentPageViewModel = LoggedInVM;                               
+                CurrentPageViewModel = LoggedInVM;
+
+                //sets current logged user as name on dashboard page
+                HomeVM.UserName = LoginVM.CurrentLogin.UserName;
+                HomeVM.PopulateDashboard();
+
+
+
                 ButtonVisibility = Visibility.Visible;
                 SetUserPageVisibility(isValidated);                                             
                 SendUserId(userId);
