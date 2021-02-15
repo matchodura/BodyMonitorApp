@@ -197,9 +197,6 @@ namespace BodyMonitorApp
 
         }
 
-               
-      
-
 
         // TODO: change the way in which selected time range is chosen and set(radiobuttons and array)
 

@@ -20,7 +20,7 @@
 
         </Grid.RowDefinitions>
         <StackPanel Margin="10" Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-            <ComboBox Width="200" VerticalAlignment="Center" HorizontalAlignment="Center"
+          <ComboBox Width="200" VerticalAlignment="Center" HorizontalAlignment="Center"
           x:Name="cbxHistory"
           ItemsSource="{Binding ComboBoxChoices}"
           SelectedItem="{Binding SelectedItem}"

@@ -302,6 +302,9 @@ namespace BodyMonitorApp
         {
            // MessageBox.Show("elo");
          //   CurrentPageViewModel = CreateAccountVM;
+
+
+
         }
 
         public void ForgotPassword()

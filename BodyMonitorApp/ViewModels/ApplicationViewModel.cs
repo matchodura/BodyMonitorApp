@@ -245,6 +245,7 @@ namespace BodyMonitorApp
 
         public void CreateAccountView()
         {
+      
             LoginVM.CreateAccount();
         }
 

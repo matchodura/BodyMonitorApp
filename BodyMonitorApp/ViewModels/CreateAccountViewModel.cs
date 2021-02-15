@@ -1,6 +1,8 @@
-﻿using Helpers;
+﻿using BodyMonitorApp.Models;
+using Helpers;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
@@ -168,6 +170,27 @@ namespace BodyMonitorApp
             }
         }
 
+        public ObservableCollection<ComboBoxHistory> ComboBoxChoices { get; set; }
+
+        private ComboBoxHistory _selectedItem;
+
+        public ComboBoxHistory SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                if (_selectedItem != value)
+                {
+                    _selectedItem = value;
+
+                    OnPropertyChanged("SelectedItem");               
+
+                }
+
+
+            }
+        }
+        public List<string> BodyPartsChoices { get; set; }
 
         public string SecretAnswer
         {
@@ -199,10 +222,36 @@ namespace BodyMonitorApp
 
         #region methods
 
+        public CreateAccountViewModel()
+        {
+
+            ComboBoxChoices = new ObservableCollection<ComboBoxHistory>();
+
+            // list of current actual choices of body parts values in db
+            List<string> secretQuestions = new List<string>() { "What is your mother's maiden name?", "What was your first pet?", "What was the model of your first car?", "In what city were you born?", "What was your father's middle name?", "What was your childhood nickname?" };
+                      
+
+            //adding body parts values to the combobox in view
+            foreach (var question in secretQuestions)
+            {
+                ComboBoxChoices.Add(new ComboBoxHistory() { Symbol = question });
+            }
+
+
+            SelectedItem = ComboBoxChoices[0];
+
+
+
+        }
+
+
+
+
+
         /// <summary>
         /// creates user account bassed on credentials provided in create account view
         /// </summary>
-        public void CreateAccount()
+        public bool CreateAccount()
         {
             Queries query = new Queries();
 
@@ -216,13 +265,17 @@ namespace BodyMonitorApp
                 UserName = UserName,
                 UserMail = UserMail,
                 UserGender = UserGender,
-                SecretQuestion = SecretQuestion,
+                SecretQuestion = SelectedItem.Symbol,
                 SecretAnswer = SecretAnswer
             };
 
             query.CreateUserAccount(account);
-                       
+
+
+            return true;
         }
+
+       
 
         #endregion methods
 

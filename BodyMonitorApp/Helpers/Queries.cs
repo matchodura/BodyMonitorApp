@@ -13,6 +13,7 @@ namespace BodyMonitorApp
     class Queries
     {
         public int UserId { get; set; }
+        
 
 
         public Queries()
@@ -24,6 +25,148 @@ namespace BodyMonitorApp
         {
             UserId = userId;
         }
+
+        
+        public void GetUserId(string userLogin)
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(Connections.ConnectionString);
+
+
+                string sql = $"SELECT UserId FROM dbo.Users WHERE UserLogin=@UserLogin";
+
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.Add("@UserLogin", SqlDbType.VarChar).Value = userLogin;
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+
+                            UserId = reader.GetInt32(0);
+                          
+
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Record doesn't exist!");
+
+                    }
+
+                }
+
+            }
+
+
+            catch (SqlException ex)
+            {
+                string errorMessage = $"Error: {ex}";
+                MessageBox.Show(errorMessage);
+
+            }
+
+
+        }
+
+        public void UpdatePassword(string userLogin, string newUserPassword)
+        {
+
+            GetUserId(userLogin);
+            try
+            {
+
+                // get connection string from Connections Helper Class
+                SqlConnection conn = new SqlConnection(Connections.ConnectionString);
+
+                string sql = "UPDATE dbo.Users " +
+                   "SET UserPassword=@UserPassword" +
+                   " WHERE UserId=@UserId";
+
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = UserId;
+                cmd.Parameters.Add("@UserPassword", SqlDbType.VarChar).Value = newUserPassword;
+               
+
+
+                int result = cmd.ExecuteNonQuery();
+
+                if (result > 0)
+                {
+                    MessageBox.Show("Data Updated!");
+                }
+
+            }
+
+            catch (SqlException ex)
+            {
+                string errorMessage = $"Error: {ex}";
+                MessageBox.Show(errorMessage);
+            }
+
+        }
+
+        public SecretQuestion GetSecretQuestion(string userLogin)
+        {
+
+            GetUserId(userLogin);
+            var secrets = new SecretQuestion();
+
+            try
+            {
+                SqlConnection conn = new SqlConnection(Connections.ConnectionString);
+
+
+                string sql = $"SELECT SecretQuestion, SecretAnswer FROM dbo.UserData WHERE Id=@UserId";
+
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = UserId;
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+
+                            secrets.Question = reader.GetString(0);
+                            secrets.Answer = reader.GetString(1);
+
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Record doesn't exist!");
+
+                    }
+
+                }
+
+            }
+
+
+            catch (SqlException ex)
+            {
+                string errorMessage = $"Error: {ex}";
+                MessageBox.Show(errorMessage);
+
+            }
+
+            return secrets;
+        }
+
+
 
 
         /// <summary>

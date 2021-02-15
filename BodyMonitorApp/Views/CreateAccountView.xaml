@@ -102,7 +102,16 @@
                        <!--new things-->
 
                         <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Secret Question" VerticalAlignment="Center" Grid.Column="0" Grid.Row="8"/>
-                        <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=SecretQuestion, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="8" Grid.ColumnSpan="2"/>
+                        <!--<TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=SecretQuestion, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="8" Grid.ColumnSpan="2"/>-->
+
+                        <ComboBox Width="150" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  x:Name="cbxHistory"
+                                  ItemsSource="{Binding ComboBoxChoices}"
+                                  SelectedItem="{Binding SelectedItem}"
+                                  DisplayMemberPath="Symbol"
+                                  IsSynchronizedWithCurrentItem="True"
+                                  Grid.Column="2" Grid.Row="8" Grid.ColumnSpan="2"/>
+
 
                         <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Secret Answer" VerticalAlignment="Center" Grid.Column="0" Grid.Row="9"/>
                         <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=SecretAnswer, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2"/>
