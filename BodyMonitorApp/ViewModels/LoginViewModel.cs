@@ -220,12 +220,14 @@ namespace BodyMonitorApp
             }
 
             else if (string.IsNullOrEmpty(login.UserPassword))
-                {
+            {
 
                 MessageBox.Show("Missing Password!");
                 return false;
 
             }
+
+
             else
             {
 

@@ -46,17 +46,48 @@
                         </TextBox>
 
                         <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Password" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
-                        <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=UserPassword, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2"/>
+                        
+                        <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=UserPassword, UpdateSourceTrigger=PropertyChanged}"
+                             FontFamily="pack://application:,,,/Assets/#password" 
+                              Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2">
+
+                            <TextBox.InputBindings>
+                                <!--Disable CTRL+C -->
+                                <KeyBinding Command="ApplicationCommands.NotACommand"
+                              Key="C"                             
+                              Modifiers="Control" />
+                                <KeyBinding Command="ApplicationCommands.NotACommand"
+                              Key="X"                             
+                              Modifiers="Control" />
+                            </TextBox.InputBindings>
+                        </TextBox>
+
+
 
                         <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Repeat Password" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
 
-                        <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=UserPasswordConfirmation, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2"/>
+                        
+                        <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=UserPasswordConfirmation, UpdateSourceTrigger=PropertyChanged}"
+                                    FontFamily="pack://application:,,,/Assets/#password" 
+                                  Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2">
 
+                            <TextBox.InputBindings>
+                                <!--Disable CTRL+C -->
+                                <KeyBinding Command="ApplicationCommands.NotACommand"
+                              Key="C"                             
+                              Modifiers="Control" />
+                                <KeyBinding Command="ApplicationCommands.NotACommand"
+                              Key="X"                             
+                              Modifiers="Control" />
+                            </TextBox.InputBindings>
+                        </TextBox>
+                        
+                        
                         <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Age" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3"/>
                         <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=UserAge,StringFormat={}{0:MM/dd/yyyy}, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2"/>
 
                         <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Height" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4"/>
-                        <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=UserName, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2" />
+                        <TextBox Margin="10,2" Width="150" VerticalAlignment="Center" Text="{Binding Path=UserHeight, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2" />
 
 
                         <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Name" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5"/>

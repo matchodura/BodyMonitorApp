@@ -24,7 +24,6 @@ namespace BodyMonitorApp
 
         private int _userId;
 
-
         private bool _isChecked;
 
 
@@ -61,14 +60,14 @@ namespace BodyMonitorApp
                 OnPropertyChanged("UserId");
             }
         }
+
+
         public string Name
         {
-            get
-            {
-                return "Profile Info";
-            }
-            set {;}
+            get{return "Profile Info";} set {;}
         }                      
+
+
         public Visibility Visibility
         {
             get
@@ -234,6 +233,7 @@ namespace BodyMonitorApp
         }
 
 
+        //todo: logika
         public void EditData()
         {
 
@@ -285,7 +285,7 @@ namespace BodyMonitorApp
 
                 if (result > 0)
                 {
-                    MessageBox.Show("Account Created!");
+                    MessageBox.Show("Data Updated!");
                 }
 
             }
