@@ -24,7 +24,7 @@ namespace BodyMonitorApp
 
         private int _userId;
 
-        private bool _isChecked;
+        private bool _isChecked = false;
 
 
 
@@ -236,21 +236,20 @@ namespace BodyMonitorApp
         //todo: logika
         public void EditData()
         {
-
-          //  MessageBox.Show("Editing data!");
-           
+                     
+            IsChecked = !IsChecked;
 
             if (IsChecked)
             {
                 TextBlockVisibility = Visibility.Hidden;
                 EditBoxVisibility = Visibility.Visible;
             }
-
             else
             {
                 TextBlockVisibility = Visibility.Visible;
                 EditBoxVisibility = Visibility.Hidden;
             }
+
 
         }
 

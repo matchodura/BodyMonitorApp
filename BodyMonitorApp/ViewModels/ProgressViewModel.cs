@@ -244,6 +244,9 @@ namespace BodyMonitorApp
                 MessageBox.Show(errorMessage);
             }
         }
+
+
+
         public void GetUserValues()
         {
             ProgressModel progress = new ProgressModel
@@ -324,10 +327,6 @@ namespace BodyMonitorApp
 
             //CurrentProgress = progress;
         }
-
-
-
-
 
 
         public void SetUserValues(int userId)

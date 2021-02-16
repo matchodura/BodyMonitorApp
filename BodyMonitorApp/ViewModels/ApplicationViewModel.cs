@@ -247,6 +247,8 @@ namespace BodyMonitorApp
         public void UpdateProfileData()
         {
             ProfileInfoVM.UpdateData();
+
+            HomeVM.PopulateDashboard();
         }
         /// <summary>
         /// Changes current view to forgot passord page
