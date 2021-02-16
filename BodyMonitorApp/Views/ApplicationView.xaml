@@ -2,7 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:BodyMonitorApp"
-        Title="Body Monitor App" MinHeight="700" MinWidth="1000" MaxHeight="700" MaxWidth="1000"
+        Title="Body Monitor App" 
+        MinHeight="700" MinWidth="1000" MaxHeight="700" MaxWidth="1000"
+        
         WindowStartupLocation="CenterScreen"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -13,60 +15,12 @@
         >
 
     <Window.Resources >
-
-        <!--Styles of buttons-->
-        <Style x:Key="ButtonStyle1" 
-               TargetType="{x:Type Button}">
-            <Setter Property="Background"
-                    Value="BlueViolet" />
-            <Setter Property="Foreground"
-                    Value="Black" />
-            <Setter Property="Margin"
-                    Value="10"                    
-                   />
-            <Style.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10" />
-                </Style>
-            </Style.Resources>
-
-        </Style>
-        <Style x:Key="ButtonStyle2" 
-               TargetType="{x:Type Button}">
-            <Setter Property="Background"
-                    Value="BlueViolet" />
-            <Setter Property="Foreground"
-                    Value="Black" />
-            <Setter Property="Margin"
-                    Value="10" />
-            <Style.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10" />
-                </Style>
-            </Style.Resources>
-
-        </Style>        
-        <Style x:Key="ButtonStyle3" 
-               TargetType="{x:Type Button}">
-            <Setter Property="Background"
-                    Value="BlueViolet" />
-            <Setter Property="Foreground"
-                    Value="Black" />
-            <Setter Property="Margin"
-                    Value="10" />
-            <Style.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10" />
-                </Style>
-            </Style.Resources>
-        </Style>
-
         <!--View models-->
 
         <DataTemplate DataType="{x:Type local:LoginViewModel}">
             <local:LoginView />
         </DataTemplate>
-        
+
         <DataTemplate DataType="{x:Type local:CreateAccountViewModel}">
             <local:CreateAccountView />
         </DataTemplate>
@@ -74,14 +28,14 @@
         <DataTemplate DataType="{x:Type local:ForgotPasswordViewModel}">
             <local:ForgotPasswordView />
         </DataTemplate>
-        
+
         <DataTemplate DataType="{x:Type local:HomeViewModel}" >
             <local:HomeView />
         </DataTemplate>
-        
+
         <DataTemplate DataType="{x:Type local:LoggedInViewModel}">
             <local:LoggedInView />
-        </DataTemplate>     
+        </DataTemplate>
 
         <DataTemplate DataType="{x:Type local:ProfileInfoViewModel}">
             <local:ProfileInfoView />
@@ -104,8 +58,12 @@
         </DataTemplate>
     </Window.Resources>
 
-    <Grid x:Name="MainApplication">
-        <DockPanel >
+    <Grid  x:Name="MainApplication">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.ColumnSpan="2" >
             <StatusBar Name="statusbar" DockPanel.Dock="Bottom">
                 <StatusBar.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -134,17 +92,16 @@
                 </StatusBarItem>
             </StatusBar>
 
-            <Border DockPanel.Dock="Top" BorderBrush="Black" BorderThickness="1,1,1,1" Width="1000" Background="LightBlue">
+            <Border DockPanel.Dock="Top" BorderBrush="Black" BorderThickness="1,1,1,1" Width="1000" Background="#769700">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10"/>
-                        <ColumnDefinition Width="220"/>
-                        <ColumnDefinition Width="350"/>
-                        <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition Width="230"/>
+                        <ColumnDefinition Width="530"/>                    
+                        <ColumnDefinition Width="200"/>
                         <ColumnDefinition Width="10"/>
-                    </Grid.ColumnDefinitions>                  
-                    
+                    </Grid.ColumnDefinitions>
+
                     <ItemsControl  ItemsSource="{Binding PageViewModels}" Grid.Column="1">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -153,15 +110,15 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate >
-                               
+
                                 <Button  Content="{Binding Name}"
                                 Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                 CommandParameter="{Binding }"
-                                Margin="5,5"
-                                         Width="75" Height="30"
+                                Margin="5,5"                                
                                 Visibility="{Binding Visibility}"
-                                Style="{StaticResource ButtonStyle1}"/>
-                                
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Width="100"/>
+
                             </DataTemplate>
 
                         </ItemsControl.ItemTemplate>
@@ -180,17 +137,18 @@
                                 Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                 CommandParameter="{Binding }"
                                 Margin="5,5"
-                                        Width="75" Height="30"
                                 Visibility="{Binding Visibility}"
-                              Style="{StaticResource ButtonStyle2}"/>
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Width="100"/>
                             </DataTemplate>
 
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
 
-                    <Button Width="100" Margin="5,5,5,5" Grid.Column="4" Content="Logout" Command="{Binding LogoutUserCommand}"
+                    <Button  Margin="5,5,5,5" Grid.Column="3" Content="Logout" Command="{Binding LogoutUserCommand}"
                             Visibility="{Binding ButtonVisibility}"
-                             Style="{StaticResource ButtonStyle3}"/>
+                               Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                               Width="100"/>
                 </Grid>
 
             </Border>
@@ -198,15 +156,15 @@
             <ContentControl Content="{Binding CurrentPageViewModel, Mode=TwoWay}"/>
 
         </DockPanel>
-                               
+
         <!--overlay of the main window-->
-        <Grid x:Name="Overlay" Panel.ZIndex="1000" Visibility="Collapsed">
+        <Grid x:Name="Overlay" Panel.ZIndex="1000" Visibility="Collapsed" Grid.ColumnSpan="2">
             <Grid.Background>
                 <SolidColorBrush Color="Black" Opacity=".5"/>
-            </Grid.Background>            
+            </Grid.Background>
         </Grid>
-        <ContentControl Content="{Binding OverlayViewModel, Mode=TwoWay}" />
+        <ContentControl Content="{Binding OverlayViewModel, Mode=TwoWay}" Grid.ColumnSpan="2" />
 
     </Grid>
-    
+
 </Window>
