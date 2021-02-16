@@ -25,6 +25,8 @@ namespace BodyMonitorApp
         private ICommand _loginUserCommand;
 
         #endregion
+            
+
         private IPageViewModel _currentPageViewModel;
         public IPageViewModel CurrentPageViewModel
         {
@@ -243,8 +245,9 @@ namespace BodyMonitorApp
                                 login.UserId = UserId;
                                 login.LoggedIn = true;
                                 CurrentLogin = login;
-                                
+
                                 MessageBox.Show($"Login Succesfull!+userId:{login.UserId}");
+                            
                                 return true;
                             }
 

@@ -259,16 +259,14 @@ namespace BodyMonitorApp
                 if (bodyPartName == "-----")
                 {
                     ChartVisibility = Visibility.Hidden;
-
                 }
 
                 else
                 {
                     ChartVisibility = Visibility.Visible;
+
                     //moving values from db query property (ChartModel) to the values list property(ChartValueDate) for chart updating, based on selected name of body part
-
                     valuesList = (List<decimal>)ChartModel.GetType().GetProperty(bodyPartName).GetValue(ChartModel, null);
-
 
                     //adding existing values of body parts to the list ChartValueDate(value, dateAdded)
                     int i = 0;
@@ -281,8 +279,7 @@ namespace BodyMonitorApp
                     ChartValueDate = chartValueDate.ToList();
 
                 }
-              
-               
+                             
             }
 
             catch
@@ -322,12 +319,29 @@ namespace BodyMonitorApp
                 i++;
             }
 
+
+            var chartTitle = SelectedItem.Symbol;
+
+            if(SelectedItem.Symbol == "Weight")
+            {
+                chartTitle = $"{SelectedItem.Symbol} [kg]";
+            }
+
+            else
+            {
+                chartTitle = $"{SelectedItem.Symbol} [cm]";
+            }
+
+
             //set datapoints and title of the chart
             SeriesCollection = new SeriesCollection(dayConfig)
             {
+                            
+
                 new LineSeries
-                {
-                    Title = SelectedItem.Symbol,
+                {                                      
+
+                    Title =  chartTitle,
 
                     Values = Values
 
