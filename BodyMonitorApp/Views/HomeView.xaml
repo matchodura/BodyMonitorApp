@@ -137,8 +137,7 @@
                                             <Storyboard>
                                                 <DoubleAnimation  Storyboard.TargetProperty="Value"
                                                                  From="0" To="20"
-                                                                 Duration="0:0:5">
-
+                                                                 Duration="0:0:2">
                                                 </DoubleAnimation>
                                             </Storyboard>
                                         </BeginStoryboard>

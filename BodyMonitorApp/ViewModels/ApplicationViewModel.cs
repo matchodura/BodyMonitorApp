@@ -225,18 +225,7 @@ namespace BodyMonitorApp
                 .FirstOrDefault(vm => vm == viewModel);
         }
 
-
-        /// <summary>
-        /// Changes current view to account creation page
-        /// </summary>
-        //public void AccountCreationSwitchPage()
-        //{
-        //   // OverlayViewModel = CreateAccountVM;
-        //}
-        //public void BackPage()
-        //{
-        //    OverlayViewModel = LoginVM;
-        //}
+              
 
         public void ForgotPasswordView()
         {
@@ -244,8 +233,7 @@ namespace BodyMonitorApp
         }
 
         public void CreateAccountView()
-        {
-      
+        {      
             LoginVM.CreateAccount();
         }
 

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BodyMonitorApp.LoginView"
+﻿<UserControl xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  x:Class="BodyMonitorApp.LoginView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,7 +7,7 @@
              
              
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800" >
+             d:DesignHeight="700" d:DesignWidth="1000" >
 
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type local:CreateAccountViewModel}">
@@ -17,81 +17,63 @@
         <DataTemplate DataType="{x:Type local:ForgotPasswordViewModel}">
             <local:ForgotPasswordView />
         </DataTemplate>
-        
     </UserControl.Resources>
-    
-    
-    
-    
 
     <Grid  Background="LightSalmon" >
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
             <ColumnDefinition Width="400"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="50"/>
-            
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-
             <RowDefinition Height="20"/>
             <RowDefinition Height="200"/>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="300"/>         
-            <RowDefinition Height="auto"/>         
-            <RowDefinition Height="*"/>         
-            <RowDefinition Height="20"/>         
-         
+            <RowDefinition Height="350"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        
+
         <MediaElement x:Name="media" UnloadedBehavior="Manual"  Source="D:\Resolve\bodymonitor.mp4" Stretch="Fill" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="7" MediaEnded="MediaElement_MediaEnded" />
 
-        <Border MaxHeight="450" Grid.Column="1" Grid.Row="1" BorderBrush="Black" CornerRadius="6" BorderThickness="10"  >
+        <materialDesign:Card Grid.Column="1" Grid.Row="1"
+                             materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                             >
 
-
-            <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-
+            <Grid>               
                 <!--<Border CornerRadius="6" BorderBrush="Gray" Background="LightGray" BorderThickness="2"  Margin="189,32,279,69" >-->
-                <Grid Grid.Row="0" Grid.Column="1" ContextMenuClosing="Grid_ContextMenuClosing" Height="150">
+                <Grid ContextMenuClosing="Grid_ContextMenuClosing">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="110"/>
-                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="275"/>
                         <ColumnDefinition Width="5"/>
                     </Grid.ColumnDefinitions>
-
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="20"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>                                            
                     </Grid.RowDefinitions>
 
-                    <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Login" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
-                    <TextBox Margin="10,2" Width="100" VerticalAlignment="Center" Text="{Binding UserLogin, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" />
+                    <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Login"  VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
+                    <TextBox Margin="10,2" Width="250" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding UserLogin, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" />
 
-                    <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Hasło" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
+                    <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Hasło" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
 
-                    <TextBox Margin="10,2" Width="100" VerticalAlignment="Center" Text="{Binding UserPassword, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBox Margin="10,2" Width="250" VerticalAlignment="Center" Text="{Binding UserPassword, UpdateSourceTrigger=PropertyChanged}"
                              FontFamily="pack://application:,,,/Assets/#password" 
-                             Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
-                        
-                      <TextBox.InputBindings>
-                        <!--Disable CTRL+C -->
-                        <KeyBinding Command="ApplicationCommands.NotACommand"
+                             Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"
+                             HorizontalAlignment="Center" >
+
+                        <TextBox.InputBindings>
+                            <!--Disable CTRL+C -->
+                            <KeyBinding Command="ApplicationCommands.NotACommand"
                               Key="C"                             
                               Modifiers="Control" />
                             <KeyBinding Command="ApplicationCommands.NotACommand"
@@ -99,40 +81,32 @@
                               Modifiers="Control" />
                         </TextBox.InputBindings>
                     </TextBox>
-                    
+
                     <Button Content="Login" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center" IsDefault="True"  
                         Command="{Binding DataContext.LoginUserCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
-                    Width="100" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"/>
+                    Width="250" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2"
+                             Style="{DynamicResource MaterialDesignRaisedButton}"/>
 
-                    <!--<Button Content="Create Account" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
-                        Command="{Binding DataContext.CreateAccountSwitchPageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                    Width="100" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2"/>-->
-
-
-                    <!--<Button Content="Create Account" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
+                    <Button Content="Create Account" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
                         Command="{Binding DataContext.CreateAccountViewCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                    Width="100" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2"/>-->
+                    Width="250" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2"   ></Button>
+                    <!--IsChecked="{Binding IsCheckedCreateAccount}"/>-->
 
-                    <ToggleButton Content="Create Account" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
-                        Command="{Binding DataContext.CreateAccountViewCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                    Width="100" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2"
-                                  IsChecked="{Binding IsCheckedCreateAccount}"/>
-
-                    <ToggleButton Content="Forgot Password" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
+                    <Button Content="Forgot Password" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
                         Command="{Binding DataContext.ForgotPasswordViewCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
-                        Width="100" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2"
-                            IsChecked="{Binding IsCheckedForgotPassword}"/>
-
+                        Width="250" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2"></Button>
+                    <!--IsChecked="{Binding IsCheckedForgotPassword}"/>-->
 
                 </Grid>
-
-
             </Grid>
-        </Border>
-        
-        
-        
-        <ContentControl MaxWidth="450" Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Content="{Binding CurrentPageViewModel, Mode=TwoWay}"/>
+
+        </materialDesign:Card>
+        <!--</Border>-->
+
+        <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="2021 - BodyMonitorApp" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="5" Grid.Row="6"/>
+
+
+        <ContentControl MaxHeight="350" MaxWidth="400" Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Content="{Binding CurrentPageViewModel, Mode=TwoWay}"/>
 
 
 
