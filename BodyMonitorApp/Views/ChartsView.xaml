@@ -66,9 +66,7 @@
                                                HorizontalContentAlignment="Center"/>
                             </ListBoxItem>
                         </ListBox>
-                    </materialDesign:Card>
-              
-              
+                    </materialDesign:Card>                            
             </Grid>
         </StackPanel>
 

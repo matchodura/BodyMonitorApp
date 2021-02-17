@@ -137,6 +137,10 @@ namespace BodyMonitorApp
         public ICommand EditDataCommand { get; set; }
         public ICommand UpdateDataCommand { get; set; }
 
+        //new 3
+
+        public ICommand EditRecordCommand { get; set; }
+        public ICommand UpdateRecordCommand { get; set; }
 
         public Visibility ButtonVisibility
         {
@@ -205,7 +209,11 @@ namespace BodyMonitorApp
             //new profile info buttons
 
             EditDataCommand = new RelayCommand((p) => EditProfileData());
+           
             UpdateDataCommand = new RelayCommand((p) => UpdateProfileData());
+
+            EditRecordCommand = new RelayCommand((p) => EditRecord());
+            UpdateRecordCommand = new RelayCommand((p) => UpdateRecord());
 
             HomeVM.Visibility = Visibility.Visible;
             LoginVM.Visibility = Visibility.Visible;
@@ -242,14 +250,26 @@ namespace BodyMonitorApp
         {
             ProfileInfoVM.EditData();
         }
-
+                      
 
         public void UpdateProfileData()
         {
             ProfileInfoVM.UpdateData();
-
             HomeVM.PopulateDashboard();
         }
+
+        public void EditRecord()
+        {
+            ProgressVM.EditData();
+        }
+
+        public void UpdateRecord()
+        {
+
+            ProgressVM.UpdateRecord();
+            HomeVM.PopulateDashboard();
+        }
+
         /// <summary>
         /// Changes current view to forgot passord page
         /// </summary>

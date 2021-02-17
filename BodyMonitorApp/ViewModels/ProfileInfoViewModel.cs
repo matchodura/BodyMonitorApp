@@ -130,8 +130,6 @@ namespace BodyMonitorApp
         public ProfileInfoViewModel()
         {
             var account = new AccountModel();
-
-
             CurrentAccount = account;
         }
 
@@ -253,15 +251,15 @@ namespace BodyMonitorApp
 
         }
 
-
-        public void UpdateData()
+            
+      public void UpdateData()
         {
 
-            var account = CurrentAccount;     
+            var account = CurrentAccount;
 
             try
             {
-              
+
 
                 // get connection string from Connections Helper Class
                 SqlConnection conn = new SqlConnection(Connections.ConnectionString);

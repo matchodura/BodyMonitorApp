@@ -166,7 +166,6 @@ namespace BodyMonitorApp
         }
 
 
-
         public double GetLastWeight(string userLogin)
         {
 
@@ -191,10 +190,8 @@ namespace BodyMonitorApp
                     {
                         while (reader.Read())
                         {
-
                             weight = reader.GetDecimal(0);
                            
-
                         }
 
                     }
@@ -218,9 +215,7 @@ namespace BodyMonitorApp
 
             return (double)weight;
         }
-
-
-    
+            
 
         public SecretQuestion GetSecretQuestion(string userLogin)
         {
@@ -275,7 +270,70 @@ namespace BodyMonitorApp
         }
 
 
+        //public bool CheckIfRecordExists()
+        //{
 
+
+            
+        //}
+
+
+        /// <summary>
+        /// Updates data of body user values based on selected date
+        /// </summary>
+        public bool UpdateRecord(ProgressModel progressModel, DateTime calendarDate)
+        {
+
+            try
+            {
+
+
+                // get connection string from Connections Helper Class
+                SqlConnection conn = new SqlConnection(Connections.ConnectionString);
+
+                string sql = "UPDATE dbo.UserBodyValues " +
+                   "SET Weight=@Weight,Neck=@Neck, Chest=@Chest, Stomach=@Stomach, Waist=@Waist, Hips=@Hips, Thigh=@Thigh, Calf=@Calf, Biceps=@Biceps" +
+                   " WHERE UserId=@UserId AND DateAdded=@DateAdded";
+
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = progressModel.UserId;
+                cmd.Parameters.Add("@Weight", SqlDbType.Decimal).Value = progressModel.Weight;           
+                cmd.Parameters.Add("@Neck", SqlDbType.Decimal).Value = progressModel.Neck;           
+                cmd.Parameters.Add("@Chest", SqlDbType.Decimal).Value = progressModel.Chest;
+                cmd.Parameters.Add("@Stomach", SqlDbType.Decimal).Value = progressModel.Stomach;
+                cmd.Parameters.Add("@Waist", SqlDbType.Decimal).Value = progressModel.Waist;
+                cmd.Parameters.Add("@Hips", SqlDbType.Decimal).Value = progressModel.Hips;
+                cmd.Parameters.Add("@Thigh", SqlDbType.Decimal).Value = progressModel.Thigh;
+                cmd.Parameters.Add("@Calf", SqlDbType.Decimal).Value = progressModel.Calf;
+                cmd.Parameters.Add("@Biceps", SqlDbType.Decimal).Value = progressModel.Biceps;
+                cmd.Parameters.Add("@DateAdded", SqlDbType.DateTime).Value = calendarDate;
+      
+
+
+                int result = cmd.ExecuteNonQuery();
+
+                if (result > 0)
+                {
+                    MessageBox.Show("Data Updated!");
+                    return true;
+                }
+
+                else
+                {
+                    return false;
+                }
+            }
+
+            catch (SqlException ex)
+            {
+                string errorMessage = $"Error: {ex}";
+                MessageBox.Show(errorMessage);
+                return true;
+            }
+
+        }
 
         /// <summary>
         /// gets body values as list from db for current logged in user

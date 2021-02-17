@@ -92,8 +92,17 @@
                                  >                        
                         </ProgressBar>                        
                     </materialDesign:Card>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=firstProgress, Path=Value, StringFormat = ' {0} kg'}"></TextBlock>
-                    <TextBlock  Grid.Row="1" Text="Weight"   HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=firstProgress, Path=Value}"></TextBlock>
+
+                    <materialDesign:Card  Grid.Row="1" Margin="10"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                 materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                        Height="50"
+                        Width="280">
+                        <TextBlock  Text="Weight"   HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                    </materialDesign:Card>
+                   
                 </Grid>
        
                    
@@ -121,7 +130,14 @@
                         </ProgressBar>
                     </materialDesign:Card>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=secondProgress, Path=Value}"></TextBlock>
-                    <TextBlock  Grid.Row="1" Text="BMI"   HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    <materialDesign:Card  Grid.Row="1" Margin="10"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                 materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                        Height="50"
+                        Width="280">
+                        <TextBlock  Text="BMI"   HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                    </materialDesign:Card>
                 </Grid>
 
                 <Grid Grid.Column="2">
@@ -146,7 +162,14 @@
                         </ProgressBar>
                     </materialDesign:Card>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=thirdProgress, Path=Value}"></TextBlock>
-                    <TextBlock  Grid.Row="1" Text="Temp"   HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    <materialDesign:Card  Grid.Row="1" Margin="10"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                 materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                        Height="50"
+                        Width="280">
+                        <TextBlock  Text="Temp"   HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                    </materialDesign:Card>
                 </Grid>
             </Grid>
         </StackPanel>

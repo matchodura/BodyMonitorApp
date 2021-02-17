@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:BodyMonitorApp" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              Background="#007bab"
-             d:DesignHeight="650" d:DesignWidth="1000"
+             d:DesignHeight="800" d:DesignWidth="1000"
              >
   
     <Grid>
@@ -30,14 +30,14 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         
-        <materialDesign:Card Grid.Column="1" Grid.Row="1"
+        <materialDesign:Card Grid.Column="1" Grid.Row="1" Margin="5"
                              
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
              <TextBlock Text="Name" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
                
         </materialDesign:Card>
-        <materialDesign:Card Grid.Column="3" Grid.Row="1"
+        <materialDesign:Card Grid.Column="3" Grid.Row="1"  Margin="5"
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
 
@@ -55,13 +55,13 @@
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             />
 
-        <materialDesign:Card Grid.Column="1" Grid.Row="2"
+        <materialDesign:Card Grid.Column="1" Grid.Row="2"  Margin="5"
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">                
               <TextBlock Text="Age" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
         </materialDesign:Card>
 
-        <materialDesign:Card Grid.Column="3" Grid.Row="2"
+        <materialDesign:Card Grid.Column="3" Grid.Row="2"  Margin="5"
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
             <TextBlock  Margin="5" Width="150"
@@ -73,15 +73,16 @@
         <TextBox Grid.Column="3" Grid.Row="2"  Margin="5" Width="200"
                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
                  Text="{Binding CurrentAccount.UserAge}"
-                 Visibility="{Binding EditBoxVisibility}"/>
+                 Visibility="{Binding EditBoxVisibility}"
+                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <materialDesign:Card Grid.Column="1" Grid.Row="3"
+        <materialDesign:Card Grid.Column="1" Grid.Row="3"  Margin="5"
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
             <TextBlock Text="Height" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
         </materialDesign:Card>
 
-        <materialDesign:Card Grid.Column="3" Grid.Row="3"
+        <materialDesign:Card Grid.Column="3" Grid.Row="3"  Margin="5"
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
             <TextBlock Grid.Column="1" Grid.Row="3"  Margin="5" Width="150"
@@ -90,18 +91,19 @@
                        HorizontalAlignment="Center" VerticalAlignment="Center"
                             />
         </materialDesign:Card>
-        <TextBox Grid.Column="3" Grid.Row="3"  Margin="5" Width="200"
+        <TextBox Grid.Column="3" Grid.Row="3" Margin="5" Width="200"
                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
                  Text="{Binding CurrentAccount.UserHeight}"
-                 Visibility="{Binding EditBoxVisibility}"/>
+                 Visibility="{Binding EditBoxVisibility}"
+                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <materialDesign:Card Grid.Column="1" Grid.Row="4"
+        <materialDesign:Card Grid.Column="1" Grid.Row="4"  Margin="5"
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
             <TextBlock Text="Mail" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
 
         </materialDesign:Card>
-        <materialDesign:Card Grid.Column="3" Grid.Row="4"
+        <materialDesign:Card Grid.Column="3" Grid.Row="4"  Margin="5"
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
 
@@ -120,13 +122,13 @@
                             />
 
 
-        <materialDesign:Card Grid.Column="1" Grid.Row="5"
+        <materialDesign:Card Grid.Column="1" Grid.Row="5"  Margin="5"
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
             <TextBlock Text="Gender" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
 
         </materialDesign:Card>
-        <materialDesign:Card Grid.Column="3" Grid.Row="5"
+        <materialDesign:Card Grid.Column="3" Grid.Row="5"  Margin="5"
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
 
@@ -144,13 +146,13 @@
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             />
 
-        <materialDesign:Card Grid.Column="1" Grid.Row="6"
+        <materialDesign:Card Grid.Column="1" Grid.Row="6"  Margin="5"
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
             <TextBlock Text="Account created" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
 
         </materialDesign:Card>
-        <materialDesign:Card Grid.Column="3" Grid.Row="6"
+        <materialDesign:Card Grid.Column="3" Grid.Row="6"  Margin="5"
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
         </materialDesign:Card>
@@ -160,9 +162,6 @@
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             Visibility="Visible"
                             />
-
-
-
 
         <Button Content="Edit Data" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
                     Command="{Binding DataContext.EditDataCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"   

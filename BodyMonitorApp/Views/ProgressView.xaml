@@ -3,98 +3,314 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BodyMonitorApp"
+             xmlns:local="clr-namespace:BodyMonitorApp" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              Background="#007bab"
-             d:DesignHeight="650" d:DesignWidth="1000"
-             >
+             d:DesignHeight="800" d:DesignWidth="1000"
+             MinWidth="1000">
 
-    <UserControl.Resources>
-       
-        <DataTemplate DataType="{x:Type local:ProgressModel}">
+    <Grid x:Name="ProgressWindow">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="600"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >
+            <StackPanel Margin="50,20" Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0"></ColumnDefinition>
+                        <ColumnDefinition Width="400"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="400"></ColumnDefinition>
+                        <ColumnDefinition Width="0"/>
+                    </Grid.ColumnDefinitions>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
+                    <materialDesign:Card Width="400"  Grid.Column="1">
+                        <ComboBox Width="300" VerticalAlignment="Center" HorizontalAlignment="Center"
+                             x:Name="cbxHistory"
+                             Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                             ItemsSource="{Binding ComboBoxChoices}"
+                             SelectedItem="{Binding SelectedItem}"
+                             DisplayMemberPath="Symbol"
+                             IsSynchronizedWithCurrentItem="True"/>
+                    </materialDesign:Card>
 
-                </Grid.RowDefinitions>
+                    <materialDesign:Card Grid.Column="3" Width="400">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <ToggleButton x:Name="showCalendarButton" Grid.Column="0">
+                                <Image Name="imgCalendar" Source="/BodyMonitorApp;component/Images/calendar_icon.png"  />
+                            </ToggleButton>
 
-
-
-                <TextBlock Grid.Column="0" Grid.Row="0"  Text="waga:" VerticalAlignment="Center" Margin="5" />
-                <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Weight}" Margin="5" Width="150" />
-
-                <TextBlock Grid.Column="0" Grid.Row="1"  Text="chest" VerticalAlignment="Center" Margin="5" />
-                <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Chest}" Margin="5" Width="150" />
-
-                <TextBlock Grid.Column="0" Grid.Row="2"  Text="bicek:" VerticalAlignment="Center" Margin="5" />
-                <TextBox Grid.Row="2" Grid.Column="1"  Text="{Binding Biceps}" Margin="5" Width="150" />
-                
-                <!--<TextBlock Grid.Column="0" Grid.Row="2" Text= "{Binding UserId, StringFormat='Current User: {0}'}"/>-->
-
-               
-
-
-            </Grid>
-
-        </DataTemplate>
-
-    </UserControl.Resources>
-
-    <DockPanel Width="auto" Height="auto" Background="LightSalmon">      
-                    
-        <DockPanel DockPanel.Dock="Top">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                
-            <StackPanel Margin="10" Grid.Column="0" Grid.Row="0">
-                <ComboBox Width="200" VerticalAlignment="Center" HorizontalAlignment="Center"
-          x:Name="cbxHistory"
-          ItemsSource="{Binding ComboBoxChoices}"
-          SelectedItem="{Binding SelectedItem}"
-          DisplayMemberPath="Symbol"
-          IsSynchronizedWithCurrentItem="True" />
-
+                            <Popup IsOpen="{Binding ElementName=showCalendarButton, Path=IsChecked}" StaysOpen="False">
+                                <Calendar x:Name="CalendarControl" Width="400"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  SelectedDate="{Binding CalendarDate}" RenderTransformOrigin="1.695,0.263" >
+                                </Calendar>
+                            </Popup>
+                            <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text= "{Binding CalendarDate, StringFormat = 'Current date: {0:dd/MM/yyyy}'}"/>
+                        </Grid>
+                    </materialDesign:Card>
+                </Grid>
             </StackPanel>
 
 
-                <ToggleButton  x:Name="showCalendarButton" Width="20" Height="20" Grid.Column="1" Grid.Row="3">
-                    <Image Name="imgCalendar" Width="20" Height="20" Source="/BodyMonitorApp;component/Images/calendar_icon.png"  />
-                </ToggleButton>
+        </Grid>
+        <Grid Visibility="{Binding GridVisibility}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" >
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="225" />
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="225"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+               
+            </Grid.RowDefinitions>
 
-                <Popup IsOpen="{Binding ElementName=showCalendarButton, Path=IsChecked}" StaysOpen="False">
-                    <Calendar x:Name="CalendarControl"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      SelectedDate="{Binding CalendarDate}" >
-                    </Calendar>
-                </Popup>
-            </Grid>
-        </DockPanel>
+            <materialDesign:Card Grid.Column="1" Grid.Row="0"                             
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"  Height="50">
+                <TextBlock Text="Weight" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+            </materialDesign:Card>
 
-        <DockPanel DockPanel.Dock="Bottom">
-            <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Content="Add items" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
+            <materialDesign:Card Grid.Column="3" Grid.Row="0"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                                     Height="50">
+                <TextBlock Margin="5" Width="150"
+                               Text="{Binding CurrentProgress.Weight}"
+                               Visibility="{Binding TextBlockVisibility}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </materialDesign:Card>
+            <TextBox Grid.Column="3" Grid.Row="0" Width="150" Margin="0,5" 
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding CurrentProgress.Weight}"
+                         Visibility="{Binding EditBoxVisibility}"
+                         HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" />
+
+            <materialDesign:Card Grid.Column="1" Grid.Row="1"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                                     Height="50">
+                <TextBlock Text="Neck" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Column="3" Grid.Row="1"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                                     Height="50" >
+                <TextBlock Margin="5" Width="150"
+                               Text="{Binding CurrentProgress.Neck}"
+                               Visibility="{Binding TextBlockVisibility}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </materialDesign:Card>
+            <TextBox Grid.Column="3" Grid.Row="1"  Width="150" Margin="5"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding CurrentProgress.Neck}"
+                         Visibility="{Binding EditBoxVisibility}"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <materialDesign:Card Grid.Column="1" Grid.Row="2"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                                     Height="50">
+                <TextBlock Text="Chest" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Column="3" Grid.Row="2"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right" Height="50">
+                <TextBlock Grid.Column="1" Grid.Row="2"  Margin="5" Width="150"
+                               Text="{Binding CurrentProgress.Chest, StringFormat = ' {0} cm'}"
+                               Visibility="{Binding TextBlockVisibility}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </materialDesign:Card>
+            <TextBox Grid.Column="3" Grid.Row="2"  Width="150" Margin="5"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding CurrentProgress.Chest}"
+                         Visibility="{Binding EditBoxVisibility}"
+                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <materialDesign:Card Grid.Column="1" Grid.Row="3"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                                     Height="50">
+                <TextBlock Text="Stomach" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Column="3" Grid.Row="3"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                                     Height="50">
+
+                <TextBlock Grid.Column="1" Grid.Row="3" Margin="5" Width="150"
+                            Text="{Binding CurrentProgress.Stomach}"
+                            Visibility="{Binding TextBlockVisibility}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            </materialDesign:Card>
+            <TextBox Grid.Column="3" Grid.Row="3"  Width="150" Margin="5"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding CurrentProgress.Stomach}"
+                         Visibility="{Binding EditBoxVisibility}"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <materialDesign:Card Grid.Column="1" Grid.Row="4"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                                     Height="50">
+                <TextBlock Text="Waist" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Column="3" Grid.Row="4"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right" Height="50">
+
+                <TextBlock Margin="5" Width="150"
+                               Text="{Binding CurrentProgress.Waist}"
+                               Visibility="{Binding TextBlockVisibility}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            </materialDesign:Card>
+            <TextBox Grid.Column="3" Grid.Row="4"  Width="150" Margin="5"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding CurrentProgress.Waist}"
+                         Visibility="{Binding EditBoxVisibility}"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+
+            <materialDesign:Card Grid.Column="1" Grid.Row="5"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                                     Height="50">
+                <TextBlock Text="Hips" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Column="3" Grid.Row="5"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                                     Height="50">
+
+                <TextBlock Margin="5" Width="150"
+                               Text="{Binding CurrentProgress.Hips}"
+                               Visibility="{Binding TextBlockVisibility}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            </materialDesign:Card>
+            <TextBox Grid.Column="3" Grid.Row="5" Width="150" Margin="5"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding CurrentProgress.Hips}"
+                         Visibility="{Binding EditBoxVisibility}"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <materialDesign:Card Grid.Column="1" Grid.Row="6"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                                     Height="50">
+                <TextBlock Text="Thigh" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Column="3" Grid.Row="6"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                                     Height="50">
+
+                <TextBlock Margin="5" Width="150"
+                               Text="{Binding CurrentProgress.Thigh}"
+                               Visibility="{Binding TextBlockVisibility}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            </materialDesign:Card>
+            <TextBox Grid.Column="3" Grid.Row="6" Width="150" Margin="5"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding CurrentProgress.Thigh}"
+                         Visibility="{Binding EditBoxVisibility}"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+
+            <materialDesign:Card Grid.Column="1" Grid.Row="7"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                                     Height="50">
+                <TextBlock Text="Calf" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Column="3" Grid.Row="7"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                                     Height="50">
+
+                <TextBlock Margin="5" Width="150"
+                               Text="{Binding CurrentProgress.Calf}"
+                               Visibility="{Binding TextBlockVisibility}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+            </materialDesign:Card>
+            <TextBox Grid.Column="3" Grid.Row="7" Width="150" Margin="5"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding CurrentProgress.Calf}"
+                         Visibility="{Binding EditBoxVisibility}"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <materialDesign:Card Grid.Column="1" Grid.Row="8"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                                     Height="50">
+                <TextBlock Text="Biceps" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Column="3" Grid.Row="8"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                                     Height="50">
+
+                <TextBlock Margin="5" Width="150" 
+                               Text="{Binding CurrentProgress.Biceps}"
+                               Visibility="{Binding TextBlockVisibility}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </materialDesign:Card>
+
+
+            <TextBox Grid.Column="3" Grid.Row="8" Width="150" Margin="5"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding CurrentProgress.Biceps}"
+                         Visibility="{Binding EditBoxVisibility}"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <Button Content="Edit Data" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
+                        Command="{Binding DataContext.EditRecordCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"   
+                        Width="150" Grid.Column="4" Grid.Row="1" 
+                        Visibility="{Binding EditButtonVisibility}"/>
+
+            <Button Content="Update Data" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
+                        Visibility="{Binding UpdateButtonVisibility}"
+                        Command="{Binding DataContext.UpdateRecordCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"                    
+                        Width="150" Grid.Column="4" Grid.Row="2"/>
+
+
+            <Button Grid.Column="4" Grid.Row="3"  Content="Add Data" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
                         Command="{Binding AddItemCommand}" 
-                        Width="100"
-                        Visibility="{Binding ButtonVisibility}"/>
-            <TextBlock Grid.Column="0" Grid.Row="3" Text= "{Binding CalendarDate}"/>
-        </DockPanel>
-
-        <ContentControl  Content="{Binding Path=CurrentProgress}" Background="LightSalmon" />
-
-    </DockPanel>
-
-
-
+                        Width="150"
+                        Visibility="{Binding AddButtonVisibility}"/>
+        </Grid>
+        <!--<ContentControl  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Path=CurrentProgress}"/>-->
+    </Grid>
 </UserControl>
