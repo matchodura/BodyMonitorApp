@@ -179,7 +179,8 @@ namespace BodyMonitorApp
 
                             var tempDate = DateTime.Now;
 
-                            tempDate = reader.GetDateTime(1);
+                            //tempDate = reader.GetDateTime(1);
+                            currentAccount.UserAge = reader.GetInt32(1);
                             currentAccount.UserHeight = reader.GetInt32(2);
                             currentAccount.UserName = reader.GetString(3);
                             currentAccount.UserMail = reader.GetString(4);
@@ -265,13 +266,14 @@ namespace BodyMonitorApp
                 SqlConnection conn = new SqlConnection(Connections.ConnectionString);
 
                 string sql = "UPDATE dbo.UserData " +
-                   "SET UserName=@UserName,UserHeight=@UserHeight, UserMail=@UserMail, UserGender=@UserGender" +
+                   "SET UserName=@UserName,UserAge=@UserAge,UserHeight=@UserHeight, UserMail=@UserMail, UserGender=@UserGender" +
                    " WHERE Id=@UserId";
 
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = UserId;
+                cmd.Parameters.Add("@UserAge", SqlDbType.Int).Value = account.UserAge;
                 cmd.Parameters.Add("@UserName", SqlDbType.VarChar).Value = account.UserName;
                 cmd.Parameters.Add("@UserHeight", SqlDbType.Int).Value = account.UserHeight;
                 cmd.Parameters.Add("@UserMail", SqlDbType.VarChar).Value = account.UserMail;

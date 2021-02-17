@@ -427,7 +427,7 @@ namespace BodyMonitorApp
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.Add("@UserLogin", SqlDbType.VarChar).Value = account.UserLogin;
                 cmd.Parameters.Add("@UserPassword", SqlDbType.VarChar).Value = account.UserPassword;
-                cmd.Parameters.Add("@UserAge", SqlDbType.Date).Value = account.UserAge.Date;
+                cmd.Parameters.Add("@UserAge", SqlDbType.Int).Value = account.UserAge;
                 cmd.Parameters.Add("@UserHeight", SqlDbType.Int).Value = account.UserHeight;
                 cmd.Parameters.Add("@UserName", SqlDbType.VarChar).Value = account.UserName;
                 cmd.Parameters.Add("@UserMail", SqlDbType.VarChar).Value = account.UserMail;
@@ -490,7 +490,7 @@ namespace BodyMonitorApp
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.Add("@UserLogin", SqlDbType.VarChar).Value = account.UserLogin;
                 cmd.Parameters.Add("@UserPassword", SqlDbType.VarChar).Value = account.UserPassword;
-                cmd.Parameters.Add("@UserAge", SqlDbType.Date).Value = account.UserAge.Date;
+                cmd.Parameters.Add("@UserAge", SqlDbType.Int).Value = account.UserAge;
                 cmd.Parameters.Add("@UserHeight", SqlDbType.Int).Value = account.UserHeight;
                 cmd.Parameters.Add("@UserName", SqlDbType.VarChar).Value = account.UserName;
                 cmd.Parameters.Add("@UserMail", SqlDbType.VarChar).Value = account.UserMail;

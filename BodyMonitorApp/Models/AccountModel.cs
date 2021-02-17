@@ -15,7 +15,7 @@ namespace BodyMonitorApp
 
         private string _userLogin;
         private string _userPassword;
-        private DateTime _userAge;
+        private int _userAge;
         private int _userHeight;
         private string _userName;
         private string _userMail;
@@ -57,7 +57,7 @@ namespace BodyMonitorApp
             }
         }
 
-        public DateTime UserAge
+        public int UserAge
         {
             get { return _userAge; }
             set
