@@ -154,7 +154,7 @@
                                  x:Name="thirdProgress"                              
                                  Minimum="0"
                                  Maximum="150"                            
-                                 Value="{Binding BMI}"
+                                 Value="{Binding BodyValue}"
                                  Height="250"
                                  Width="250"
                                  Style="{StaticResource MaterialDesignCircularProgressBar}"
@@ -167,8 +167,13 @@
                                  materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
                         Height="50"
                         Width="280">
-                        <TextBlock  Text="Temp"   HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
+                        <ComboBox Width="300" VerticalAlignment="Center" HorizontalAlignment="Center"
+                             x:Name="cbxHistory"
+                             Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                             ItemsSource="{Binding ComboBoxChoices}"
+                             SelectedItem="{Binding SelectedItem}"
+                             DisplayMemberPath="Symbol"
+                             IsSynchronizedWithCurrentItem="True"/>
                     </materialDesign:Card>
                 </Grid>
             </Grid>

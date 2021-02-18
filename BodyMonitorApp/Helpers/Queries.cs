@@ -165,6 +165,57 @@ namespace BodyMonitorApp
             return (double)height;
         }
 
+        public double GetBodyPart(string userLogin, string bodyPart)
+        {
+            GetUserId(userLogin);
+            decimal bodyValue = 0;
+            try
+            {
+                SqlConnection conn = new SqlConnection(Connections.ConnectionString);
+
+
+                string sql = $"SELECT " + bodyPart + " FROM dbo.UserBodyValues WHERE UserId=@UserId";
+
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = UserId;
+             
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+
+                            bodyValue = reader.GetDecimal(0);
+
+
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Record doesn't exist!");
+
+                    }
+
+                }
+
+            }
+
+
+            catch (SqlException ex)
+            {
+                string errorMessage = $"Error: {ex}";
+                MessageBox.Show(errorMessage);
+
+            }
+
+            return (double)bodyValue;
+        }
+
 
         public double GetLastWeight(string userLogin)
         {

@@ -139,8 +139,7 @@ namespace BodyMonitorApp
 
                 OnPropertyChanged("UpdateButtonVisibility");
             }
-        }
-        
+        }        
 
         public Visibility TextBlockVisibility
         {
@@ -183,7 +182,6 @@ namespace BodyMonitorApp
                 OnPropertyChanged("GridVisibility");
             }
         }
-
 
         public bool RecordExists
         {
