@@ -84,7 +84,7 @@
                         </TextBox>
 
 
-                        <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Age" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4"/>
+                        <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Birthday" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4"/>
                         <TextBox Margin="10,2" Width="250" VerticalAlignment="Center" Text="{Binding Path=UserAge, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2"/>
 
                         <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Height [cm]" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5"/>

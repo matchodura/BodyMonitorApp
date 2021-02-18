@@ -253,7 +253,7 @@ namespace BodyMonitorApp
         }
 
             
-      public void UpdateData()
+        public void UpdateData()
         {
 
             var account = CurrentAccount;

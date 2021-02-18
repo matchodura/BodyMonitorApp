@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\CefSharp.Common.87.1.132\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.87.1.132\build\CefSharp.Common.props')" />
+  <Import Project="packages\cef.redist.x86.87.1.13\build\cef.redist.x86.props" Condition="Exists('packages\cef.redist.x86.87.1.13\build\cef.redist.x86.props')" />
+  <Import Project="packages\cef.redist.x64.87.1.13\build\cef.redist.x64.props" Condition="Exists('packages\cef.redist.x64.87.1.13\build\cef.redist.x64.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -39,6 +42,15 @@
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CefSharp, Version=87.1.132.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+      <HintPath>packages\CefSharp.Common.87.1.132\lib\net452\CefSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp.Core, Version=87.1.132.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+      <HintPath>packages\CefSharp.Common.87.1.132\lib\net452\CefSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp.Wpf, Version=87.1.132.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+      <HintPath>packages\CefSharp.Wpf.87.1.132\lib\net452\CefSharp.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>
@@ -92,11 +104,13 @@
     <Compile Include="Helpers\MultiplyConverter.cs" />
     <Compile Include="Helpers\Queries.cs" />
     <Compile Include="Helpers\SecretQuestion.cs" />
+    <Compile Include="Helpers\WorkoutPopulation.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\ChartModel.cs" />
     <Compile Include="Models\ComboBoxHistory.cs" />
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\ProgressModel.cs" />
+    <Compile Include="Models\WorkoutModel.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\ChartsViewModel.cs" />
     <Compile Include="ViewModels\CreateAccountViewModel.cs" />
@@ -236,6 +250,11 @@
     </PropertyGroup>
     <Error Condition="!Exists('packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets'))" />
     <Error Condition="!Exists('packages\ShowMeTheXAML.MSBuild.2.0.0\build\net472\ShowMeTheXAML.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\ShowMeTheXAML.MSBuild.2.0.0\build\net472\ShowMeTheXAML.MSBuild.targets'))" />
+    <Error Condition="!Exists('packages\cef.redist.x64.87.1.13\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x64.87.1.13\build\cef.redist.x64.props'))" />
+    <Error Condition="!Exists('packages\cef.redist.x86.87.1.13\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x86.87.1.13\build\cef.redist.x86.props'))" />
+    <Error Condition="!Exists('packages\CefSharp.Common.87.1.132\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.87.1.132\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('packages\CefSharp.Common.87.1.132\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.87.1.132\build\CefSharp.Common.targets'))" />
   </Target>
   <Import Project="packages\ShowMeTheXAML.MSBuild.2.0.0\build\net472\ShowMeTheXAML.MSBuild.targets" Condition="Exists('packages\ShowMeTheXAML.MSBuild.2.0.0\build\net472\ShowMeTheXAML.MSBuild.targets')" />
+  <Import Project="packages\CefSharp.Common.87.1.132\build\CefSharp.Common.targets" Condition="Exists('packages\CefSharp.Common.87.1.132\build\CefSharp.Common.targets')" />
 </Project>
