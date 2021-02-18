@@ -15,15 +15,14 @@ namespace BodyMonitorApp
 
         #region fields
 
-        private Visibility _visibility = Visibility.Hidden;
-        private Visibility _exercisesVisibility = Visibility.Hidden;
+        private Visibility _visibility = Visibility.Hidden;     
 
         private ICommand _changeBodyPartCommand;
         private ICommand _nextPageCommand;
         private ICommand _previousPageCommand;
         private int _currentPageIndex = 0;
         private int _indexPageCount;
-
+        private WorkoutModel _selectedItem;
        
         private string _bodyPart;
      
@@ -59,6 +58,7 @@ namespace BodyMonitorApp
 
             IndexPagecount = Workouts.Count -1;
             Workout = Workouts[0];
+        
         }
     
 
@@ -120,19 +120,7 @@ namespace BodyMonitorApp
             }
         }
 
-        public Visibility ExercisesVisibility
-        {
-            get
-            {
-                return _exercisesVisibility;
-            }
-            set
-            {
-                _exercisesVisibility = value;
-
-                OnPropertyChanged("ExercisesVisibility");
-            }
-        }
+    
         public string BodyPart
         {
             get
@@ -208,6 +196,30 @@ namespace BodyMonitorApp
             }
         }
 
+  
+
+        public WorkoutModel SelectedItem 
+        {
+            get
+            {
+                return _selectedItem;
+            }
+            set
+            {
+                _selectedItem = value;
+
+                foreach(var item in ChosenWorkouts)
+                {
+                    CurrentPageIndex  = ChosenWorkouts.IndexOf(SelectedItem);
+
+                }
+              
+                Workout = SelectedItem;
+                OnPropertyChanged("SelectedItem");
+            }
+        }
+
+
 
         public int IndexPagecount
         {
@@ -222,32 +234,42 @@ namespace BodyMonitorApp
             }
         }
 
-       
+
         public void ChangeBodyPart(object param)
         {
-            BodyPart = (string)param;
-            ExercisesVisibility = Visibility.Visible;
-            ChosenWorkouts = Workouts.Where(p => p.Category == BodyPart).ToList();
-            IndexPagecount = ChosenWorkouts.Count - 1;
-            CurrentPageIndex = 0;
+            BodyPart = (string)param;       
+
+            if (BodyPart == "All")
+            {
+                ChosenWorkouts = Workouts;
+                IndexPagecount = ChosenWorkouts.Count - 1;
+                CurrentPageIndex = 0;
+            }
+            else
+            {
+                ChosenWorkouts = Workouts.Where(p => p.Category == BodyPart).ToList();
+                IndexPagecount = ChosenWorkouts.Count - 1;
+                CurrentPageIndex = 0;
+            }
+
+          
             Workout = ChosenWorkouts[CurrentPageIndex];
         }
 
         public void IndexUp()
         {
-
             if (CurrentPageIndex < IndexPagecount)
             {
                 CurrentPageIndex += 1;      
                 
-            }
-
+            }           
             else
             {
                 CurrentPageIndex = 0;
             }
-
+           
             Workout = ChosenWorkouts[CurrentPageIndex];
+            SelectedItem = Workout;
 
         }
 
@@ -263,8 +285,9 @@ namespace BodyMonitorApp
             {
                 CurrentPageIndex = IndexPagecount;
             }
-
+           
             Workout = ChosenWorkouts[CurrentPageIndex];
+            SelectedItem = Workout;
         }
         #endregion
 
