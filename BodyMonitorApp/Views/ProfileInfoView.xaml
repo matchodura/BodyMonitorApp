@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BodyMonitorApp" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:BodyMonitorApp" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:c="clr-namespace:Helpers.ValidationRules"
              mc:Ignorable="d" 
              Background="#007bab"
              d:DesignHeight="800" d:DesignWidth="1000"
@@ -11,32 +11,28 @@
   
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="0"/>
+            <ColumnDefinition Width="0" />
             <ColumnDefinition />
             <ColumnDefinition Width="250"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+           
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
+     
         
-        <materialDesign:Card Grid.Column="1" Grid.Row="1" Margin="5"
-                             
-              materialDesign:ShadowAssist.ShadowDepth="Depth3"
-              materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
-             <TextBlock Text="Name" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
-               
-        </materialDesign:Card>
+        <!--Name-->
         <materialDesign:Card Grid.Column="3" Grid.Row="1"  Margin="5"
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
@@ -47,132 +43,220 @@
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             />
 
-        </materialDesign:Card>        
-        <TextBox Grid.Column="3" Grid.Row="1" Margin="5" Width="200"
-                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                            Text="{Binding CurrentAccount.UserName}"
-                            Visibility="{Binding EditBoxVisibility}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            />
-
-        <materialDesign:Card Grid.Column="1" Grid.Row="2"  Margin="5"
-              materialDesign:ShadowAssist.ShadowDepth="Depth3"
-              materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">                
-              <TextBlock Text="Age" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
         </materialDesign:Card>
+        <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"                      
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        Grid.Column="3" Grid.Row="1" Margin="5" Width="200"
+                        materialDesign:HintAssist.Hint="Name"
+                        Visibility="{Binding EditBoxVisibility}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Name="txtAge"
+                        MaxLength="20">
 
+            <TextBox.Text >
+                <Binding
+                    Path="CurrentAccount.UserName" 
+                    UpdateSourceTrigger="PropertyChanged">
+
+                    <Binding.ValidationRules>
+                        <c:InvalidNameRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+
+        <!--Age-->
         <materialDesign:Card Grid.Column="3" Grid.Row="2"  Margin="5"
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
+
             <TextBlock  Margin="5" Width="150"
                             Text="{Binding CurrentAccount.UserAge}"
                             Visibility="{Binding TextBlockVisibility}"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             />
-        </materialDesign:Card>
-        <TextBox Grid.Column="3" Grid.Row="2"  Margin="5" Width="200"
-                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                 Text="{Binding CurrentAccount.UserAge}"
-                 Visibility="{Binding EditBoxVisibility}"
-                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <materialDesign:Card Grid.Column="1" Grid.Row="3"  Margin="5"
-              materialDesign:ShadowAssist.ShadowDepth="Depth3"
-              materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
-            <TextBlock Text="Height" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
         </materialDesign:Card>
+        <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"                      
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        Grid.Column="3" Grid.Row="2"  Margin="5" Width="200"
+                        materialDesign:HintAssist.Hint="Age"
+                        Visibility="{Binding EditBoxVisibility}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Name="txtName"
+                        MaxLength="20">
 
+            <TextBox.Text >
+                <Binding
+                    Path="CurrentAccount.UserAge" 
+                    UpdateSourceTrigger="PropertyChanged">
+
+                    <Binding.ValidationRules>
+                        <c:CannotBeEmptyRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        
+        <!--Height-->
         <materialDesign:Card Grid.Column="3" Grid.Row="3"  Margin="5"
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
-            <TextBlock Grid.Column="1" Grid.Row="3"  Margin="5" Width="150"
-                            Text="{Binding CurrentAccount.UserHeight, StringFormat = ' {0} cm'}"
+
+            <TextBlock  Margin="5" Width="150"
+                            Text="{Binding CurrentAccount.UserHeight}"
                             Visibility="{Binding TextBlockVisibility}"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
                             />
-        </materialDesign:Card>
-        <TextBox Grid.Column="3" Grid.Row="3" Margin="5" Width="200"
-                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                 Text="{Binding CurrentAccount.UserHeight}"
-                 Visibility="{Binding EditBoxVisibility}"
-                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-        <materialDesign:Card Grid.Column="1" Grid.Row="4"  Margin="5"
-              materialDesign:ShadowAssist.ShadowDepth="Depth3"
-              materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
-            <TextBlock Text="Mail" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
 
         </materialDesign:Card>
+        <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"                      
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        Grid.Column="3" Grid.Row="3"  Margin="5" Width="200"
+                        materialDesign:HintAssist.Hint="Height"
+                        Visibility="{Binding EditBoxVisibility}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Name="txtHeight"
+                        MaxLength="20">
+
+            <TextBox.Text >
+                <Binding
+                    Path="CurrentAccount.UserHeight" 
+                    UpdateSourceTrigger="PropertyChanged">
+
+                    <Binding.ValidationRules>
+                        <c:HeightValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <!--Mail-->
         <materialDesign:Card Grid.Column="3" Grid.Row="4"  Margin="5"
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
 
-            <TextBlock Margin="5" Width="150"
+            <TextBlock  Margin="5" Width="150"
                             Text="{Binding CurrentAccount.UserMail}"
                             Visibility="{Binding TextBlockVisibility}"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             />
 
         </materialDesign:Card>
-        <TextBox Grid.Column="3" Grid.Row="4" Margin="5" Width="200"
-                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                            Text="{Binding CurrentAccount.UserMail}"
-                            Visibility="{Binding EditBoxVisibility}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            />
+        <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"                      
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        Grid.Column="3" Grid.Row="4"  Margin="5" Width="200"
+                        materialDesign:HintAssist.Hint="E-Mail"
+                        Visibility="{Binding EditBoxVisibility}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Name="txtMail">
 
+            <TextBox.Text >
+                <Binding
+                    Path="CurrentAccount.UserMail" 
+                    UpdateSourceTrigger="PropertyChanged">
 
-        <materialDesign:Card Grid.Column="1" Grid.Row="5"  Margin="5"
-              materialDesign:ShadowAssist.ShadowDepth="Depth3"
-              materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
-            <TextBlock Text="Gender" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
-
-        </materialDesign:Card>
+                    <Binding.ValidationRules>
+                        <c:EmailValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <!--Gender-->
         <materialDesign:Card Grid.Column="3" Grid.Row="5"  Margin="5"
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
 
-            <TextBlock Margin="5" Width="150"
+            <TextBlock  Margin="5" Width="150"
                             Text="{Binding CurrentAccount.UserGender}"
                             Visibility="{Binding TextBlockVisibility}"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             />
 
         </materialDesign:Card>
-        <TextBox Grid.Column="3" Grid.Row="5" Margin="5" Width="200"
-                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                            Text="{Binding CurrentAccount.UserGender}"
-                            Visibility="{Binding EditBoxVisibility}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            />
+        <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"                      
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        Grid.Column="3" Grid.Row="5" Margin="5" Width="200"
+                        materialDesign:HintAssist.Hint="Gender"
+                        Visibility="{Binding EditBoxVisibility}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Name="txtGender">
 
-        <materialDesign:Card Grid.Column="1" Grid.Row="6"  Margin="5"
-              materialDesign:ShadowAssist.ShadowDepth="Depth3"
-              materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
-            <TextBlock Text="Account created" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+            <TextBox.Text >
+                <Binding
+                    Path="CurrentAccount.UserGender" 
+                    UpdateSourceTrigger="PropertyChanged">
 
-        </materialDesign:Card>
+                    <Binding.ValidationRules>
+                        <c:GenderValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+
         <materialDesign:Card Grid.Column="3" Grid.Row="6"  Margin="5"
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
-        </materialDesign:Card>
-        <TextBox Grid.Column="3" Grid.Row="6" Margin="5" Width="200"
-                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+
+            <TextBox Grid.Column="3" Grid.Row="6" Margin="5" Width="200"
+                            Style="{StaticResource MaterialDesignFilledTextBox}"
                             Text="{Binding CurrentAccount.AccountCreated}"                       
                             HorizontalAlignment="Center" VerticalAlignment="Center"
+                            materialDesign:HintAssist.Hint="Account Created"
                             Visibility="Visible"
                             />
+
+        </materialDesign:Card>
+
+
+
+
+        
 
         <Button Content="Edit Data" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
                     Command="{Binding DataContext.EditDataCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"   
                     
                     Width="150" Grid.Column="3" Grid.Row="7" />
 
+
+
         <Button Content="Update Data" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
-                    Visibility="{Binding EditBoxVisibility}"
-                    Command="{Binding DataContext.UpdateDataCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"                    
+                Command="{Binding DataContext.UpdateDataCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"                    
+           
+                Width="150" Grid.Column="3" Grid.Row="8"
+                IsDefault="True"
+                Visibility="{Binding EditBoxVisibility}">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                    <Setter Property="IsEnabled" Value="False"/>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtName}" Value="False"/>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtAge}" Value="False"/>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtHeight}" Value="False"/>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtMail}" Value="False"/>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtGender}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="True"/>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        
+                  
                      
-                    Width="150" Grid.Column="3" Grid.Row="8"/>
+                   
 
     </Grid>
   

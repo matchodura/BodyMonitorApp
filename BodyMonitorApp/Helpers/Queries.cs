@@ -321,13 +321,7 @@ namespace BodyMonitorApp
         }
 
 
-        //public bool CheckIfRecordExists()
-        //{
-
-
-            
-        //}
-
+     
 
         /// <summary>
         /// Updates data of body user values based on selected date

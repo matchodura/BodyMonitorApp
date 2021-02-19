@@ -103,6 +103,7 @@
     <Compile Include="Helpers\Connections.cs" />
     <Compile Include="Helpers\MultiplyConverter.cs" />
     <Compile Include="Helpers\Queries.cs" />
+    <Compile Include="Helpers\ValidationRules.cs" />
     <Compile Include="Helpers\SecretQuestion.cs" />
     <Compile Include="Helpers\WorkoutPopulation.cs" />
     <Compile Include="Models\AccountModel.cs" />

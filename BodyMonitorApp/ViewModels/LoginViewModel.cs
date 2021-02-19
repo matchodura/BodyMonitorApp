@@ -246,7 +246,7 @@ namespace BodyMonitorApp
                                 login.LoggedIn = true;
                                 CurrentLogin = login;
 
-                                MessageBox.Show($"Login Succesfull!+userId:{login.UserId}");
+                                MessageBox.Show($"Login Succesfull!");
                             
                                 return true;
                             }

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BodyMonitorApp" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:BodyMonitorApp" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:c="clr-namespace:Helpers.ValidationRules"
              mc:Ignorable="d" 
              Background="#007bab"
              d:DesignHeight="800" d:DesignWidth="1100"
@@ -40,36 +40,13 @@
                     </materialDesign:Card>
 
                     <materialDesign:Card Grid.Column="3" Width="400">
-                        <!--<Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-
-                         
-                            --><!--<ToggleButton x:Name="showCalendarButton" Grid.Column="0">
-                                <Image Name="imgCalendar" Source="/BodyMonitorApp;component/Images/calendar_icon.png"  />
-                            </ToggleButton>
-
-                            
-                            
-                            <Popup IsOpen="{Binding ElementName=showCalendarButton, Path=IsChecked}" StaysOpen="False">
-                                <Calendar x:Name="CalendarControl" Width="400"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  SelectedDate="{Binding CalendarDate}" RenderTransformOrigin="1.695,0.263" >
-                                </Calend--><!--ar>
-                            </Popup>-->
-                            <!--<TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text= "{Binding CalendarDate, StringFormat = 'Current date: {0:dd/MM/yyyy}'}"/>--><!--
-                        </Grid>-->
-
 
                         <DatePicker Grid.Column="0" Width="300"
                                   materialDesign:HintAssist.Hint="Pick Date"
                                   Style="{StaticResource MaterialDesignOutlinedDatePicker}"
                                   SelectedDate="{Binding CalendarDate}"/>
                     </materialDesign:Card>
-                    
+
                 </Grid>
             </StackPanel>
 
@@ -85,233 +62,353 @@
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-               
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+           
+             
+
             </Grid.RowDefinitions>
 
-            <materialDesign:Card Grid.Column="1" Grid.Row="0"                             
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"  Height="50">
-                <TextBlock Text="Weight" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
-            </materialDesign:Card>
+            <!--Weight-->
 
-            <materialDesign:Card Grid.Column="3" Grid.Row="0"
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
-                                     Height="50">
+            <materialDesign:Card Grid.Column="1" Grid.Row="0" Margin="5"
+              materialDesign:ShadowAssist.ShadowDepth="Depth3"
+              materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
+
                 <TextBlock Margin="5" Width="150"
-                               Text="{Binding CurrentProgress.Weight}"
-                               Visibility="{Binding TextBlockVisibility}"
-                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </materialDesign:Card>
-            <TextBox Grid.Column="3" Grid.Row="0" Width="150" Margin="0,5" 
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Text="{Binding CurrentProgress.Weight}"
-                         Visibility="{Binding EditBoxVisibility}"
-                         HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" />
-
-            <materialDesign:Card Grid.Column="1" Grid.Row="1"
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
-                                     Height="50">
-                <TextBlock Text="Neck" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
-            </materialDesign:Card>
-
-            <materialDesign:Card Grid.Column="3" Grid.Row="1"
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
-                                     Height="50" >
-                <TextBlock Margin="5" Width="150"
-                               Text="{Binding CurrentProgress.Neck}"
-                               Visibility="{Binding TextBlockVisibility}"
-                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </materialDesign:Card>
-            <TextBox Grid.Column="3" Grid.Row="1"  Width="150" Margin="5"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Text="{Binding CurrentProgress.Neck}"
-                         Visibility="{Binding EditBoxVisibility}"
-                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-            <materialDesign:Card Grid.Column="1" Grid.Row="2"
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
-                                     Height="50">
-                <TextBlock Text="Chest" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
-            </materialDesign:Card>
-
-            <materialDesign:Card Grid.Column="3" Grid.Row="2"
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right" Height="50">
-                <TextBlock Grid.Column="1" Grid.Row="2"  Margin="5" Width="150"
-                               Text="{Binding CurrentProgress.Chest, StringFormat = ' {0} cm'}"
-                               Visibility="{Binding TextBlockVisibility}"
-                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </materialDesign:Card>
-            <TextBox Grid.Column="3" Grid.Row="2"  Width="150" Margin="5"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Text="{Binding CurrentProgress.Chest}"
-                         Visibility="{Binding EditBoxVisibility}"
-                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-            <materialDesign:Card Grid.Column="1" Grid.Row="3"
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
-                                     Height="50">
-                <TextBlock Text="Stomach" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
-
-            </materialDesign:Card>
-            <materialDesign:Card Grid.Column="3" Grid.Row="3"
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
-                                     Height="50">
-
-                <TextBlock Grid.Column="1" Grid.Row="3" Margin="5" Width="150"
-                            Text="{Binding CurrentProgress.Stomach}"
+                            Text="{Binding CurrentProgress.Weight, StringFormat = ' {0} kg'}"
                             Visibility="{Binding TextBlockVisibility}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            />
 
             </materialDesign:Card>
-            <TextBox Grid.Column="3" Grid.Row="3"  Width="150" Margin="5"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Text="{Binding CurrentProgress.Stomach}"
-                         Visibility="{Binding EditBoxVisibility}"
-                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"                      
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        Grid.Column="1" Grid.Row="0"  Margin="5" Width="200"
+                        materialDesign:HintAssist.Hint="Weight"
+                        Visibility="{Binding EditBoxVisibility}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Name="txtWeight"
+                        MaxLength="20">
 
-            <materialDesign:Card Grid.Column="1" Grid.Row="4"
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
-                                     Height="50">
-                <TextBlock Text="Waist" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+                <TextBox.Text >
+                    <Binding
+                    Path="CurrentProgress.Weight" 
+                    UpdateSourceTrigger="PropertyChanged">
 
-            </materialDesign:Card>
-            <materialDesign:Card Grid.Column="3" Grid.Row="4"
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right" Height="50">
+                        <Binding.ValidationRules>
+                            <c:ProgressValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+
+            <!--Neck-->
+            <materialDesign:Card Grid.Column="1" Grid.Row="1" Margin="5"
+              materialDesign:ShadowAssist.ShadowDepth="Depth3"
+              materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
 
                 <TextBlock Margin="5" Width="150"
-                               Text="{Binding CurrentProgress.Waist}"
-                               Visibility="{Binding TextBlockVisibility}"
-                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            Text="{Binding CurrentProgress.Neck, StringFormat = ' {0} cm'}"
+                            Visibility="{Binding TextBlockVisibility}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            />
 
             </materialDesign:Card>
-            <TextBox Grid.Column="3" Grid.Row="4"  Width="150" Margin="5"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Text="{Binding CurrentProgress.Waist}"
-                         Visibility="{Binding EditBoxVisibility}"
-                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"                      
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        Grid.Column="1" Grid.Row="1"  Width="200"
+                        materialDesign:HintAssist.Hint="Neck"
+                        Visibility="{Binding EditBoxVisibility}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Name="txtNeck"
+                        MaxLength="20">
+
+                <TextBox.Text >
+                    <Binding
+                    Path="CurrentProgress.Neck" 
+                    UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <c:ProgressValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
 
-            <materialDesign:Card Grid.Column="1" Grid.Row="5"
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
-                                     Height="50">
-                <TextBlock Text="Hips" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+            <!--Chest-->
 
-            </materialDesign:Card>
-            <materialDesign:Card Grid.Column="3" Grid.Row="5"
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
-                                     Height="50">
+            <materialDesign:Card  Grid.Column="1" Grid.Row="2" Margin="5"
+              materialDesign:ShadowAssist.ShadowDepth="Depth3"
+              materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
 
                 <TextBlock Margin="5" Width="150"
-                               Text="{Binding CurrentProgress.Hips}"
-                               Visibility="{Binding TextBlockVisibility}"
-                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            Text="{Binding CurrentProgress.Chest, StringFormat = ' {0} cm'}"
+                            Visibility="{Binding TextBlockVisibility}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"
+                            >
+                    
+                </TextBlock>
 
             </materialDesign:Card>
-            <TextBox Grid.Column="3" Grid.Row="5" Width="150" Margin="5"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Text="{Binding CurrentProgress.Hips}"
-                         Visibility="{Binding EditBoxVisibility}"
-                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"                      
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        Grid.Column="1" Grid.Row="2" Width="200"
+                        materialDesign:HintAssist.Hint="Chest"
+                        Visibility="{Binding EditBoxVisibility}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Name="txtChest"
+                        MaxLength="20" >
 
-            <materialDesign:Card Grid.Column="1" Grid.Row="6"
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
-                                     Height="50">
-                <TextBlock Text="Thigh" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+                <TextBox.Text >
+                    <Binding
+                    Path="CurrentProgress.Chest" 
+                    UpdateSourceTrigger="PropertyChanged">
 
-            </materialDesign:Card>
-            <materialDesign:Card Grid.Column="3" Grid.Row="6"
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
-                                     Height="50">
+                        <Binding.ValidationRules>
+                            <c:ProgressValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <!--Stomach-->
+            <materialDesign:Card  Grid.Column="1" Grid.Row="3" Margin="5"
+              materialDesign:ShadowAssist.ShadowDepth="Depth3"
+              materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
 
                 <TextBlock Margin="5" Width="150"
-                               Text="{Binding CurrentProgress.Thigh}"
-                               Visibility="{Binding TextBlockVisibility}"
-                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            Text="{Binding CurrentProgress.Stomach, StringFormat = ' {0} cm'}"
+                            Visibility="{Binding TextBlockVisibility}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"
+                            >
+                    
+                </TextBlock>
 
             </materialDesign:Card>
-            <TextBox Grid.Column="3" Grid.Row="6" Width="150" Margin="5"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Text="{Binding CurrentProgress.Thigh}"
-                         Visibility="{Binding EditBoxVisibility}"
-                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"                      
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        Grid.Column="1" Grid.Row="3"  Width="200"
+                        materialDesign:HintAssist.Hint="Stomach"
+                        Visibility="{Binding EditBoxVisibility}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Name="txtStomach"
+                        MaxLength="20">
 
+                <TextBox.Text >
+                    <Binding
+                    Path="CurrentProgress.Stomach" 
+                    UpdateSourceTrigger="PropertyChanged">
 
-            <materialDesign:Card Grid.Column="1" Grid.Row="7"
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
-                                     Height="50">
-                <TextBlock Text="Calf" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+                        <Binding.ValidationRules>
+                            <c:ProgressValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
-            </materialDesign:Card>
-            <materialDesign:Card Grid.Column="3" Grid.Row="7"
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
-                                     Height="50">
+            <!--Waist-->
+            <materialDesign:Card  Grid.Column="1" Grid.Row="4" Margin="5"
+              materialDesign:ShadowAssist.ShadowDepth="Depth3"
+              materialDesign:ShadowAssist.ShadowEdges="Bottom,Right" >
 
                 <TextBlock Margin="5" Width="150"
-                               Text="{Binding CurrentProgress.Calf}"
-                               Visibility="{Binding TextBlockVisibility}"
-                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            Text="{Binding CurrentProgress.Waist, StringFormat = ' {0} cm'}"
+                            Visibility="{Binding TextBlockVisibility}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"
+                            >
+                  
+                </TextBlock>
 
             </materialDesign:Card>
-            <TextBox Grid.Column="3" Grid.Row="7" Width="150" Margin="5"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Text="{Binding CurrentProgress.Calf}"
-                         Visibility="{Binding EditBoxVisibility}"
-                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"                      
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        Grid.Column="1" Grid.Row="4" Width="200"
+                        materialDesign:HintAssist.Hint="Waist"
+                        Visibility="{Binding EditBoxVisibility}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Name="txtWaist"
+                        MaxLength="20" >
 
-            <materialDesign:Card Grid.Column="1" Grid.Row="8"
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
-                                     Height="50">
-                <TextBlock Text="Biceps" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+                <TextBox.Text >
+                    <Binding
+                    Path="CurrentProgress.Waist" 
+                    UpdateSourceTrigger="PropertyChanged">
+
+                        <Binding.ValidationRules>
+                            <c:ProgressValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <!--Hips-->
+            <materialDesign:Card Grid.Row="0" Grid.Column="3"  Margin="5"
+              materialDesign:ShadowAssist.ShadowDepth="Depth3"
+              materialDesign:ShadowAssist.ShadowEdges="Bottom,Right" >
+
+                <TextBlock Margin="5" Width="150"
+                            Text="{Binding CurrentProgress.Hips, StringFormat = ' {0} cm'}"
+                            Visibility="{Binding TextBlockVisibility}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center">
+               
+                </TextBlock>
 
             </materialDesign:Card>
-            <materialDesign:Card Grid.Column="3" Grid.Row="8"
-                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
-                                     Height="50">
+            <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"                      
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        Grid.Column="3"  Width="200"
+                        materialDesign:HintAssist.Hint="Hips"
+                        Visibility="{Binding EditBoxVisibility}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Name="txtHips"
+                        MaxLength="20">
 
-                <TextBlock Margin="5" Width="150" 
-                               Text="{Binding CurrentProgress.Biceps}"
-                               Visibility="{Binding TextBlockVisibility}"
-                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                
+                <TextBox.Text >
+                    <Binding
+                    Path="CurrentProgress.Hips" 
+                    UpdateSourceTrigger="PropertyChanged">
+
+                        <Binding.ValidationRules>
+                            <c:ProgressValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <!--Thigh-->
+            <materialDesign:Card  Grid.Column="3" Grid.Row="1"  Margin="5"
+              materialDesign:ShadowAssist.ShadowDepth="Depth3"
+              materialDesign:ShadowAssist.ShadowEdges="Bottom,Right" >
+
+                <TextBlock Margin="5" Width="150"
+                            Text="{Binding CurrentProgress.Thigh, StringFormat = ' {0} cm'}"
+                            Visibility="{Binding TextBlockVisibility}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" 
+                            >
+                  
+                </TextBlock>
+
             </materialDesign:Card>
-            
-            <TextBox Grid.Column="3" Grid.Row="8" Width="150" Margin="5"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Text="{Binding CurrentProgress.Biceps}"
-                         Visibility="{Binding EditBoxVisibility}"
-                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"                      
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        Grid.Column="3" Grid.Row="1"  Width="200"
+                        materialDesign:HintAssist.Hint="Thigh"
+                        Visibility="{Binding EditBoxVisibility}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Name="txtThigh"
+                        MaxLength="20">
+
+                <TextBox.Text >
+                    <Binding
+                    Path="CurrentProgress.Thigh" 
+                    UpdateSourceTrigger="PropertyChanged">
+
+                        <Binding.ValidationRules>
+                            <c:ProgressValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <!--Calf-->
+            <materialDesign:Card  Grid.Column="3" Grid.Row="2"  Margin="5"
+              materialDesign:ShadowAssist.ShadowDepth="Depth3"
+              materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
+
+                <TextBlock Margin="5" Width="150"
+                            Text="{Binding CurrentProgress.Calf, StringFormat = ' {0} cm'}"
+                            Visibility="{Binding TextBlockVisibility}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" 
+                            >
+                   
+                </TextBlock>
+
+            </materialDesign:Card>
+            <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"                      
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        Grid.Column="3" Grid.Row="2"  Width="200"
+                        materialDesign:HintAssist.Hint="Calf"
+                        Visibility="{Binding EditBoxVisibility}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Name="txtCalf"
+                        MaxLength="20">
+
+                <TextBox.Text >
+                    <Binding
+                    Path="CurrentProgress.Calf" 
+                    UpdateSourceTrigger="PropertyChanged">
+
+                        <Binding.ValidationRules>
+                            <c:ProgressValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <!--Biceps-->
+            <materialDesign:Card  Grid.Column="3" Grid.Row="3" Margin="5"
+              materialDesign:ShadowAssist.ShadowDepth="Depth3"
+              materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
+
+                <TextBlock Margin="5" Width="150"
+                            Text="{Binding CurrentProgress.Biceps, StringFormat = ' {0} cm'}"
+                            Visibility="{Binding TextBlockVisibility}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            >
+                 
+                </TextBlock>
+
+            </materialDesign:Card>
+            <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"                      
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        Grid.Column="3" Grid.Row="3"   Width="200"
+                        materialDesign:HintAssist.Hint="Biceps"
+                        Visibility="{Binding EditBoxVisibility}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Name="txtBiceps"
+                        MaxLength="20">
+
+                <TextBox.Text >
+                    <Binding
+                    Path="CurrentProgress.Biceps" 
+                    UpdateSourceTrigger="PropertyChanged">
+
+                        <Binding.ValidationRules>
+                            <c:ProgressValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
 
             <materialDesign:Card Grid.Column="5" Grid.Row="1" Margin="5"
                                  materialDesign:ShadowAssist.ShadowDepth="Depth3"
                                  materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
                                  Visibility="{Binding EditButtonVisibility}">
-                
+
                 <Button Content="Edit Data" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
                         Command="{Binding DataContext.EditRecordCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                         Visibility="{Binding EditButtonVisibility}"/>
@@ -324,26 +421,78 @@
                                  Visibility="{Binding UpdateButtonVisibility}">
                 <Button DockPanel.Dock="Right" Content="Update Data" VerticalAlignment="Center" Margin="10,2"
                         Command="{Binding DataContext.UpdateRecordCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                        Visibility="{Binding UpdateButtonVisibility}"/>
-                
+                        Visibility="{Binding UpdateButtonVisibility}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtWeight}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtNeck}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtChest}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtStomach}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtWaist}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtHips}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtThigh}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtCalf}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtBiceps}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
             </materialDesign:Card>
+
+
+
+
+
+
 
             <materialDesign:Card Grid.Column="5" Grid.Row="3" Margin="5"
                                  materialDesign:ShadowAssist.ShadowDepth="Depth3"
                                  materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
                                  Visibility="{Binding AddButtonVisibility}"
                                  >
+
                 <Button Content="Add Data" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
                         Command="{Binding DataContext.AddRecordCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                        Visibility="{Binding AddButtonVisibility}"/>
-
+                        Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="3"
+                                IsDefault="True" 
+                         Visibility="{Binding AddButtonVisibility}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtWeight}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtNeck}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtChest}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtStomach}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtWaist}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtHips}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtThigh}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtCalf}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtBiceps}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </materialDesign:Card>
 
 
 
-            
 
-            
+
+
         </Grid>
         <!--<ContentControl  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Path=CurrentProgress}"/>-->
     </Grid>
