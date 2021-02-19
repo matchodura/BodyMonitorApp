@@ -3,16 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:BodyMonitorApp"
         Title="Body Monitor App" 
-        MinHeight="800" MinWidth="1000" MaxHeight="800" MaxWidth="1000"
-        
+        MinHeight="825" MinWidth="1100" MaxHeight="825" MaxWidth="1100"        
         WindowStartupLocation="CenterScreen"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
-        FontFamily="{materialDesign:MaterialDesignFont}"
-        >
+        FontFamily="{materialDesign:MaterialDesignFont}" >
 
     <Window.Resources >
         <!--View models-->
@@ -63,43 +61,15 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <DockPanel Grid.ColumnSpan="2" >
-            <StatusBar Name="statusbar" DockPanel.Dock="Bottom">
-                <StatusBar.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="80" />
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition Width="20" />
-                            </Grid.ColumnDefinitions>
-                        </Grid>
-                    </ItemsPanelTemplate>
-                </StatusBar.ItemsPanel>
-                <StatusBarItem Grid.Column="0">
-                    <TextBlock Text="{Binding CurrentPageViewModel.Name}" />
-                </StatusBarItem>
-                <Separator Grid.Column="1" />
-                <StatusBarItem Grid.Column="2" Grid.ColumnSpan="2">
-                    <TextBlock Text="{Binding LoginVM.CurrentLogin.UserName, StringFormat='Current User: {0}'}"/>
-                </StatusBarItem>
-                <Separator Grid.Column="3" />
-                <StatusBarItem Grid.Column="2" Grid.ColumnSpan="2">
-                    <TextBlock Text="{Binding LoginVM.CurrentLogin.UserId, StringFormat='Current User: {0}'}"/>
-                </StatusBarItem>
-            </StatusBar>
-
-            <Border DockPanel.Dock="Top" BorderBrush="Black" BorderThickness="1,1,1,1" Width="1000" Background="#769700">
+        <DockPanel Grid.ColumnSpan="2" >        
+            <Border DockPanel.Dock="Top" BorderBrush="Black" BorderThickness="1,1,1,1" Width="1100" Background="#769700">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10"/>
-                        <ColumnDefinition Width="230"/>
-                        <ColumnDefinition Width="530"/>                    
-                        <ColumnDefinition Width="200"/>
-                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="550"/>
+                        <ColumnDefinition Width="200"/>                      
+                                     
                     </Grid.ColumnDefinitions>
 
                     <ItemsControl  ItemsSource="{Binding PageViewModels}" Grid.Column="1">
@@ -110,7 +80,6 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate >
-
                                 <Button  Content="{Binding Name}"
                                 Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                 CommandParameter="{Binding }"
@@ -118,11 +87,8 @@
                                 Visibility="{Binding Visibility}"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 Width="100"/>
-
                             </DataTemplate>
-
                         </ItemsControl.ItemTemplate>
-
                     </ItemsControl>
 
                     <ItemsControl ItemsSource="{Binding UserPageViewModels, Mode=OneWay}" Grid.Column="2"  >
@@ -141,20 +107,16 @@
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 Width="100"/>
                             </DataTemplate>
-
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
 
-                    <Button  Margin="5,5,5,5" Grid.Column="3" Content="Logout" Command="{Binding LogoutUserCommand}"
+                    <Button Margin="5,5,5,5" Grid.Column="3" HorizontalAlignment="Right" Content="Logout" Command="{Binding LogoutUserCommand}"
                             Visibility="{Binding ButtonVisibility}"
-                               Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                               Width="100"/>
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                            Width="100"/>
                 </Grid>
-
             </Border>
-
-            <ContentControl Content="{Binding CurrentPageViewModel, Mode=TwoWay}" Width="1000" Height="800"/>
-
+            <ContentControl Content="{Binding CurrentPageViewModel, Mode=TwoWay}" Width="auto" Height="auto"/>
         </DockPanel>
 
         <!--overlay of the main window-->
@@ -166,5 +128,4 @@
         <ContentControl Content="{Binding OverlayViewModel, Mode=TwoWay}" Grid.ColumnSpan="2" />
 
     </Grid>
-
 </Window>

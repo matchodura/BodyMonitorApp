@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              Background="#007bab"
-             d:DesignHeight="890" d:DesignWidth="1000"
+             d:DesignHeight="825" d:DesignWidth="1100"
              >
     <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth3"
                          materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"

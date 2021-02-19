@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:BodyMonitorApp" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              Background="#007bab"
-             d:DesignHeight="650" d:DesignWidth="1000"
+             d:DesignHeight="800" d:DesignWidth="1100"
              MinWidth="1000"
              >
 
@@ -15,12 +15,10 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="450"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>        
         </Grid.RowDefinitions>
         
-        <StackPanel Margin="50,20" Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-
+        <StackPanel Margin="10" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" >
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0"></ColumnDefinition>
@@ -31,50 +29,43 @@
                 </Grid.ColumnDefinitions>
                 
                 
-                <materialDesign:Card
-                             Width="400"  Grid.Column="1">
+                <materialDesign:Card Width="400"  Grid.Column="1">
                     <ComboBox Width="300" VerticalAlignment="Center" HorizontalAlignment="Center"
-        
-                      x:Name="cbxHistory"
-                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                      ItemsSource="{Binding ComboBoxChoices}"
-                      SelectedItem="{Binding SelectedItem}"
-                       DisplayMemberPath="Symbol"
-                      IsSynchronizedWithCurrentItem="True" />
+                              x:Name="cbxHistory"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              ItemsSource="{Binding ComboBoxChoices}"
+                              SelectedItem="{Binding SelectedItem}"
+                              DisplayMemberPath="Symbol"
+                              IsSynchronizedWithCurrentItem="True" />
                 </materialDesign:Card>
           
-                <materialDesign:Card Grid.Column="3"
-                             Width="400">
-                     <ListBox
-                             Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineListBox}"
-                             x:Name="RadioButtonGroupChoiceChipPrimaryOutline"
-                         VerticalAlignment="Center"
-                         HorizontalAlignment="Center">
+                <materialDesign:Card Grid.Column="3" Width="400">
+                     <ListBox Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineListBox}"
+                              x:Name="RadioButtonGroupChoiceChipPrimaryOutline"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center">
                             <ListBoxItem>
                                 <RadioButton Width="100" Style="{StaticResource {x:Type ToggleButton}}" GroupName="Mode" IsChecked="{Binding Path=ModeArray[0], Mode=TwoWay}" Content="all"
-                                              VerticalContentAlignment="Center"
-                                               HorizontalContentAlignment="Center"/>
+                                             VerticalContentAlignment="Center"
+                                             HorizontalContentAlignment="Center"/>
                             </ListBoxItem>
                             <ListBoxItem>
                                 <RadioButton Width="100"  Style="{StaticResource {x:Type ToggleButton}}" GroupName="Mode" IsChecked="{Binding Path=ModeArray[1], Mode=TwoWay}" Content="7d"
-                                              VerticalContentAlignment="Center"
-                                               HorizontalContentAlignment="Center"/>
+                                             VerticalContentAlignment="Center"
+                                             HorizontalContentAlignment="Center"/>
                             </ListBoxItem>
                             <ListBoxItem>
                                 <RadioButton Width="100"  Style="{StaticResource {x:Type ToggleButton}}" GroupName="Mode" IsChecked="{Binding Path=ModeArray[2], Mode=TwoWay}" Content="30d"
-                                              VerticalContentAlignment="Center"
-                                               HorizontalContentAlignment="Center"/>
+                                             VerticalContentAlignment="Center"
+                                             HorizontalContentAlignment="Center"/>
                             </ListBoxItem>
-                        </ListBox>
-                    </materialDesign:Card>                            
+                     </ListBox>
+                </materialDesign:Card>                            
             </Grid>
         </StackPanel>
 
-        <Grid Grid.Row="1">
-            
-            <materialDesign:Card  Margin="50,0" Width="900" >
-                
-           
+        <Grid Grid.Row="1">            
+            <materialDesign:Card  Margin="50">      
             <lvc:CartesianChart Series="{Binding SeriesCollection}"
                             LegendLocation="Left" Visibility="{Binding ChartVisibility}"
                                 Background="White">

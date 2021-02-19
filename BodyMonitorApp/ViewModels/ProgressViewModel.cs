@@ -64,19 +64,7 @@ namespace BodyMonitorApp
             }
         }
         public int UserId { get; set; }
-        public ICommand AddItemCommand
-        {
-            get
-            {
-                if (_addItemCommand == null)
-                {
-                    _addItemCommand = new RelayCommand(
-                        param => AddItems());
-
-                }
-                return _addItemCommand;
-            }
-        }
+       
 
         #region properties/commands             
 
@@ -301,7 +289,7 @@ namespace BodyMonitorApp
 
         #region methods
 
-        public void AddItems()
+        public void AddRecord()
         {
             var progress = new ProgressModel();
             progress = CurrentProgress;
@@ -342,6 +330,12 @@ namespace BodyMonitorApp
                 if (result > 0)
                 {
                     MessageBox.Show("Record Added!");
+
+                    TextBlockVisibility = Visibility.Visible;
+                    EditBoxVisibility = Visibility.Hidden;
+                    AddButtonVisibility = Visibility.Hidden;
+
+
                 }
 
 

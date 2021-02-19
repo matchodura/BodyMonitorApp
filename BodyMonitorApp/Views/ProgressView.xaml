@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:BodyMonitorApp" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              Background="#007bab"
-             d:DesignHeight="800" d:DesignWidth="1000"
+             d:DesignHeight="800" d:DesignWidth="1100"
              MinWidth="1000">
 
     <Grid x:Name="ProgressWindow">
@@ -16,10 +16,10 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"></RowDefinition>
-            <RowDefinition Height="600"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >
-            <StackPanel Margin="50,20" Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+            <StackPanel Margin="10" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0"></ColumnDefinition>
@@ -40,25 +40,36 @@
                     </materialDesign:Card>
 
                     <materialDesign:Card Grid.Column="3" Width="400">
-                        <Grid>
+                        <!--<Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <ToggleButton x:Name="showCalendarButton" Grid.Column="0">
+
+                         
+                            --><!--<ToggleButton x:Name="showCalendarButton" Grid.Column="0">
                                 <Image Name="imgCalendar" Source="/BodyMonitorApp;component/Images/calendar_icon.png"  />
                             </ToggleButton>
 
+                            
+                            
                             <Popup IsOpen="{Binding ElementName=showCalendarButton, Path=IsChecked}" StaysOpen="False">
                                 <Calendar x:Name="CalendarControl" Width="400"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   SelectedDate="{Binding CalendarDate}" RenderTransformOrigin="1.695,0.263" >
-                                </Calendar>
-                            </Popup>
-                            <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text= "{Binding CalendarDate, StringFormat = 'Current date: {0:dd/MM/yyyy}'}"/>
-                        </Grid>
+                                </Calend--><!--ar>
+                            </Popup>-->
+                            <!--<TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text= "{Binding CalendarDate, StringFormat = 'Current date: {0:dd/MM/yyyy}'}"/>--><!--
+                        </Grid>-->
+
+
+                        <DatePicker Grid.Column="0" Width="300"
+                                  materialDesign:HintAssist.Hint="Pick Date"
+                                  Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                                  SelectedDate="{Binding CalendarDate}"/>
                     </materialDesign:Card>
+                    
                 </Grid>
             </StackPanel>
 
@@ -70,6 +81,7 @@
                 <ColumnDefinition Width="225" />
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="225"/>
+                <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -286,30 +298,52 @@
                                Text="{Binding CurrentProgress.Biceps}"
                                Visibility="{Binding TextBlockVisibility}"
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                
             </materialDesign:Card>
-
-
+            
             <TextBox Grid.Column="3" Grid.Row="8" Width="150" Margin="5"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                          Text="{Binding CurrentProgress.Biceps}"
                          Visibility="{Binding EditBoxVisibility}"
                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-            <Button Content="Edit Data" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
-                        Command="{Binding DataContext.EditRecordCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"   
-                        Width="150" Grid.Column="4" Grid.Row="1" 
+            <materialDesign:Card Grid.Column="5" Grid.Row="1" Margin="5"
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                 materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                                 Visibility="{Binding EditButtonVisibility}">
+                
+                <Button Content="Edit Data" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
+                        Command="{Binding DataContext.EditRecordCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                         Visibility="{Binding EditButtonVisibility}"/>
 
-            <Button Content="Update Data" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
-                        Visibility="{Binding UpdateButtonVisibility}"
-                        Command="{Binding DataContext.UpdateRecordCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"                    
-                        Width="150" Grid.Column="4" Grid.Row="2"/>
+            </materialDesign:Card>
 
+            <materialDesign:Card Grid.Column="5" Grid.Row="2" Margin="5"
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                 materialDesign:ShadowAssist.ShadowEdges="Bottom,Right" 
+                                 Visibility="{Binding UpdateButtonVisibility}">
+                <Button DockPanel.Dock="Right" Content="Update Data" VerticalAlignment="Center" Margin="10,2"
+                        Command="{Binding DataContext.UpdateRecordCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Visibility="{Binding UpdateButtonVisibility}"/>
+                
+            </materialDesign:Card>
 
-            <Button Grid.Column="4" Grid.Row="3"  Content="Add Data" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
-                        Command="{Binding AddItemCommand}" 
-                        Width="150"
+            <materialDesign:Card Grid.Column="5" Grid.Row="3" Margin="5"
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                 materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
+                                 Visibility="{Binding AddButtonVisibility}"
+                                 >
+                <Button Content="Add Data" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
+                        Command="{Binding DataContext.AddRecordCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                         Visibility="{Binding AddButtonVisibility}"/>
+
+            </materialDesign:Card>
+
+
+
+            
+
+            
         </Grid>
         <!--<ContentControl  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Path=CurrentProgress}"/>-->
     </Grid>

@@ -20,8 +20,7 @@ namespace BodyMonitorApp
         private IPageViewModel _overlayViewModel;                
         private List<IPageViewModel> _pageViewModels;             
         private List<IPageViewModel> _userPageViewModels;
-        private Visibility _buttonVisiblity = Visibility.Hidden;
-
+        private Visibility _buttonVisiblity = Visibility.Hidden;      
         #endregion     
 
         #region Properties / Commands
@@ -131,12 +130,12 @@ namespace BodyMonitorApp
         public ICommand CreateAccountViewCommand { get; set; }
         public ICommand ForgotPasswordViewCommand { get; set; }
 
-
-
+     
+      
         //new 2
         public ICommand EditDataCommand { get; set; }
         public ICommand UpdateDataCommand { get; set; }
-
+        public ICommand AddRecordCommand { get; set; }
         //new 3
 
         public ICommand EditRecordCommand { get; set; }
@@ -214,6 +213,7 @@ namespace BodyMonitorApp
 
             EditRecordCommand = new RelayCommand((p) => EditRecord());
             UpdateRecordCommand = new RelayCommand((p) => UpdateRecord());
+            AddRecordCommand = new RelayCommand((p) => AddRecord());
 
             HomeVM.Visibility = Visibility.Visible;
             LoginVM.Visibility = Visibility.Visible;
@@ -255,21 +255,40 @@ namespace BodyMonitorApp
         public void UpdateProfileData()
         {
             ProfileInfoVM.UpdateData();
-            HomeVM.PopulateDashboard();
+            UpdateDashboard();
         }
 
         public void EditRecord()
         {
             ProgressVM.EditData();
+            UpdateChart();
+        }
+
+        public void AddRecord()
+        {
+            ProgressVM.AddRecord();
+            UpdateChart();
         }
 
         public void UpdateRecord()
         {
 
             ProgressVM.UpdateRecord();
+            UpdateDashboard();
+            UpdateChart();
+        }
+
+
+        public void UpdateDashboard()
+        {
             HomeVM.PopulateDashboard();
         }
 
+
+        public void UpdateChart()
+        {
+            ChartsVM.SetUserValues(LoginVM.CurrentLogin.UserId);
+        }
         /// <summary>
         /// Changes current view to forgot passord page
         /// </summary>
@@ -293,7 +312,7 @@ namespace BodyMonitorApp
 
                 //sets current logged user as name on dashboard page
                 HomeVM.UserName = LoginVM.CurrentLogin.UserName;
-                HomeVM.PopulateDashboard();
+                UpdateDashboard();
 
                 CurrentPageViewModel = HomeVM;
 

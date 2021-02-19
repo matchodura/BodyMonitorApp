@@ -6,8 +6,7 @@
              xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
              mc:Ignorable="d" 
               Background="#007bab"
-             d:DesignHeight="800" d:DesignWidth="1000">
-
+             d:DesignHeight="800" d:DesignWidth="1100">
 
 
 
@@ -92,21 +91,17 @@
                     <StackPanel Orientation="Horizontal">
                         <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        >
-                            <materialDesign:PackIcon Kind="HamburgerMenu"></materialDesign:PackIcon>
+                        VerticalAlignment="Top" >
+                             <materialDesign:PackIcon Kind="HamburgerMenu"></materialDesign:PackIcon>
                         </Button>
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text=" View Exercises"></TextBlock>
                     </StackPanel>   
                 </StackPanel>
 
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="0" FontSize="32" Text="{Binding BodyPart, StringFormat= ' {0} Exercises'}">
-
-                </TextBlock>
-
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="0" FontSize="32"
+                           Text="{Binding BodyPart, StringFormat= ' {0} Exercises'}"></TextBlock>
 
                 <ListView  Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ChosenWorkouts}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" >
-
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>                                                
@@ -130,17 +125,16 @@
                 </ListView >
 
                 <materialDesign:Card Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Background="red" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <materialDesign:Card Margin="50,20,50,150" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
-                                             Visibility="{Binding ExercisesVisibility}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="50"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
-                                </Grid.RowDefinitions>
-                         
+                    <materialDesign:Card Margin="50" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
                             <ToolBarTray Grid.Row="0" >
                                 <ToolBar
                                      Style="{DynamicResource MaterialDesignToolBar}"
@@ -149,7 +143,7 @@
                                       ToolTip="Previous Item"
                                       Command="{Binding PreviousPageCommand}"
                                       Content="{materialDesign:PackIcon Kind=ArrowLeft}" />
-                                    
+
                                     <Button
                                       ToolTip="Next Item"
                                       Command="{Binding NextPageCommand}"
@@ -157,16 +151,15 @@
                                     <Separator />
 
                                     <TextBlock VerticalAlignment="Center" Text="{Binding Workout.Name}"></TextBlock>
+                                    
                                 </ToolBar>
                             </ToolBarTray>
-                            <Border   Grid.Row="1" Grid.RowSpan="4" BorderBrush="Gray" BorderThickness="0,1">
+                            <Border Grid.Row="1" Grid.RowSpan="4" BorderBrush="Gray" BorderThickness="0,1">
                                 <wpf:ChromiumWebBrowser x:Name="Browser" Address="{Binding Workout.URL}"/>
 
                             </Border>
                         </Grid>
-                            
-                            
-                        </materialDesign:Card>
+                    </materialDesign:Card>
                 </materialDesign:Card>
 
             </Grid>
