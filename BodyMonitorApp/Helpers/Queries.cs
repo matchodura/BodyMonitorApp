@@ -139,7 +139,7 @@ namespace BodyMonitorApp
 
         }
 
-        public void UpdatePassword(string userLogin, string newUserPassword)
+        public void UpdatePassword(string userLogin, string newUserPassword, HashSalt hashSalt)
         {
 
             GetUserId(userLogin);
@@ -150,7 +150,7 @@ namespace BodyMonitorApp
                 SqlConnection conn = new SqlConnection(Connections.ConnectionString);
 
                 string sql = "UPDATE dbo.Users " +
-                   "SET UserPassword=@UserPassword" +
+                   "SET UserPassword=@UserPassword, Hash=@Hash, Salt=@Salt" +
                    " WHERE UserId=@UserId";
 
                 conn.Open();
@@ -158,6 +158,8 @@ namespace BodyMonitorApp
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = UserId;
                 cmd.Parameters.Add("@UserPassword", SqlDbType.VarChar).Value = newUserPassword;
+                cmd.Parameters.Add("@Hash", SqlDbType.VarChar).Value = hashSalt.Hash;
+                cmd.Parameters.Add("@Salt", SqlDbType.VarChar).Value = hashSalt.Salt;
                
 
 
@@ -520,7 +522,7 @@ namespace BodyMonitorApp
         /// creates user account based on credentials specified in viewmodel
         /// </summary>
         /// <returns></returns>
-        public void CreateUserAccount(AccountModel account)
+        public static void CreateUserAccount(AccountModel account)
         {
            
             try
@@ -531,7 +533,7 @@ namespace BodyMonitorApp
                 SqlConnection conn = new SqlConnection(Connections.ConnectionString);
 
                 string sql = "INSERT INTO dbo.Users (UserLogin,UserPassword,Hash,Salt) values (@UserLogin,@UserPassword,@Hash,@Salt);" +
-                    "INSERT INTO dbo.UserData(id,UserHeight,UserName,UserAge,UserMail,UserGender,AccountCreated,SecretQuestion,SecretAnswer) values ((SELECT SCOPE_IDENTITY()),@UserHeight,@UserName,@UserAge,@UserMail,@UserGender,@AccountCreated,@SecretQuestion,@SecretAnswer)";
+                    "INSERT INTO dbo.UserData(id,UserHeight,UserName,UserBirthday,UserMail,UserGender,AccountCreated,SecretQuestion,SecretAnswer) values ((SELECT SCOPE_IDENTITY()),@UserHeight,@UserName,@UserBirthday,@UserMail,@UserGender,@AccountCreated,@SecretQuestion,@SecretAnswer)";
 
                 conn.Open();
 
@@ -541,7 +543,7 @@ namespace BodyMonitorApp
                 cmd.Parameters.Add("@Hash", SqlDbType.VarChar).Value = account.HashSalt.Hash;
                 cmd.Parameters.Add("@Salt", SqlDbType.VarChar).Value = account.HashSalt.Salt;
 
-                cmd.Parameters.Add("@UserAge", SqlDbType.Int).Value = account.UserAge;
+                cmd.Parameters.Add("@UserBirthday", SqlDbType.Date).Value = account.UserBirthday.Date;
                 cmd.Parameters.Add("@UserHeight", SqlDbType.Int).Value = account.UserHeight;
                 cmd.Parameters.Add("@UserName", SqlDbType.VarChar).Value = account.UserName;
                 cmd.Parameters.Add("@UserMail", SqlDbType.VarChar).Value = account.UserMail;
@@ -604,7 +606,7 @@ namespace BodyMonitorApp
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.Add("@UserLogin", SqlDbType.VarChar).Value = account.UserLogin;
                 cmd.Parameters.Add("@UserPassword", SqlDbType.VarChar).Value = account.UserPassword;
-                cmd.Parameters.Add("@UserAge", SqlDbType.Int).Value = account.UserAge;
+                cmd.Parameters.Add("@UserBirthday", SqlDbType.Int).Value = account.UserBirthday;
                 cmd.Parameters.Add("@UserHeight", SqlDbType.Int).Value = account.UserHeight;
                 cmd.Parameters.Add("@UserName", SqlDbType.VarChar).Value = account.UserName;
                 cmd.Parameters.Add("@UserMail", SqlDbType.VarChar).Value = account.UserMail;

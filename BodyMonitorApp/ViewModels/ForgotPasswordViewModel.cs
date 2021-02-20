@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace BodyMonitorApp
@@ -15,12 +16,15 @@ namespace BodyMonitorApp
         private ICommand _getSecretQuestionCommand;
         private ICommand _changePasswordCommand;
         private ICommand _updatePasswordCommand;
+
         private string _secretQuestion;
+
         private string _secretAnswer;
-        private string _secretAnswerConfirmation;
+        private string _secretAnswerCheck;
 
         private string _userLogin;
-        private string _newUserPassword;
+        private string _newPassword;
+        private string _newPasswordConfirmation;
 
         private Visibility _changePassword = Visibility.Hidden;
         private Visibility _secretQuestionBox = Visibility.Hidden;
@@ -61,7 +65,7 @@ namespace BodyMonitorApp
                 if (_updatePasswordCommand == null)
                 {
                     _updatePasswordCommand = new RelayCommand(
-                        param => UpdatePassword());
+                        param => UpdatePassword(param));
 
                 }
                 return _updatePasswordCommand;
@@ -85,18 +89,33 @@ namespace BodyMonitorApp
             }
         }
 
-        public string NewUserPassword
+        public string NewPassword
         {
-            get { return _newUserPassword; }
+            get { return _newPassword; }
             set
             {
-                if (value != _newUserPassword)
+                if (value != _newPassword)
                 {
-                    _newUserPassword = value;
-                    OnPropertyChanged("NewUserPassword");
+                    _newPassword = value;
+                    OnPropertyChanged("NewPassword");
                 }
             }
         }
+
+
+        public string NewPasswordConfirmation
+        {
+            get { return _newPasswordConfirmation; }
+            set
+            {
+                if (value != _newPasswordConfirmation)
+                {
+                    _newPasswordConfirmation = value;
+                    OnPropertyChanged("NewPasswordConfirmation");
+                }
+            }
+        }
+
 
 
         public string SecretQuestion
@@ -125,19 +144,19 @@ namespace BodyMonitorApp
             }
         }
 
-
-        public string SecretAnswerConfirmation
+        public string SecretAnswerCheck
         {
-            get { return _secretAnswerConfirmation; }
+            get { return _secretAnswerCheck; }
             set
             {
-                if (value != _secretAnswerConfirmation)
+                if (value != _secretAnswerCheck)
                 {
-                    _secretAnswerConfirmation = value;
-                    OnPropertyChanged("SecretAnswerConfirmation");
+                    _secretAnswerCheck = value;
+                    OnPropertyChanged("SecretAnswerCheck");
                 }
             }
         }
+
 
 
         public Visibility ChangePasswordOption
@@ -193,7 +212,7 @@ namespace BodyMonitorApp
         public void ChangePassword()
         {
 
-            if(SecretAnswerConfirmation == SecretAnswer)
+            if(SecretAnswerCheck== SecretAnswer)
             {
                 MessageBox.Show("Gites!");
                 ChangePasswordOption = Visibility.Visible;
@@ -206,12 +225,41 @@ namespace BodyMonitorApp
         }
 
 
-        public void UpdatePassword()
+        public void UpdatePassword(object obj)
         {
 
-            var queries = new Queries();
-                        
-            queries.UpdatePassword(UserLogin, NewUserPassword);
+            //gets password box values from command parameters on view
+            var pswBoxes = obj as List<object>;
+            PasswordBox pwdBox = pswBoxes[0] as PasswordBox;
+            PasswordBox pwdBoxRepeat = pswBoxes[1] as PasswordBox;
+
+            var password = pwdBox.Password;
+            var passwordRepeat = pwdBoxRepeat.Password;
+
+
+            if (string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Missing password!");
+            }
+
+
+            else if (password != passwordRepeat)
+            {
+                MessageBox.Show("Passwords don't match!");
+            }
+
+            else
+            {
+                //hashing data
+                var hashSalt = HashSalt.GenerateSaltedHash(64, password);
+
+
+                var queries = new Queries();
+
+                queries.UpdatePassword(UserLogin, password, hashSalt);
+            }
+
+           
                  
           
         }

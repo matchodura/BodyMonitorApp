@@ -172,9 +172,10 @@
 
                             <TextBox.Text >
                                 <Binding
-                                  Path="UserAge" 
+                                  Path="UserBirthday" 
+                                  StringFormat="{}{0:MM/dd/yyyy}"
                                   UpdateSourceTrigger="PropertyChanged">
-
+                                 
                                     <Binding.ValidationRules>
                                         <c:CannotBeEmptyRule ValidatesOnTargetUpdated="True" />
                                     </Binding.ValidationRules>

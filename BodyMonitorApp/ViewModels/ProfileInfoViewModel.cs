@@ -180,7 +180,7 @@ namespace BodyMonitorApp
                             var tempDate = DateTime.Now;
 
                             //tempDate = reader.GetDateTime(1);
-                            currentAccount.UserAge = reader.GetInt32(1);
+                            currentAccount.UserBirthday = reader.GetDateTime(1);
                             currentAccount.UserHeight = reader.GetInt32(2);
                             currentAccount.UserName = reader.GetString(3);
                             currentAccount.UserMail = reader.GetString(4);
@@ -273,7 +273,7 @@ namespace BodyMonitorApp
 
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = UserId;
-                cmd.Parameters.Add("@UserAge", SqlDbType.Int).Value = account.UserAge;
+                cmd.Parameters.Add("@UserBirthday", SqlDbType.DateTime).Value = account.UserBirthday;
                 cmd.Parameters.Add("@UserName", SqlDbType.VarChar).Value = account.UserName;
                 cmd.Parameters.Add("@UserHeight", SqlDbType.Int).Value = account.UserHeight;
                 cmd.Parameters.Add("@UserMail", SqlDbType.VarChar).Value = account.UserMail;

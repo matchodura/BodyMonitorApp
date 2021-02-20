@@ -26,7 +26,7 @@ namespace BodyMonitorApp
         private string _userLogin;
         private string _userPassword;
         private string _userPasswordConfirmation;
-        private int _userAge;
+        private DateTime _userBirthday;
         private int _userHeight;
         private string _userName;
         private string _userMail;
@@ -89,15 +89,15 @@ namespace BodyMonitorApp
             }
         }
 
-        public int UserAge
+        public DateTime UserBirthday
         {
-            get { return _userAge; }
+            get { return _userBirthday; }
             set
             {
-                if (value != _userAge)
+                if (value != _userBirthday)
                 {
-                    _userAge = value;
-                    OnPropertyChanged("UserAge");
+                    _userBirthday = value;
+                    OnPropertyChanged("UserBirthday");
                 }
             }
         }
@@ -290,7 +290,7 @@ namespace BodyMonitorApp
                 {
                     UserLogin = UserLogin.Trim(),
                     UserPassword = password,
-                    UserAge = UserAge,
+                    UserBirthday = UserBirthday,
                     UserHeight = UserHeight,
                     UserName = UserName,
                     UserMail = UserMail,
@@ -303,7 +303,7 @@ namespace BodyMonitorApp
 
 
 
-                query.CreateUserAccount(account);
+                Queries.CreateUserAccount(account);
             }
 
            
