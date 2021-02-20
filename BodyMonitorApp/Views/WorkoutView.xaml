@@ -78,7 +78,7 @@
         <materialDesign:Card HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >          
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="250"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
@@ -124,7 +124,7 @@
                     </ListView.ItemContainerStyle>-->
                 </ListView >
 
-                <materialDesign:Card Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Background="red" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <materialDesign:Card Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Background="#769700" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <materialDesign:Card Margin="50" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
                         <Grid>
                             <Grid.RowDefinitions>

@@ -80,52 +80,27 @@
                                   Path="UserLogin" 
                                   UpdateSourceTrigger="PropertyChanged">
 
-                                <Binding.ValidationRules>
+                                <!--<Binding.ValidationRules>
                                     <c:CannotBeEmptyRule ErrorMessage="Login box cannot be empty!"
                                                          ValidatesOnTargetUpdated="True" />
-                                </Binding.ValidationRules>
+                                </Binding.ValidationRules>-->
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
 
+                    <PasswordBox 
+                                x:Name="pwdBox"
+                                Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2"
+                                Style="{StaticResource MaterialDesignFilledPasswordBox}"
+                                VerticalAlignment="Top"
+                                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledPasswordFieldPasswordBoxEnabledComboBox}"
+                                materialDesign:HintAssist.Hint="Password">                      
+                    </PasswordBox>
 
-                    <TextBox
-                        Style="{StaticResource MaterialDesignFilledTextBox}"
-                        VerticalAlignment="Top"
-                        AcceptsReturn="True"
-                        TextWrapping="Wrap"
-                        Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2"
-                        materialDesign:HintAssist.Hint="Password"
-                        FontFamily="pack://application:,,,/Assets/#password">
-                        
-                        <TextBox.InputBindings>
-                            <!--Disable CTRL+C -->
-                            <KeyBinding Command="ApplicationCommands.NotACommand"
-                              Key="C"                             
-                              Modifiers="Control" />
-                            <KeyBinding Command="ApplicationCommands.NotACommand"
-                              Key="X"                             
-                              Modifiers="Control" />
-                        </TextBox.InputBindings>
-                        <TextBox.Text>
-                            
-                            <Binding StringFormat="*"
-                                  Path="UserPassword"
-                                  UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <c:CannotBeEmptyRule ErrorMessage="Password box cannot be empty!"
-                                                         ValidatesOnTargetUpdated="True" />
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
-
-
-
-
-
+             
                     <Button Content="Login" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center" IsDefault="True"  
                             Command="{Binding DataContext.LoginUserCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                            CommandParameter="{Binding ElementName=pwdBox}"
                             Width="250" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2"
                             Style="{DynamicResource MaterialDesignRaisedButton}"/>
 

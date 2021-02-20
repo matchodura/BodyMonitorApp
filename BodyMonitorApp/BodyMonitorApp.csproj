@@ -101,7 +101,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\Connections.cs" />
-    <Compile Include="Helpers\MultiplyConverter.cs" />
+    <Compile Include="Helpers\Converter.cs" />
+    <Compile Include="Helpers\HashSalt.cs" />
     <Compile Include="Helpers\Queries.cs" />
     <Compile Include="Helpers\ValidationRules.cs" />
     <Compile Include="Helpers\SecretQuestion.cs" />

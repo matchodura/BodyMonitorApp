@@ -78,11 +78,17 @@
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
 
-                <TextBlock Margin="5" Width="150"
-                            Text="{Binding CurrentProgress.Weight, StringFormat = ' {0} kg'}"
-                            Visibility="{Binding TextBlockVisibility}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            />
+                <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"     
+                        TextWrapping="Wrap"
+                        Grid.Column="1" Grid.Row="0"  Margin="5" Width="200"
+                        materialDesign:HintAssist.Hint="Weight"
+                        Visibility="{Binding TextBlockVisibility}"
+                        Text="{Binding CurrentProgress.Weight, StringFormat = ' {0} kg'}"
+                        IsEnabled="False"                       
+                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                          
+                
 
             </materialDesign:Card>
             <TextBox
@@ -114,11 +120,15 @@
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
 
-                <TextBlock Margin="5" Width="150"
-                            Text="{Binding CurrentProgress.Neck, StringFormat = ' {0} cm'}"
-                            Visibility="{Binding TextBlockVisibility}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            />
+                <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"     
+                        TextWrapping="Wrap"
+                        Grid.Column="1" Grid.Row="1"  Margin="5" Width="200"
+                        materialDesign:HintAssist.Hint="Neck"
+                        Visibility="{Binding TextBlockVisibility}"
+                        Text="{Binding CurrentProgress.Neck, StringFormat = ' {0} cm'}"
+                        IsEnabled="False"                       
+                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             </materialDesign:Card>
             <TextBox
@@ -150,13 +160,15 @@
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
 
-                <TextBlock Margin="5" Width="150"
-                            Text="{Binding CurrentProgress.Chest, StringFormat = ' {0} cm'}"
-                            Visibility="{Binding TextBlockVisibility}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"
-                            >
-                    
-                </TextBlock>
+                <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"     
+                        TextWrapping="Wrap"
+                        Grid.Column="1" Grid.Row="2"  Margin="5" Width="200"
+                        materialDesign:HintAssist.Hint="Chest"
+                        Visibility="{Binding TextBlockVisibility}"
+                        Text="{Binding CurrentProgress.Chest, StringFormat = ' {0} cm'}"
+                        IsEnabled="False"                       
+                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             </materialDesign:Card>
             <TextBox
@@ -187,13 +199,15 @@
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
 
-                <TextBlock Margin="5" Width="150"
-                            Text="{Binding CurrentProgress.Stomach, StringFormat = ' {0} cm'}"
-                            Visibility="{Binding TextBlockVisibility}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"
-                            >
-                    
-                </TextBlock>
+                <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"     
+                        TextWrapping="Wrap"
+                        Grid.Column="1" Grid.Row="3"  Margin="5" Width="200"
+                        materialDesign:HintAssist.Hint="Stomach"
+                        Visibility="{Binding TextBlockVisibility}"
+                        Text="{Binding CurrentProgress.Stomach, StringFormat = ' {0} cm'}"
+                        IsEnabled="False"                       
+                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             </materialDesign:Card>
             <TextBox
@@ -224,13 +238,15 @@
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right" >
 
-                <TextBlock Margin="5" Width="150"
-                            Text="{Binding CurrentProgress.Waist, StringFormat = ' {0} cm'}"
-                            Visibility="{Binding TextBlockVisibility}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"
-                            >
-                  
-                </TextBlock>
+                <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"     
+                        TextWrapping="Wrap"
+                        Grid.Column="1" Grid.Row="4"  Margin="5" Width="200"
+                        materialDesign:HintAssist.Hint="Waist"
+                        Visibility="{Binding TextBlockVisibility}"
+                        Text="{Binding CurrentProgress.Waist, StringFormat = ' {0} cm'}"
+                        IsEnabled="False"                       
+                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             </materialDesign:Card>
             <TextBox
@@ -261,12 +277,15 @@
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right" >
 
-                <TextBlock Margin="5" Width="150"
-                            Text="{Binding CurrentProgress.Hips, StringFormat = ' {0} cm'}"
-                            Visibility="{Binding TextBlockVisibility}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center">
-               
-                </TextBlock>
+                <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"     
+                        TextWrapping="Wrap"
+                        Grid.Column="3" Grid.Row="0"  Margin="5" Width="200"
+                        materialDesign:HintAssist.Hint="Hips"
+                        Visibility="{Binding TextBlockVisibility}"
+                        Text="{Binding CurrentProgress.Hips, StringFormat = ' {0} cm'}"
+                        IsEnabled="False"                       
+                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             </materialDesign:Card>
             <TextBox
@@ -297,13 +316,15 @@
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right" >
 
-                <TextBlock Margin="5" Width="150"
-                            Text="{Binding CurrentProgress.Thigh, StringFormat = ' {0} cm'}"
-                            Visibility="{Binding TextBlockVisibility}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center" 
-                            >
-                  
-                </TextBlock>
+                <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"     
+                        TextWrapping="Wrap"
+                        Grid.Column="3" Grid.Row="1"  Margin="5" Width="200"
+                        materialDesign:HintAssist.Hint="Thigh"
+                        Visibility="{Binding TextBlockVisibility}"
+                        Text="{Binding CurrentProgress.Thigh, StringFormat = ' {0} cm'}"
+                        IsEnabled="False"                       
+                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             </materialDesign:Card>
             <TextBox
@@ -334,13 +355,16 @@
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
 
-                <TextBlock Margin="5" Width="150"
-                            Text="{Binding CurrentProgress.Calf, StringFormat = ' {0} cm'}"
-                            Visibility="{Binding TextBlockVisibility}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center" 
-                            >
-                   
-                </TextBlock>
+
+                <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"     
+                        TextWrapping="Wrap"
+                        Grid.Column="3" Grid.Row="2"  Margin="5" Width="200"
+                        materialDesign:HintAssist.Hint="Calf"
+                        Visibility="{Binding TextBlockVisibility}"
+                        Text="{Binding CurrentProgress.Calf, StringFormat = ' {0} cm'}"
+                        IsEnabled="False"                       
+                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             </materialDesign:Card>
             <TextBox
@@ -371,13 +395,15 @@
               materialDesign:ShadowAssist.ShadowDepth="Depth3"
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
 
-                <TextBlock Margin="5" Width="150"
-                            Text="{Binding CurrentProgress.Biceps, StringFormat = ' {0} cm'}"
-                            Visibility="{Binding TextBlockVisibility}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            >
-                 
-                </TextBlock>
+                <TextBox
+                        Style="{StaticResource MaterialDesignFilledTextBox}"     
+                        TextWrapping="Wrap"
+                        Grid.Column="3" Grid.Row="3"  Margin="5" Width="200"
+                        materialDesign:HintAssist.Hint="Biceps"
+                        Visibility="{Binding TextBlockVisibility}"
+                        Text="{Binding CurrentProgress.Biceps, StringFormat = ' {0} cm'}"
+                        IsEnabled="False"                       
+                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             </materialDesign:Card>
             <TextBox

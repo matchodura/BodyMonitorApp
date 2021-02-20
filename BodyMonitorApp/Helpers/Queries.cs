@@ -25,6 +25,72 @@ namespace BodyMonitorApp
         }
 
         
+
+
+        public static LoginModel GetUser(string userLogin)
+        {
+
+            LoginModel user = new LoginModel()
+            {
+
+                Hash = "0",
+                Salt = "0"
+            };
+
+            try
+            {
+
+               
+                SqlConnection conn = new SqlConnection(Connections.ConnectionString);
+
+
+                string sql = $"SELECT UserId,UserLogin,Hash,Salt FROM dbo.Users WHERE UserLogin=@UserLogin";
+
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.Add("@UserLogin", SqlDbType.VarChar).Value = userLogin;
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+
+                            user.UserId = reader.GetInt32(0);
+                            user.UserName = reader.GetString(1);
+                            user.Hash = reader.GetString(2);
+                            user.Salt = reader.GetString(3);
+
+
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Record doesn't exist!");
+
+                    }
+
+                }
+
+            }
+
+
+            catch (SqlException ex)
+            {
+                string errorMessage = $"Error: {ex}";
+                MessageBox.Show(errorMessage);
+
+            }
+
+            return user;
+        }
+
+
+      
+
         public void GetUserId(string userLogin)
         {
             try
@@ -464,7 +530,7 @@ namespace BodyMonitorApp
                 // get connection string from Connections Helper Class
                 SqlConnection conn = new SqlConnection(Connections.ConnectionString);
 
-                string sql = "INSERT INTO dbo.Users (UserLogin,UserPassword) values (@UserLogin,@UserPassword);" +
+                string sql = "INSERT INTO dbo.Users (UserLogin,UserPassword,Hash,Salt) values (@UserLogin,@UserPassword,@Hash,@Salt);" +
                     "INSERT INTO dbo.UserData(id,UserHeight,UserName,UserAge,UserMail,UserGender,AccountCreated,SecretQuestion,SecretAnswer) values ((SELECT SCOPE_IDENTITY()),@UserHeight,@UserName,@UserAge,@UserMail,@UserGender,@AccountCreated,@SecretQuestion,@SecretAnswer)";
 
                 conn.Open();
@@ -472,6 +538,9 @@ namespace BodyMonitorApp
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.Add("@UserLogin", SqlDbType.VarChar).Value = account.UserLogin;
                 cmd.Parameters.Add("@UserPassword", SqlDbType.VarChar).Value = account.UserPassword;
+                cmd.Parameters.Add("@Hash", SqlDbType.VarChar).Value = account.HashSalt.Hash;
+                cmd.Parameters.Add("@Salt", SqlDbType.VarChar).Value = account.HashSalt.Salt;
+
                 cmd.Parameters.Add("@UserAge", SqlDbType.Int).Value = account.UserAge;
                 cmd.Parameters.Add("@UserHeight", SqlDbType.Int).Value = account.UserHeight;
                 cmd.Parameters.Add("@UserName", SqlDbType.VarChar).Value = account.UserName;

@@ -168,18 +168,14 @@ namespace BodyMonitorApp
             AboutVM = new AboutViewModel();
 
 
-            LoggedInVM = new LoggedInViewModel();
-           // ForgotPasswordVM = new ForgotPasswordViewModel();
-           // CreateAccountVM = new CreateAccountViewModel();
-
+            LoggedInVM = new LoggedInViewModel();   
             ProfileInfoVM = new ProfileInfoViewModel();
             ProgressVM = new ProgressViewModel();
             WorkoutVM = new WorkoutViewModel();
             ChartsVM = new ChartsViewModel();
 
             // Add available pages
-            PageViewModels.Add(HomeVM);
-           // PageViewModels.Add(LoginVM);
+            PageViewModels.Add(HomeVM);     
             PageViewModels.Add(AboutVM);
 
             // PageViewModels.Add(new ProductsViewModel());
@@ -194,16 +190,13 @@ namespace BodyMonitorApp
             CurrentPageViewModel = PageViewModels[0];
 
 
-            LoginUserCommand = new RelayCommand((p) => LoginUserTool());
-            //ForgotPasswordSwitchPageCommand = new RelayCommand((p) => ForgotPasswordSwitchPage());
-
-
-          //  CreateAccountSwitchPageCommand = new RelayCommand((p) => AccountCreationSwitchPage());
+            LoginUserCommand = new RelayCommand((p) => LoginUserTool(p));
+           
 
             CreateAccountViewCommand = new RelayCommand((p) => CreateAccountView());
             ForgotPasswordViewCommand = new RelayCommand((p) => ForgotPasswordView());
 
-            //  BackPageCommand = new RelayCommand((p) => BackPage());
+           
 
             //new profile info buttons
 
@@ -232,8 +225,7 @@ namespace BodyMonitorApp
             CurrentPageViewModel = PageViewModels
                 .FirstOrDefault(vm => vm == viewModel);
         }
-
-              
+                      
 
         public void ForgotPasswordView()
         {
@@ -289,24 +281,25 @@ namespace BodyMonitorApp
         {
             ChartsVM.SetUserValues(LoginVM.CurrentLogin.UserId);
         }
-        /// <summary>
-        /// Changes current view to forgot passord page
-        /// </summary>
-        //public void ForgotPasswordSwitchPage()
-        //{
-        //    OverlayViewModel = ForgotPasswordVM;
-        //}
-
+    
 
         //loggin in of user
-        public void LoginUserTool()
+        public void LoginUserTool(object obj)
         {
+
+
+            PasswordBox pwdBox = obj as PasswordBox;
+
+            var password = pwdBox.Password;
+
+
             //validation of user credentials
-            bool isValidated = LoginVM.LoginUser();
-            int userId = LoginVM.CurrentLogin.UserId;
+            bool isValidated = LoginVM.LoginUser(password);
+            
             
             if (isValidated)
             {
+                int userId = LoginVM.CurrentLogin.UserId;
                 OverlayViewModel = null;
                 
 
@@ -376,8 +369,7 @@ namespace BodyMonitorApp
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 SetUserPageVisibility(false);
-
-                LoginVM.UserPassword = null;
+                              
                 LoginVM.UserLogin = null;
                 OverlayViewModel = LoginVM;
                 CurrentPageViewModel = PageViewModels[0];

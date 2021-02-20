@@ -21,6 +21,9 @@ namespace BodyMonitorApp
         private string _userMail;
         private string _userGender;
         private DateTime _accountCreated;
+        private HashSalt _hashSalt;
+
+
 
         //new things
         private string _secretQuestion;
@@ -166,6 +169,21 @@ namespace BodyMonitorApp
                 }
             }
         }
+
+
+        public HashSalt HashSalt
+        {
+            get { return _hashSalt; }
+            set
+            {
+                if (value != _hashSalt)
+                {
+                    _hashSalt = value;
+                    OnPropertyChanged("HashSalt");
+                }
+            }
+        }
+
         #endregion
     }
 }

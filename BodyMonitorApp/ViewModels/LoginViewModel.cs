@@ -95,19 +95,7 @@ namespace BodyMonitorApp
             }
         }
 
-        public string UserPassword
-        {
-            get { return _userPassword; }
-            set
-            {
-                if (value != _userPassword)
-                {
-                    _userPassword = value;
-                    OnPropertyChanged("UserPassword");
-                }
-            }
-        }
-      
+   
         public LoginModel CurrentLogin
         {
             get { return _currentLogin; }
@@ -123,19 +111,7 @@ namespace BodyMonitorApp
 
         }
                 
-        public ICommand LoginUserCommand
-        {
-            get
-            {
-                if (_loginUserCommand == null)
-                {
-                    _loginUserCommand = new RelayCommand(
-                        param => LoginUser());
-
-                }
-                return _loginUserCommand;
-            }
-        }
+      
 
         private Visibility _visibility = Visibility.Hidden;
       
@@ -164,7 +140,7 @@ namespace BodyMonitorApp
                 _isCheckedCreateAccount = value;
                 OnPropertyChanged("IsCheckedCreateAccount");
 
-                                                             }
+            }
         }
 
 
@@ -183,18 +159,23 @@ namespace BodyMonitorApp
 
         #endregion
 
-        public bool LoginUser()
+        public bool LoginUser(string password)
         {
 
             LoginModel login = new LoginModel
             {
                 UserName = UserLogin,
-                UserPassword = UserPassword,
+                UserPassword = password,
                 UserId = 0,
+            
                 LoggedIn = false
             };
 
-                        
+            var userName = login.UserName;
+
+
+
+
             if (string.IsNullOrWhiteSpace(login.UserName))
             {
 
@@ -215,69 +196,92 @@ namespace BodyMonitorApp
             else
             {
 
-                try
+                //Queries queries = new Queries();
+
+
+                //queries.GetUserId(login.UserName);
+
+                LoginModel user = Queries.GetUser(userName);
+
+
+                bool isValidated = HashSalt.VerifyPassword(password, user.Hash, user.Salt);
+
+                if (isValidated)
                 {
-
-                    SqlConnection conn = new SqlConnection(Connections.ConnectionString);
-
-
-                    string sql = "SELECT UserId FROM dbo.Users WHERE UserLogin=@UserLogin AND UserPassword=@UserPassword";
-
-
-
-                    conn.Open();
-
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.Add("@UserLogin", SqlDbType.VarChar).Value = login.UserName;
-                    cmd.Parameters.Add("@UserPassword", SqlDbType.VarChar).Value = login.UserPassword;
-
-
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        // if the result set is not NULL
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-
-                                var UserId = reader.GetInt32(0);
-                                login.UserId = UserId;
-                                login.LoggedIn = true;
-                                CurrentLogin = login;
-
-                                MessageBox.Show($"Login Succesfull!");
-                            
-                                return true;
-                            }
-
-                            
-                            // update the existing value + the value from the text file
-                        }
-
-
-
-                        else 
-                        {
-                            MessageBox.Show("Wrong Data!");
-                            return false;
-                        }
-                                                
-                    }
-                                                           
+                    MessageBox.Show("Login Sucessfull!");
+                    return true;
                 }
-
-                catch (SqlException ex)
+                else
                 {
-                    string errorMessage = $"Error: {ex}";
-                    MessageBox.Show(errorMessage);
+                    MessageBox.Show("Wrong Password!");
                     return false;
                 }
-
-
-                return false;
-                
+               
             }
+
+            //    try
+            //    {
+
+            //        SqlConnection conn = new SqlConnection(Connections.ConnectionString);
+
+
+            //        string sql = "SELECT UserId FROM dbo.Users WHERE UserLogin=@UserLogin;
+
+
+
+            //        conn.Open();
+
+            //        SqlCommand cmd = new SqlCommand(sql, conn);
+            //        cmd.Parameters.Add("@UserLogin", SqlDbType.VarChar).Value = login.UserName;
+            //        cmd.Parameters.Add("@UserPassword", SqlDbType.VarChar).Value = login.UserPassword;
+
+
+
+            //        using (SqlDataReader reader = cmd.ExecuteReader())
+            //        {
+            //            // if the result set is not NULL
+            //            if (reader.HasRows)
+            //            {
+            //                while (reader.Read())
+            //                {
+
+            //                    var UserId = reader.GetInt32(0);
+            //                    login.UserId = UserId;
+            //                    login.LoggedIn = true;
+            //                    CurrentLogin = login;
+
+            //                    MessageBox.Show($"Login Succesfull!");
+                            
+            //                    return true;
+            //                }
+
+                            
+            //                // update the existing value + the value from the text file
+            //            }
+
+
+
+            //            else 
+            //            {
+            //                MessageBox.Show("Wrong Data!");
+            //                return false;
+            //            }
+                                                
+            //        }
+                                                           
+            //    }
+
+            //    catch (SqlException ex)
+            //    {
+            //        string errorMessage = $"Error: {ex}";
+            //        MessageBox.Show(errorMessage);
+            //        return false;
+            //    }
+
+
+            //    return false;
+                
+            //}
 
             
         }

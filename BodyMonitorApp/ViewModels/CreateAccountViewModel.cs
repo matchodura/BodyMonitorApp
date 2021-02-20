@@ -211,7 +211,7 @@ namespace BodyMonitorApp
                 if (_createAccountCommand == null)
                 {
                     _createAccountCommand = new RelayCommand(
-                        param => CreateAccount());
+                        param => CreateAccount(param));
 
                 }
                 return _createAccountCommand;
@@ -251,27 +251,64 @@ namespace BodyMonitorApp
         /// <summary>
         /// creates user account bassed on credentials provided in create account view
         /// </summary>
-        public bool CreateAccount()
+        public bool CreateAccount(object obj)
         {
+
+            //gets password box values from command parameters on view
+            var pswBoxes = obj as List<object>;
+            PasswordBox pwdBox = pswBoxes[0] as PasswordBox;
+            PasswordBox pwdBoxRepeat = pswBoxes[1] as PasswordBox;  
+            
+            var password = pwdBox.Password;
+            var passwordRepeat = pwdBoxRepeat.Password;
+                        
+
             Queries query = new Queries();
 
          
-            AccountModel account = new AccountModel
+         
+
+            if (string.IsNullOrEmpty(password))
             {
-                UserLogin = UserLogin,
-                UserPassword = UserPassword,
-                UserAge = UserAge,
-                UserHeight = UserHeight,
-                UserName = UserName,
-                UserMail = UserMail,
-                UserGender = UserGender,
-                SecretQuestion = SelectedItem.Symbol,
-                SecretAnswer = SecretAnswer
-            };
-
-            query.CreateUserAccount(account);
+                MessageBox.Show("Missing password!");
+            }
 
 
+            else if (password != passwordRepeat)
+            {
+                MessageBox.Show("Passwords don't match!");
+            }
+
+
+            else
+            {
+
+                //hashing data
+                var hashSalt = HashSalt.GenerateSaltedHash(64, password);
+
+                AccountModel account = new AccountModel
+                {
+                    UserLogin = UserLogin.Trim(),
+                    UserPassword = password,
+                    UserAge = UserAge,
+                    UserHeight = UserHeight,
+                    UserName = UserName,
+                    UserMail = UserMail,
+                    UserGender = UserGender,
+                    SecretQuestion = SelectedItem.Symbol,
+                    SecretAnswer = SecretAnswer,
+                    HashSalt = hashSalt
+
+                };
+
+
+
+                query.CreateUserAccount(account);
+            }
+
+           
+           
+          
             return true;
         }
 

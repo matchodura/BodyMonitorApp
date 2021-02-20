@@ -6,25 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace Helpers
+namespace Helpers.Converters
 {
-    public class MultiplyConverter : IMultiValueConverter
+    public class Converter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            double result = 1.0;
-            for (int i = 0; i < values.Length; i++)
-            {
-                if (values[i] is double)
-                    result *= (double)values[i];
-            }
-
-            return result;
+            return values.ToList();
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            throw new Exception("Not implemented");
+            throw new NotImplementedException();
         }
     }
 }
