@@ -9,16 +9,19 @@ namespace BodyMonitorApp
 {
     public class AboutViewModel : ObservableObject, IPageViewModel
     {
-        public string Name
-        {
-            get
-            {
-                return "About";
-            }
-            set {;}
-        }
+        #region fields
 
         private Visibility _visibility = Visibility.Hidden;
+
+        #endregion
+
+        #region properties
+
+        public string Name
+        {
+            get { return "About";}
+            set {;}
+        }     
         public Visibility Visibility
         {
             get
@@ -32,5 +35,7 @@ namespace BodyMonitorApp
                 OnPropertyChanged("Visibility");
             }
         }
+
+        #endregion properties
     }
 }

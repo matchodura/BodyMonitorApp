@@ -11,6 +11,7 @@ namespace BodyMonitorApp
     {
 
         #region Fields
+
         private List<DateTime> _dateAdded;
         private List<decimal> _chest;
         private List<decimal> _biceps;
@@ -20,14 +21,8 @@ namespace BodyMonitorApp
         private List<decimal> _waist;
         private List<decimal> _hips;
         private List<decimal> _thigh;
-        private List<decimal> _calf;
-
-        //variables that are in the database, but not utilized in application yet
-        //private int _userId;
-        //private int _postId;
-        //private string _note;
-
-
+        private List<decimal> _calf;   
+        
         #endregion
 
         #region properties
@@ -100,7 +95,6 @@ namespace BodyMonitorApp
             }
         }
 
-
         public List<decimal> Stomach
         {
             get { return _stomach; }
@@ -166,46 +160,7 @@ namespace BodyMonitorApp
             }
         }
 
-
-
-
-        //public int UserId
-        //{
-        //    get { return _userId; }
-        //    set
-        //    {
-        //        if (value != _userId)
-        //        {
-        //            _userId = value;
-        //            OnPropertyChanged("UserId");
-        //        }
-        //    }
-        //}
-
-        //public int PostId
-        //{
-        //    get { return _postId; }
-        //    set
-        //    {
-        //        if (value != _postId)
-        //        {
-        //            _postId = value;
-        //            OnPropertyChanged("PostId");
-        //        }
-        //    }
-        //}
-
-
-
         #endregion
     }
 
-
-    public class ChartValueDate
-    {
-
-        public decimal Value { get; set; }
-        public DateTime Date { get; set; }
-
-    }
 }

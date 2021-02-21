@@ -109,6 +109,7 @@
     <Compile Include="Helpers\WorkoutPopulation.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\ChartModel.cs" />
+    <Compile Include="Models\ChartValueDate.cs" />
     <Compile Include="Models\ComboBoxHistory.cs" />
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\ProgressModel.cs" />

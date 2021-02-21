@@ -17,7 +17,6 @@ using System.Windows.Navigation;
 
 namespace BodyMonitorApp
 {
-
     public class CreateAccountViewModel : ObservableObject, IPageViewModel
     {
 
@@ -32,11 +31,9 @@ namespace BodyMonitorApp
         private string _userMail;
         private string _userGender;             
         private ICommand _createAccountCommand;
-
-        //new things
-
         private string _secretQuestion;
         private string _secretAnswer;
+        private ComboBoxHistory _selectedItem;
 
         #endregion fields
 
@@ -155,8 +152,7 @@ namespace BodyMonitorApp
                 }
             }
         }
-
-        //new things
+              
         public string SecretQuestion
         {
             get { return _secretQuestion; }
@@ -171,9 +167,7 @@ namespace BodyMonitorApp
         }
 
         public ObservableCollection<ComboBoxHistory> ComboBoxChoices { get; set; }
-
-        private ComboBoxHistory _selectedItem;
-
+             
         public ComboBoxHistory SelectedItem
         {
             get { return _selectedItem; }
@@ -190,6 +184,7 @@ namespace BodyMonitorApp
 
             }
         }
+
         public List<string> BodyPartsChoices { get; set; }
 
         public string SecretAnswer
@@ -204,6 +199,7 @@ namespace BodyMonitorApp
                 }
             }
         }
+
         public ICommand CreateAccountCommand
         {
             get
@@ -219,41 +215,30 @@ namespace BodyMonitorApp
         }
 
         #endregion properties
-
-        #region methods
-
+               
         public CreateAccountViewModel()
         {
-
             ComboBoxChoices = new ObservableCollection<ComboBoxHistory>();
 
             // list of current actual choices of body parts values in db
             List<string> secretQuestions = new List<string>() { "What was your first pet?", "What is your mother's maiden name?", "What was the model of your first car?", "In what city were you born?", "What was your father's middle name?", "What was your childhood nickname?" };
                       
-
             //adding body parts values to the combobox in view
             foreach (var question in secretQuestions)
             {
                 ComboBoxChoices.Add(new ComboBoxHistory() { Symbol = question });
             }
 
-
             SelectedItem = ComboBoxChoices[0];
-
-
-
         }
 
-
-
-
+        #region methods
 
         /// <summary>
         /// creates user account bassed on credentials provided in create account view
         /// </summary>
         public bool CreateAccount(object obj)
         {
-
             //gets password box values from command parameters on view
             var pswBoxes = obj as List<object>;
             PasswordBox pwdBox = pswBoxes[0] as PasswordBox;
@@ -262,27 +247,20 @@ namespace BodyMonitorApp
             var password = pwdBox.Password;
             var passwordRepeat = pwdBoxRepeat.Password;
                         
-
-            Queries query = new Queries();
-
-         
-         
+            Queries query = new Queries();                             
 
             if (string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("Missing password!");
             }
 
-
             else if (password != passwordRepeat)
             {
                 MessageBox.Show("Passwords don't match!");
             }
 
-
             else
             {
-
                 //hashing data
                 var hashSalt = HashSalt.GenerateSaltedHash(64, password);
 
@@ -301,21 +279,12 @@ namespace BodyMonitorApp
 
                 };
 
-
-
                 Queries.CreateUserAccount(account);
-            }
-
-           
-           
-          
+            }          
+            
             return true;
-        }
-
-       
+        }       
 
         #endregion methods
-
     }
-
 }

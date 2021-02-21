@@ -5,12 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BodyMonitorApp.Models
-{
-   
+{   
     public class ComboBoxHistory
     {
-        public string Symbol { get; set; }
-      //  public string Description { get; set; }
-
+        public string Symbol { get; set; }  
     }
 }

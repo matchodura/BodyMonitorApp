@@ -14,10 +14,12 @@ namespace BodyMonitorApp
     {
         public int UserId { get; set; }
         
+
         public Queries()
         {
 
         }
+
 
         public Queries(int userId)
         {
@@ -25,8 +27,6 @@ namespace BodyMonitorApp
         }
 
         
-
-
         public static LoginModel GetUser(string userLogin)
         {
 
@@ -87,9 +87,7 @@ namespace BodyMonitorApp
 
             return user;
         }
-
-
-      
+              
 
         public void GetUserId(string userLogin)
         {
@@ -138,6 +136,7 @@ namespace BodyMonitorApp
 
 
         }
+
 
         public void UpdatePassword(string userLogin, string newUserPassword, HashSalt hashSalt)
         {
@@ -232,6 +231,7 @@ namespace BodyMonitorApp
 
             return (double)height;
         }
+
 
         public double GetBodyPart(string userLogin, string bodyPart)
         {
@@ -387,9 +387,7 @@ namespace BodyMonitorApp
 
             return secrets;
         }
-
-
-     
+                     
 
         /// <summary>
         /// Updates data of body user values based on selected date
@@ -447,6 +445,7 @@ namespace BodyMonitorApp
             }
 
         }
+
 
         /// <summary>
         /// gets body values as list from db for current logged in user
@@ -578,9 +577,6 @@ namespace BodyMonitorApp
         /// <returns></returns>
 
         
-
-
-
         //TODO: return profile info - ProfileInfoViewModel has base for it
         public AccountModel GetAccountModel(int userId)
         {

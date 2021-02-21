@@ -9,7 +9,6 @@ namespace BodyMonitorApp
 {
     public class ProgressModel : ObservableObject
     {
-
         #region Fields
 
         private int _userId;
@@ -26,12 +25,10 @@ namespace BodyMonitorApp
         private decimal _biceps;
         private string _note;
         
-
         #endregion
 
         #region properties
-
-           
+                   
         public int UserId
         {
             get { return _userId; }

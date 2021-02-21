@@ -18,24 +18,35 @@ namespace BodyMonitorApp
 
     public class ProgressViewModel : ObservableObject, IPageViewModel
     {
-
         #region fields
-
-        private Visibility _visibility = Visibility.Hidden;
-        private Visibility _addButtonVisiblity = Visibility.Hidden;
-        private Visibility _editButtonVisiblity = Visibility.Hidden;
-        private Visibility _updateButtonVisiblity = Visibility.Hidden;
-        private Visibility _gridVisibility = Visibility.Hidden;      
-        private Visibility _editBoxVisibility = Visibility.Hidden;
-        private Visibility _textBlockVisibility = Visibility.Visible;
+               
         private ComboBoxHistory _selectedItem;
         private ProgressModel _currentProgress;
         private DateTime _calendarDate = DateTime.Now;
         private ICommand _addItemCommand;
         private bool _isChecked = false;
         private bool _recordExists = false;
+        private Visibility _visibility = Visibility.Hidden;
+        private Visibility _addButtonVisiblity = Visibility.Hidden;
+        private Visibility _editButtonVisiblity = Visibility.Hidden;
+        private Visibility _updateButtonVisiblity = Visibility.Hidden;
+        private Visibility _gridVisibility = Visibility.Hidden;
+        private Visibility _editBoxVisibility = Visibility.Hidden;
+        private Visibility _textBlockVisibility = Visibility.Visible;
 
-        #endregion
+        #endregion                  
+
+        #region properties/commands             
+
+        public string Name
+        {
+            get
+            {
+                return "Progress";
+            }
+            set {; }
+        }
+
         public ProgressModel CurrentProgress
         {
             get { return _currentProgress; }
@@ -50,6 +61,7 @@ namespace BodyMonitorApp
             }
 
         }
+
         public bool IsChecked
         {
             get
@@ -63,19 +75,9 @@ namespace BodyMonitorApp
                 OnPropertyChanged("IsChecked");
             }
         }
+
         public int UserId { get; set; }
-       
 
-        #region properties/commands             
-
-        public string Name
-        {
-            get
-            {
-                return "Progress";
-            }
-            set {; }
-        }
         public Visibility Visibility
         {
             get
@@ -185,10 +187,8 @@ namespace BodyMonitorApp
             }
         }
 
-
-
-
         public ObservableCollection<ComboBoxHistory> ComboBoxChoices { get; set; }
+
         public ComboBoxHistory SelectedItem
         {
             get { return _selectedItem; }
@@ -267,24 +267,19 @@ namespace BodyMonitorApp
             }
         }
 
-               
-        #endregion
         public HashSet<DateTime> Dates { get; } = new HashSet<DateTime>();
 
+        #endregion
 
         public ProgressViewModel()
         {
-
             ComboBoxChoices = new ObservableCollection<ComboBoxHistory>();
             ComboBoxChoices.Add(new ComboBoxHistory() { Symbol = "-----" });
             ComboBoxChoices.Add(new ComboBoxHistory() { Symbol = "Add new record" });
             ComboBoxChoices.Add(new ComboBoxHistory() { Symbol = "Edit Record" });
-            ComboBoxChoices.Add(new ComboBoxHistory() { Symbol = "View Values" });
-            
+            ComboBoxChoices.Add(new ComboBoxHistory() { Symbol = "View Values" });            
             SelectedItem = ComboBoxChoices[0];
-
-            CurrentProgress = new ProgressModel();
-                    
+            CurrentProgress = new ProgressModel();                    
         }
 
         #region methods
@@ -294,8 +289,6 @@ namespace BodyMonitorApp
             var progress = new ProgressModel();
             progress = CurrentProgress;
       
-
-
             try
             {
 
@@ -347,7 +340,6 @@ namespace BodyMonitorApp
                 MessageBox.Show(errorMessage);
             }
         }
-
 
         public void GetUserValues()
         {
@@ -414,7 +406,6 @@ namespace BodyMonitorApp
 
             }
                                 }
-
 
         public void SetUserValues(int userId)
         {

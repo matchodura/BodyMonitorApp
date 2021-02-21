@@ -10,9 +10,7 @@ namespace BodyMonitorApp
 {
     public class AccountModel : ObservableObject
     {
-
         #region Fields
-
         private string _userLogin;
         private string _userPassword;
         private DateTime _userBirthday;
@@ -21,18 +19,13 @@ namespace BodyMonitorApp
         private string _userMail;
         private string _userGender;
         private DateTime _accountCreated;
-        private HashSalt _hashSalt;
-
-
-
-        //new things
+        private HashSalt _hashSalt;              
         private string _secretQuestion;
         private string _secretAnswer;
 
         #endregion
 
         #region properties
-
 
         public string UserLogin
         {
@@ -139,10 +132,7 @@ namespace BodyMonitorApp
                 }
             }
         }
-
-
-        //new things cd
-
+                     
         public string SecretQuestion
         {
             get { return _secretQuestion; }
@@ -156,7 +146,6 @@ namespace BodyMonitorApp
             }
         }
 
-
         public string SecretAnswer
         {
             get { return _secretAnswer; }
@@ -169,7 +158,6 @@ namespace BodyMonitorApp
                 }
             }
         }
-
 
         public HashSalt HashSalt
         {

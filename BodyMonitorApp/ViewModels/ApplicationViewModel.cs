@@ -12,7 +12,7 @@ namespace BodyMonitorApp
 {
     public class ApplicationViewModel : ObservableObject
     {
-        #region private Fields
+        #region fields
 
         private ICommand _changePageCommand;
         private ICommand _logoutUserCommand;
@@ -21,22 +21,26 @@ namespace BodyMonitorApp
         private List<IPageViewModel> _pageViewModels;             
         private List<IPageViewModel> _userPageViewModels;
         private Visibility _buttonVisiblity = Visibility.Hidden;      
+
         #endregion     
 
         #region Properties / Commands
         
-
         public HomeViewModel HomeVM { get; set; }
-        public LoginViewModel LoginVM { get; set; }
-        public AboutViewModel AboutVM { get; set; }
-        public LoggedInViewModel LoggedInVM { get; set; }
-      //  public CreateAccountViewModel CreateAccountVM { get; set; }
-       // public ForgotPasswordViewModel ForgotPasswordVM { get; set; }
-        public ProfileInfoViewModel ProfileInfoVM { get; set; }
-        public ProgressViewModel ProgressVM { get; set; }
-        public WorkoutViewModel WorkoutVM { get; set; }
-        public ChartsViewModel ChartsVM { get; set; }      
 
+        public LoginViewModel LoginVM { get; set; }
+
+        public AboutViewModel AboutVM { get; set; }
+
+        public LoggedInViewModel LoggedInVM { get; set; } 
+
+        public ProfileInfoViewModel ProfileInfoVM { get; set; }
+
+        public ProgressViewModel ProgressVM { get; set; }
+
+        public WorkoutViewModel WorkoutVM { get; set; }
+
+        public ChartsViewModel ChartsVM { get; set; }      
 
         public List<IPageViewModel> PageViewModels
         {
@@ -48,6 +52,7 @@ namespace BodyMonitorApp
                 return _pageViewModels;
             }
         }
+
         public List<IPageViewModel> UserPageViewModels
         {
             get
@@ -60,6 +65,7 @@ namespace BodyMonitorApp
 
                      
         }
+
         public IPageViewModel CurrentPageViewModel
         {
             get
@@ -106,6 +112,7 @@ namespace BodyMonitorApp
                 return _changePageCommand;
             }
         }
+
         public ICommand LogoutUserCommand
         {
             get
@@ -120,25 +127,21 @@ namespace BodyMonitorApp
                 return _logoutUserCommand;
             }
         }
+
         public ICommand LoginUserCommand { get; set; }
-        public ICommand ForgotPasswordSwitchPageCommand { get; set; }
-      
-        public ICommand BackPageCommand { get; set; }
-
-
-        //new
+              
         public ICommand CreateAccountViewCommand { get; set; }
+
         public ICommand ForgotPasswordViewCommand { get; set; }
-
-     
-      
-        //new 2
+                     
         public ICommand EditDataCommand { get; set; }
-        public ICommand UpdateDataCommand { get; set; }
-        public ICommand AddRecordCommand { get; set; }
-        //new 3
 
+        public ICommand UpdateDataCommand { get; set; }
+
+        public ICommand AddRecordCommand { get; set; }
+  
         public ICommand EditRecordCommand { get; set; }
+
         public ICommand UpdateRecordCommand { get; set; }
 
         public Visibility ButtonVisibility
@@ -155,19 +158,13 @@ namespace BodyMonitorApp
             }
         }
 
-
-
-
         #endregion
 
         public ApplicationViewModel()
         {
-
             HomeVM = new HomeViewModel();
             LoginVM = new LoginViewModel();
             AboutVM = new AboutViewModel();
-
-
             LoggedInVM = new LoggedInViewModel();   
             ProfileInfoVM = new ProfileInfoViewModel();
             ProgressVM = new ProgressViewModel();
@@ -178,8 +175,8 @@ namespace BodyMonitorApp
             PageViewModels.Add(HomeVM);     
             PageViewModels.Add(AboutVM);
 
-            // PageViewModels.Add(new ProductsViewModel());
-
+         
+            // Add user pages - displayed when logged on
             UserPageViewModels.Add(ProfileInfoVM);
             UserPageViewModels.Add(ProgressVM);
             UserPageViewModels.Add(WorkoutVM);
@@ -190,20 +187,11 @@ namespace BodyMonitorApp
             CurrentPageViewModel = PageViewModels[0];
 
 
-            LoginUserCommand = new RelayCommand((p) => LoginUserTool(p));
-           
-
+            LoginUserCommand = new RelayCommand((p) => LoginUserTool(p));       
             CreateAccountViewCommand = new RelayCommand((p) => CreateAccountView());
-            ForgotPasswordViewCommand = new RelayCommand((p) => ForgotPasswordView());
-
-           
-
-            //new profile info buttons
-
-            EditDataCommand = new RelayCommand((p) => EditProfileData());
-           
+            ForgotPasswordViewCommand = new RelayCommand((p) => ForgotPasswordView());                     
+            EditDataCommand = new RelayCommand((p) => EditProfileData());           
             UpdateDataCommand = new RelayCommand((p) => UpdateProfileData());
-
             EditRecordCommand = new RelayCommand((p) => EditRecord());
             UpdateRecordCommand = new RelayCommand((p) => UpdateRecord());
             AddRecordCommand = new RelayCommand((p) => AddRecord());
@@ -225,8 +213,7 @@ namespace BodyMonitorApp
             CurrentPageViewModel = PageViewModels
                 .FirstOrDefault(vm => vm == viewModel);
         }
-                      
-
+          
         public void ForgotPasswordView()
         {
             LoginVM.ForgotPassword();
@@ -237,13 +224,11 @@ namespace BodyMonitorApp
             LoginVM.CreateAccount();
         }
 
-
         public void EditProfileData()
         {
             ProfileInfoVM.EditData();
         }
-                      
-
+                    
         public void UpdateProfileData()
         {
             ProfileInfoVM.UpdateData();
@@ -264,44 +249,33 @@ namespace BodyMonitorApp
 
         public void UpdateRecord()
         {
-
             ProgressVM.UpdateRecord();
             UpdateDashboard();
             UpdateChart();
         }
-
 
         public void UpdateDashboard()
         {
             HomeVM.PopulateDashboard();
         }
 
-
         public void UpdateChart()
         {
             ChartsVM.SetUserValues(LoginVM.CurrentLogin.UserId);
         }
-    
-
-        //loggin in of user
+         
         public void LoginUserTool(object obj)
         {
-
-
             PasswordBox pwdBox = obj as PasswordBox;
-
             var password = pwdBox.Password;
-
 
             //validation of user credentials
             bool isValidated = LoginVM.LoginUser(password);
-            
-            
+                        
             if (isValidated)
             {
                 int userId = LoginVM.CurrentLogin.UserId;
-                OverlayViewModel = null;
-                
+                OverlayViewModel = null;                
 
                 //sets current logged user as name on dashboard page
                 HomeVM.UserName = LoginVM.CurrentLogin.UserName;
@@ -312,11 +286,9 @@ namespace BodyMonitorApp
                 ButtonVisibility = Visibility.Visible;
                 SetUserPageVisibility(isValidated);                                             
                 SendUserId(userId);
-            }
-                       
+            }                       
         }
         
-
         /// <summary>
         /// Sets visibility of pages that can be displayed when user is logged in or out
         /// </summary>
@@ -332,6 +304,7 @@ namespace BodyMonitorApp
                 LoginVM.Visibility = Visibility.Hidden;
 
             }
+
             else
             {
                 ProfileInfoVM.Visibility = Visibility.Hidden;
@@ -341,7 +314,6 @@ namespace BodyMonitorApp
                 LoginVM.Visibility = Visibility.Visible;
             }
         }
-
 
         /// <summary>
         /// Sends current userId to other pages - profile info, progress and charts
@@ -358,7 +330,6 @@ namespace BodyMonitorApp
             //user id to charts page
             ChartsVM.SetUserValues(userId);
         }
-
 
         /// <summary>
         /// loging out of user, resets values of login/password and hides other pages that are displayed when user is logged in
@@ -377,8 +348,6 @@ namespace BodyMonitorApp
             }
 
         }
-
         #endregion
-
     }
 }

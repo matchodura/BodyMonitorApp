@@ -23,27 +23,41 @@ namespace BodyMonitorApp
 {
     public class ChartsViewModel : ObservableObject, IPageViewModel
     {
-       
-        public string Name
-        {
-            get
-            {
-                return "Charts";
-            }
-            set {;}
-        }
+        #region fields
 
         private bool[] _modeArray = new bool[] { true, false, false };
+
+        private SeriesCollection _seriesCollection;
+
+        private Func<double, string> _formatter;
+
+        private ChartModel _chartModel;
+
+        private ComboBoxHistory _selectedItem;
+
+
+        private Visibility _visibility = Visibility.Hidden;
+
+        private Visibility _chartVisibility = Visibility.Hidden;
+        #endregion
+
+        #region properties
+
+        public string Name
+        {
+            get { return "Charts"; }
+            set {; }
+        }
+
         public bool[] ModeArray
         {
             get { SetTimeRange(SelectedMode); return _modeArray; }
         }
+
         public int SelectedMode
         {
             get { return Array.IndexOf(_modeArray, true); }
         }
-
-        private SeriesCollection _seriesCollection;
 
         public SeriesCollection SeriesCollection
         {
@@ -59,7 +73,6 @@ namespace BodyMonitorApp
             }
         }
 
-        private Func<double, string> _formatter;
         public Func<double, string> Formatter
         {
             get
@@ -76,9 +89,6 @@ namespace BodyMonitorApp
                 }
             }
         }
-       
-
-        private ChartModel _chartModel;
 
         public ChartModel ChartModel
         {
@@ -98,40 +108,7 @@ namespace BodyMonitorApp
 
         public ChartValues<DateModel> Values { get; set; }
 
-        private Visibility _visibility = Visibility.Hidden;
-        public Visibility Visibility
-        {
-            get
-            {
-                return _visibility;
-            }
-            set
-            {
-                _visibility = value;
-
-                OnPropertyChanged("Visibility");
-            }
-        }
-
-        private Visibility _chartVisibility = Visibility.Hidden;
-        public Visibility ChartVisibility
-        {
-            get
-            {
-                return _chartVisibility;
-            }
-            set
-            {
-                _chartVisibility = value;
-
-                OnPropertyChanged("ChartVisibility");
-            }
-        }
-
-
         public ObservableCollection<ComboBoxHistory> ComboBoxChoices { get; set; }
-
-        private ComboBoxHistory _selectedItem;
 
         public ComboBoxHistory SelectedItem
         {
@@ -146,15 +123,44 @@ namespace BodyMonitorApp
 
                     SetChartValues(SelectedItem.Symbol);
                     SetTimeRange(SelectedMode);
-                   
+
                 }
-
-
             }
         }
 
         public static List<int> TimeRangeValues { get; set; }
+
         public List<string> BodyPartsChoices { get; set; }
+
+        public Visibility Visibility
+        {
+            get
+            {
+                return _visibility;
+            }
+            set
+            {
+                _visibility = value;
+
+                OnPropertyChanged("Visibility");
+            }
+        }
+
+        public Visibility ChartVisibility
+        {
+            get
+            {
+                return _chartVisibility;
+            }
+            set
+            {
+                _chartVisibility = value;
+
+                OnPropertyChanged("ChartVisibility");
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// ChartsView constructor, creates list of columns in database, time range for data to be displayed on the chart and
@@ -162,52 +168,40 @@ namespace BodyMonitorApp
         /// </summary>
         public ChartsViewModel()
         {
-
             ComboBoxChoices = new ObservableCollection<ComboBoxHistory>();
-            
-            // list of current actual choices of body parts values in db
-            List<string> bodyPartsChoices = new List<string>() {"-----", "Weight", "Neck", "Chest", "Stomach", "Waist", "Hips", "Thigh", "Calf", "Biceps" };
 
-           
+            // list of current actual choices of body parts values in db
+            List<string> bodyPartsChoices = new List<string>() { "-----", "Weight", "Neck", "Chest", "Stomach", "Waist", "Hips", "Thigh", "Calf", "Biceps" };
+
             TimeRangeValues = new List<int>() { -365, -7, -30 };
 
             //adding body parts values to the combobox in view
-            foreach(var bodyPart in bodyPartsChoices)
+            foreach (var bodyPart in bodyPartsChoices)
             {
                 ComboBoxChoices.Add(new ComboBoxHistory() { Symbol = bodyPart });
             }
 
-            
             SelectedItem = ComboBoxChoices[0];
-
         }
 
-        #region methods
-
+        #region methods           
 
         /// <summary>
         /// Gets ChartModel data type from SQL query based on logged in User
         /// </summary>
         /// <param name="userId"></param>
         public void SetUserValues(int userId)
-        {
-            
+        {            
             Queries query = new Queries(userId);
             ChartModel = query.GetUserValues();
-
         }
-
-
-        // TODO: change the way in which selected time range is chosen and set(radiobuttons and array)
 
         /// <summary>
         /// Sets Time Range of data e.g all, 7 days, 30 days, based on current selected mode in view
         /// </summary>
         /// <param name="mode"></param>
         public void SetTimeRange(int mode)
-        {
-
-            
+        {            
             int timeSubstract = 0;
             switch (mode)
             {
@@ -220,10 +214,8 @@ namespace BodyMonitorApp
                 case 2:
                     timeSubstract = -30;
                     break;
-            }
-                
-
-                            
+            }              
+                                        
             DateTime timeRange = DateTime.Now.AddDays(timeSubstract);
             DateTime now = DateTime.Now;
 
@@ -241,7 +233,6 @@ namespace BodyMonitorApp
                 //ChartValueDate narazie jest puste, pojawia się to później - specjalnie puste na już - do poprawienia
             };
 
-
         }
 
         /// <summary>
@@ -255,7 +246,6 @@ namespace BodyMonitorApp
 
             try
             {
-
                 if (bodyPartName == "-----")
                 {
                     ChartVisibility = Visibility.Hidden;
@@ -277,7 +267,6 @@ namespace BodyMonitorApp
                     }
 
                     ChartValueDate = chartValueDate.ToList();
-
                 }
                              
             }
@@ -295,12 +284,10 @@ namespace BodyMonitorApp
         /// <param name="filteredValues"></param>
         public void UpdateChart(List<ChartValueDate> filteredValues)
         {
-
            //map chart ticks for x axis
             var dayConfig = Mappers.Xy<DateModel>()
                           .X(dayModel => dayModel.DateTime.Ticks)
                           .Y(dayModel => dayModel.Value);
-
 
 
             Values = new ChartValues<DateModel>();
@@ -309,7 +296,6 @@ namespace BodyMonitorApp
             int i = 0;
             foreach (var value in filteredValues)
             {
-
                 Values.Add(new DateModel
                 {
                     DateTime = filteredValues[i].Date,
@@ -335,27 +321,19 @@ namespace BodyMonitorApp
 
             //set datapoints and title of the chart
             SeriesCollection = new SeriesCollection(dayConfig)
-            {
-                            
-
+            {   
                 new LineSeries
-                {                                      
-
+                {    
                     Title =  chartTitle,
-
                     Values = Values
-
                 }
-              };
+            };
 
             Formatter = value => new DateTime((long)value).ToString("yyyy-MM-dd");
-
 
         }
         #endregion
     }
-
-
 }
 
 

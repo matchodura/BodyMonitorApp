@@ -12,26 +12,18 @@ namespace BodyMonitorApp
 {
     public class ProfileInfoViewModel : ObservableObject, IPageViewModel
     {
-
         #region fields
 
         private AccountModel _currentAccount;
-        private Visibility _visibility = Visibility.Hidden;
-
-        private Visibility _textBlockVisibility = Visibility.Visible;
-
-        private Visibility _editBoxVisibility = Visibility.Hidden;
-
         private int _userId;
-
         private bool _isChecked = false;
-
-
-
+        private Visibility _visibility = Visibility.Hidden;
+        private Visibility _textBlockVisibility = Visibility.Visible;
+        private Visibility _editBoxVisibility = Visibility.Hidden;
+     
         #endregion fields
 
         #region properties/commands
-
 
         public bool IsChecked
         {
@@ -61,12 +53,10 @@ namespace BodyMonitorApp
             }
         }
 
-
         public string Name
         {
             get{return "Profile Info";} set {;}
         }                      
-
 
         public Visibility Visibility
         {
@@ -96,7 +86,6 @@ namespace BodyMonitorApp
             }
         }
 
-
         public Visibility EditBoxVisibility
         {
             get
@@ -110,6 +99,7 @@ namespace BodyMonitorApp
                 OnPropertyChanged("EditBoxVisibility");
             }
         }
+
         public AccountModel CurrentAccount
         {
             get { return _currentAccount; }
@@ -124,8 +114,8 @@ namespace BodyMonitorApp
             }
 
         }
-        #endregion
 
+        #endregion
 
         public ProfileInfoViewModel()
         {
@@ -133,21 +123,15 @@ namespace BodyMonitorApp
             CurrentAccount = account;
         }
 
-
-
-
         #region methods
 
         /// <summary>
         /// Displaying user profile data
         /// </summary>
         /// <param name="userId"></param>
-
         public void SetUserValues(int userId)
         {
-
             AccountModel currentAccount = new AccountModel();
-
             UserId = userId;
             //TODO: add method to queries class
 
@@ -231,7 +215,6 @@ namespace BodyMonitorApp
 
         }
 
-
         //todo: logika
         public void EditData()
         {
@@ -251,8 +234,7 @@ namespace BodyMonitorApp
 
 
         }
-
-            
+                    
         public void UpdateData()
         {
 
@@ -303,8 +285,7 @@ namespace BodyMonitorApp
 
         }
 
-
-    }
         #endregion methods
+    }
 }
 

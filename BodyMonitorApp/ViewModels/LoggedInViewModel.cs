@@ -11,13 +11,8 @@ namespace BodyMonitorApp
     {
         public string Name
         {
-            get
-            {
-                return "Logged In";
-            }
+            get { return "Logged In"; }
             set {;}
         }
-    }
-    
-    
+    }       
 }

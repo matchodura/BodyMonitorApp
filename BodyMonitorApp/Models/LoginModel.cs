@@ -9,8 +9,8 @@ namespace BodyMonitorApp
 {
     public class LoginModel : ObservableObject
     {
-
         #region Fields
+
         private string _hash;
         private string _salt;
         private string _userName;
@@ -19,11 +19,9 @@ namespace BodyMonitorApp
         private int _userId;
         private HashSalt _hashSalt;
        
-
         #endregion
 
         #region properties
-
 
         public string UserName
         {
@@ -40,7 +38,6 @@ namespace BodyMonitorApp
             }
         }
 
-
         public string UserPassword
         {
             get { return _userPassword; }
@@ -53,7 +50,6 @@ namespace BodyMonitorApp
                 }
             }
         }
-
 
         public string Hash
         {
@@ -108,7 +104,6 @@ namespace BodyMonitorApp
             }
         }
 
-
         public bool LoggedIn
         {
             get { return _loggedIn; }
@@ -124,7 +119,5 @@ namespace BodyMonitorApp
 
         #endregion
     
-
-
     }
 }

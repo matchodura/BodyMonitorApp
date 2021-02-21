@@ -12,22 +12,23 @@ namespace BodyMonitorApp
 {
     public class ForgotPasswordViewModel : ObservableObject, IPageViewModel
     {
+        #region fields
 
         private ICommand _getSecretQuestionCommand;
         private ICommand _changePasswordCommand;
         private ICommand _updatePasswordCommand;
-
         private string _secretQuestion;
-
         private string _secretAnswer;
         private string _secretAnswerCheck;
-
         private string _userLogin;
         private string _newPassword;
         private string _newPasswordConfirmation;
-
         private Visibility _changePassword = Visibility.Hidden;
         private Visibility _secretQuestionBox = Visibility.Hidden;
+
+        #endregion
+
+        #region properties
 
         public ICommand GetSecretQuestionCommand
         {
@@ -57,7 +58,6 @@ namespace BodyMonitorApp
             }
         }
 
-
         public ICommand UpdatePasswordCommand
         {
             get
@@ -71,6 +71,7 @@ namespace BodyMonitorApp
                 return _updatePasswordCommand;
             }
         }
+
         public string Name
         {
             get{ return "Forgot password";} set {;}
@@ -102,7 +103,6 @@ namespace BodyMonitorApp
             }
         }
 
-
         public string NewPasswordConfirmation
         {
             get { return _newPasswordConfirmation; }
@@ -115,8 +115,6 @@ namespace BodyMonitorApp
                 }
             }
         }
-
-
 
         public string SecretQuestion
         {
@@ -156,9 +154,6 @@ namespace BodyMonitorApp
                 }
             }
         }
-
-
-
         public Visibility ChangePasswordOption
         {
             get
@@ -172,7 +167,6 @@ namespace BodyMonitorApp
                 OnPropertyChanged("ChangePasswordOption");
             }
         }
-
         public Visibility SecretQuestionBox
         {
             get
@@ -187,61 +181,50 @@ namespace BodyMonitorApp
             }
         }
 
+        #endregion
 
+        #region methods
 
         public void GetSecretQuestion()
         {
             var queries = new Queries();
-
             var results = queries.GetSecretQuestion(UserLogin);
-
             SecretQuestion = results.Question;
             SecretAnswer = results.Answer;
 
             if(SecretQuestion != null)
             {
                 SecretQuestionBox = Visibility.Visible;
-            }
-
-
-           
-
+            }         
         }
     
-
         public void ChangePassword()
         {
-
             if(SecretAnswerCheck== SecretAnswer)
             {
                 MessageBox.Show("Gites!");
                 ChangePasswordOption = Visibility.Visible;
             }
+
             else
             {
                 MessageBox.Show("smuteczek");
             }
-
         }
-
 
         public void UpdatePassword(object obj)
         {
-
             //gets password box values from command parameters on view
             var pswBoxes = obj as List<object>;
             PasswordBox pwdBox = pswBoxes[0] as PasswordBox;
             PasswordBox pwdBoxRepeat = pswBoxes[1] as PasswordBox;
-
             var password = pwdBox.Password;
             var passwordRepeat = pwdBoxRepeat.Password;
-
 
             if (string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("Missing password!");
             }
-
 
             else if (password != passwordRepeat)
             {
@@ -252,16 +235,12 @@ namespace BodyMonitorApp
             {
                 //hashing data
                 var hashSalt = HashSalt.GenerateSaltedHash(64, password);
-
-
                 var queries = new Queries();
-
                 queries.UpdatePassword(UserLogin, password, hashSalt);
-            }
-
-           
-                 
-          
+            }                 
+                          
         }
+
+        #endregion 
     }
 }

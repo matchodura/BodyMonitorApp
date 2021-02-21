@@ -11,11 +11,12 @@ namespace Helpers.ValidationRules
 {
       
     public class CannotBeEmptyRule : ValidationRule 
-    {         
-      
+    {               
         public string ErrorMessage { get; set; }
+
         public CannotBeEmptyRule()
         {
+
         }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
@@ -42,15 +43,15 @@ namespace Helpers.ValidationRules
     {
 
         public string ErrorMessage { get; set; }
+
         public InvalidUserLogin()
         {
+
         }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-
             string strValue = Convert.ToString(value);
-
 
             if (string.IsNullOrWhiteSpace(strValue))
             {
@@ -73,15 +74,15 @@ namespace Helpers.ValidationRules
 
     public class InvalidNameRule : ValidationRule
     {
-
         public string ErrorMessage { get; set; }
+
         public InvalidNameRule()
         {
+
         }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-
             string strValue = Convert.ToString(value);
 
             Regex regex = new Regex(@"^[aA-zZ\d_\s]+$");
@@ -90,8 +91,7 @@ namespace Helpers.ValidationRules
             {
                 return new ValidationResult(false, "Name cannot be empty!");
             }
-
-          
+                      
             else if (regex.IsMatch(strValue))
             {
                 return new ValidationResult(true, null);
@@ -112,32 +112,25 @@ namespace Helpers.ValidationRules
 
         public HeightValidationRule()
         {
+
         }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-
-            string strValue = Convert.ToString(value);
-
-       
+            string strValue = Convert.ToString(value);                   
             int i = 0;
-
             bool canConvert = int.TryParse(strValue, out i);
-
 
             if (string.IsNullOrWhiteSpace(strValue))
             {
                 return new ValidationResult(false, "Height cannot be empty!");
             }
 
-
             if (canConvert && i > 0)
             {
                 return new ValidationResult(true, null);
             }
-
-  
-
+             
             else
             {
                 return new ValidationResult(false, $"Invalid value!");
@@ -150,17 +143,17 @@ namespace Helpers.ValidationRules
 
     public class InvalidPassword : ValidationRule
     {
-
         public string ErrorMessage { get; set; }
+
         public InvalidPassword()
         {
+
         }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
 
             string strValue = Convert.ToString(value);
-
 
             if (string.IsNullOrWhiteSpace(strValue))
             {
@@ -171,6 +164,7 @@ namespace Helpers.ValidationRules
             {
                 return new ValidationResult(false, "Password cannot have less than 4 and more than 8 characters!");
             }
+
             else
             {
                 return new ValidationResult(true, null);
@@ -182,20 +176,16 @@ namespace Helpers.ValidationRules
 
 
     public class EmailValidationRule : ValidationRule
-    {
-          
+    {          
         public EmailValidationRule()
         {
+
         }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-
             string strValue = Convert.ToString(value);
-
             Regex regex = new Regex(@"^([\w\.\]+)@((?!\.|\-)[\w\-]+)((\.(\w){2,3})+)$");
-
-
 
             if (string.IsNullOrWhiteSpace(strValue))
             {
@@ -208,6 +198,7 @@ namespace Helpers.ValidationRules
                 return new ValidationResult(true, null);
 
             }
+
             else
             {
                 return new ValidationResult(false, "Wrong E-Mail!");
@@ -219,10 +210,10 @@ namespace Helpers.ValidationRules
 
 
     public class GenderValidationRule : ValidationRule
-    {
-            
+    {            
         public GenderValidationRule()
         {
+
         }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
@@ -254,33 +245,25 @@ namespace Helpers.ValidationRules
 
     public class ProgressValidationRule : ValidationRule
     {
-
         public ProgressValidationRule()
         {
+
         }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-
-            string strValue = Convert.ToString(value);
-
-            
+            string strValue = Convert.ToString(value);            
             Regex regex = new Regex(@"^\d*\.?\d+$");
-
-
 
             if (string.IsNullOrWhiteSpace(strValue))
             {
                 return new ValidationResult(false, "Value cannot be empty!");
             }
 
-
             if (regex.IsMatch(strValue))
             {
                 return new ValidationResult(true, null);
             }
-
-
 
             else
             {

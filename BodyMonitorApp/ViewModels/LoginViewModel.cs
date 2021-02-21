@@ -15,55 +15,20 @@ namespace BodyMonitorApp
 {
     public class LoginViewModel : ObservableObject, IPageViewModel
     {
-
         #region fields
 
         private string _userLogin;
         private string _userPassword;
         private string _name;
-        private LoginModel _currentLogin;
-        private ICommand _loginUserCommand;
-
-        #endregion
-            
-
-        private IPageViewModel _currentPageViewModel;
-        public IPageViewModel CurrentPageViewModel
-        {
-            get
-            {
-                return _currentPageViewModel;
-            }
-            set
-            {
-                if (_currentPageViewModel != value)
-                {
-                    _currentPageViewModel = value;
-                    OnPropertyChanged("CurrentPageViewModel");
-                }
-            }
-        }
-
         private bool _isCheckedCreateAccount = false;
         private bool _isCheckedForgotPassword = false;
+        private LoginModel _currentLogin;
+        private ICommand _loginUserCommand;
+        private IPageViewModel _currentPageViewModel;
+        private Visibility _visibility = Visibility.Hidden;
 
-        public CreateAccountViewModel CreateAccountVM { get; set; }
-
-        public ForgotPasswordViewModel ForgotPasswordVM { get; set; }
-        public LoginViewModel()
-        {
-
-            CreateAccountVM = new CreateAccountViewModel();
-
-            ForgotPasswordVM = new ForgotPasswordViewModel();
-            
-
-            _name = "Login";
-            LoginModel login = new LoginModel();
-            login.LoggedIn = false;
-            CurrentLogin = login;
-        }
-
+        #endregion           
+    
         #region properties
 
         public string Name
@@ -94,8 +59,7 @@ namespace BodyMonitorApp
                 }
             }
         }
-
-   
+           
         public LoginModel CurrentLogin
         {
             get { return _currentLogin; }
@@ -110,11 +74,10 @@ namespace BodyMonitorApp
             }
 
         }
-                
-      
 
-        private Visibility _visibility = Visibility.Hidden;
-      
+        public CreateAccountViewModel CreateAccountVM { get; set; }
+
+        public ForgotPasswordViewModel ForgotPasswordVM { get; set; }
 
         public Visibility Visibility
         {
@@ -130,7 +93,6 @@ namespace BodyMonitorApp
             }
         }
 
-
         public bool IsCheckedCreateAccount
         {
             get { return _isCheckedCreateAccount; }
@@ -142,7 +104,6 @@ namespace BodyMonitorApp
 
             }
         }
-
 
         public bool IsCheckedForgotPassword
         {
@@ -156,8 +117,35 @@ namespace BodyMonitorApp
             }
         }
 
+        public IPageViewModel CurrentPageViewModel
+        {
+            get
+            {
+                return _currentPageViewModel;
+            }
+            set
+            {
+                if (_currentPageViewModel != value)
+                {
+                    _currentPageViewModel = value;
+                    OnPropertyChanged("CurrentPageViewModel");
+                }
+            }
+        }
 
         #endregion
+
+        public LoginViewModel()
+        {
+            CreateAccountVM = new CreateAccountViewModel();
+            ForgotPasswordVM = new ForgotPasswordViewModel();
+            _name = "Login";
+            LoginModel login = new LoginModel();
+            login.LoggedIn = false;
+            CurrentLogin = login;
+        }
+
+        #region methods
 
         public bool LoginUser(string password)
         {
@@ -286,7 +274,6 @@ namespace BodyMonitorApp
             
         }
            
-
         public void CreateAccount()
         {
             IsCheckedCreateAccount = !IsCheckedCreateAccount;
@@ -315,7 +302,6 @@ namespace BodyMonitorApp
             }
         }
 
+        #endregion
     }
-
-
 }

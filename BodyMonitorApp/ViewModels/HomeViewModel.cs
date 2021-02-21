@@ -11,7 +11,6 @@ namespace BodyMonitorApp
 {
     public class HomeViewModel : ObservableObject, IPageViewModel
     {
-
         #region fields
 
         private Visibility _visibility = Visibility.Hidden;
@@ -25,6 +24,7 @@ namespace BodyMonitorApp
         #endregion fields
 
         #region properties/commands
+
         public string Name
         {
             get
@@ -32,8 +32,7 @@ namespace BodyMonitorApp
                 return "Home";
             }
             set {;}
-        }
-               
+        }               
         public Visibility Visibility
         {
             get
@@ -48,7 +47,6 @@ namespace BodyMonitorApp
             }
         }
 
-
         public double BMI
         {
             get
@@ -62,7 +60,6 @@ namespace BodyMonitorApp
                 OnPropertyChanged("BMI");
             }
         }
-
 
         public double Weight
         {
@@ -120,7 +117,6 @@ namespace BodyMonitorApp
             }
         }
 
-
         public ComboBoxHistory SelectedItem
         {
             get { return _selectedItem; }
@@ -143,8 +139,9 @@ namespace BodyMonitorApp
             }
         }
 
-
         public ObservableCollection<ComboBoxHistory> ComboBoxChoices { get; set; }
+
+        #endregion
 
         public HomeViewModel()
         {
@@ -160,34 +157,25 @@ namespace BodyMonitorApp
 
             SelectedItem = ComboBoxChoices[0];
         }
-        #endregion properties/commands
-
+     
         #region methods
 
         public void PopulateDashboard()
         {
-
             var queries = new Queries();
             Height = queries.GetHeight(UserName);
             Weight = queries.GetLastWeight(UserName);
             BodyValue = queries.GetBodyPart(UserName, SelectedItem.Symbol);
-
             CalculateBMI(Height, Weight);
-
-
         }
-
 
         public void CalculateBMI(double height, double weight)
         {
-
             var heightInMeters = height / 100;
-
             BMI = weight / Math.Pow(heightInMeters, 2);
             BMI = Math.Round(BMI, 2);
-
         }
-        #endregion
 
+        #endregion
     }
 }

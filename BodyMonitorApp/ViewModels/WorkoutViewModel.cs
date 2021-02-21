@@ -12,26 +12,22 @@ namespace BodyMonitorApp
 {
     public class WorkoutViewModel : ObservableObject, IPageViewModel
     {
-
         #region fields
-
-        private Visibility _visibility = Visibility.Hidden;     
-
+          
         private ICommand _changeBodyPartCommand;
         private ICommand _nextPageCommand;
         private ICommand _previousPageCommand;
         private int _currentPageIndex = 0;
         private int _indexPageCount;
-        private WorkoutModel _selectedItem;
-       
-        private string _bodyPart;
-     
-
+        private WorkoutModel _selectedItem;       
+        private string _bodyPart;   
         private List<WorkoutModel> _workouts;
         private List<WorkoutModel> _chosenWorkouts;
-
         private WorkoutModel _workout;
+        private Visibility _visibility = Visibility.Hidden;
         #endregion
+          
+        #region properties/commands
 
         public WorkoutModel Workout
         {
@@ -46,27 +42,6 @@ namespace BodyMonitorApp
                 OnPropertyChanged("Workout");
             }
         }
-
-
-        public WorkoutViewModel()
-        {
-
-            var workouts = new WorkoutPopulation();
-            Workouts = workouts.Workouts;
-
-            ChosenWorkouts = workouts.Workouts;
-
-            IndexPagecount = Workouts.Count -1;
-            Workout = Workouts[0];
-        
-        }
-    
-
-
-
-        #region properties/commands
-
-       
         public List<WorkoutModel> Workouts
         {
             get { return _workouts; }
@@ -81,7 +56,6 @@ namespace BodyMonitorApp
             }
 
         }
-
 
         public List<WorkoutModel> ChosenWorkouts
         {
@@ -119,8 +93,7 @@ namespace BodyMonitorApp
                 OnPropertyChanged("Visibility");
             }
         }
-
-    
+            
         public string BodyPart
         {
             get
@@ -164,7 +137,6 @@ namespace BodyMonitorApp
 
         }
 
-
         public ICommand PreviousPageCommand
         {
            
@@ -180,7 +152,6 @@ namespace BodyMonitorApp
             }
         }
 
-
         public int CurrentPageIndex
         {
             get
@@ -194,9 +165,7 @@ namespace BodyMonitorApp
              
                 OnPropertyChanged("CurrentPageIndex");
             }
-        }
-
-  
+        }        
 
         public WorkoutModel SelectedItem 
         {
@@ -219,8 +188,6 @@ namespace BodyMonitorApp
             }
         }
 
-
-
         public int IndexPagecount
         {
             get
@@ -234,7 +201,18 @@ namespace BodyMonitorApp
             }
         }
 
+        #endregion
 
+        public WorkoutViewModel()
+        {
+            var workouts = new WorkoutPopulation();
+            Workouts = workouts.Workouts;
+            ChosenWorkouts = workouts.Workouts;
+            IndexPagecount = Workouts.Count - 1;
+            Workout = Workouts[0];
+        }
+
+        #region methods
         public void ChangeBodyPart(object param)
         {
             BodyPart = (string)param;       
@@ -245,14 +223,14 @@ namespace BodyMonitorApp
                 IndexPagecount = ChosenWorkouts.Count - 1;
                 CurrentPageIndex = 0;
             }
+
             else
             {
                 ChosenWorkouts = Workouts.Where(p => p.Category == BodyPart).ToList();
                 IndexPagecount = ChosenWorkouts.Count - 1;
                 CurrentPageIndex = 0;
             }
-
-          
+                      
             Workout = ChosenWorkouts[CurrentPageIndex];
         }
 
@@ -262,7 +240,8 @@ namespace BodyMonitorApp
             {
                 CurrentPageIndex += 1;      
                 
-            }           
+            }      
+            
             else
             {
                 CurrentPageIndex = 0;
@@ -270,17 +249,15 @@ namespace BodyMonitorApp
            
             Workout = ChosenWorkouts[CurrentPageIndex];
             SelectedItem = Workout;
-
         }
-
 
         public void IndexDown()
         {
-
             if (CurrentPageIndex > 0)
             {
                 CurrentPageIndex -= 1;
             }
+
             else
             {
                 CurrentPageIndex = IndexPagecount;
@@ -289,8 +266,8 @@ namespace BodyMonitorApp
             Workout = ChosenWorkouts[CurrentPageIndex];
             SelectedItem = Workout;
         }
-        #endregion
 
+        #endregion
     }
 
 }
