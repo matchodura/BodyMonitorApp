@@ -166,14 +166,11 @@ namespace BodyMonitorApp
             LoginVM = new LoginViewModel();
             AboutVM = new AboutViewModel();
             LoggedInVM = new LoggedInViewModel();
-            WorkoutVM = new WorkoutViewModel();
-
-           
+            WorkoutVM = new WorkoutViewModel();           
 
             // Add available pages
             PageViewModels.Add(HomeVM);     
             PageViewModels.Add(AboutVM);
-
 
             // Add user pages - displayed when logged on
             UserPageViewModels.Add(WorkoutVM);
@@ -202,7 +199,6 @@ namespace BodyMonitorApp
             HomeVM.Visibility = Visibility.Visible;
             LoginVM.Visibility = Visibility.Visible;
             AboutVM.Visibility = Visibility.Visible;
-
         }
 
         #region Methods

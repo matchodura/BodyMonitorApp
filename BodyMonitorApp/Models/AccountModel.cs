@@ -38,20 +38,7 @@ namespace BodyMonitorApp
                     OnPropertyChanged("UserLogin");
                 }
             }
-        }
-
-        public string UserPassword
-        {
-            get { return _userPassword; }
-            set
-            {
-                if (value != _userPassword)
-                {
-                    _userPassword = value;
-                    OnPropertyChanged("UserPassword");
-                }
-            }
-        }
+        }            
 
         public DateTime UserBirthday
         {

@@ -485,17 +485,15 @@ namespace BodyMonitorApp
                 // get connection string from Connections Helper Class
                 SqlConnection conn = new SqlConnection(Connections.ConnectionString);
 
-                string sql = "INSERT INTO dbo.Users (UserLogin,UserPassword,Hash,Salt) values (@UserLogin,@UserPassword,@Hash,@Salt);" +
+                string sql = "INSERT INTO dbo.Users (UserLogin,Hash,Salt) values (@UserLogin,@Hash,@Salt);" +
                     "INSERT INTO dbo.UserData(id,UserHeight,UserName,UserBirthday,UserMail,UserGender,AccountCreated,SecretQuestion,SecretAnswer) values ((SELECT SCOPE_IDENTITY()),@UserHeight,@UserName,@UserBirthday,@UserMail,@UserGender,@AccountCreated,@SecretQuestion,@SecretAnswer)";
 
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.Add("@UserLogin", SqlDbType.VarChar).Value = account.UserLogin;
-                cmd.Parameters.Add("@UserPassword", SqlDbType.VarChar).Value = account.UserPassword;
+                cmd.Parameters.Add("@UserLogin", SqlDbType.VarChar).Value = account.UserLogin;  
                 cmd.Parameters.Add("@Hash", SqlDbType.VarChar).Value = account.HashSalt.Hash;
                 cmd.Parameters.Add("@Salt", SqlDbType.VarChar).Value = account.HashSalt.Salt;
-
                 cmd.Parameters.Add("@UserBirthday", SqlDbType.Date).Value = account.UserBirthday.Date;
                 cmd.Parameters.Add("@UserHeight", SqlDbType.Int).Value = account.UserHeight;
                 cmd.Parameters.Add("@UserName", SqlDbType.VarChar).Value = account.UserName;
@@ -666,7 +664,6 @@ namespace BodyMonitorApp
 
             return false;
         }
-
 
         public static bool CheckIfRecordExists(int userId, DateTime calendarDate)
         {

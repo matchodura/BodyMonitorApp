@@ -265,8 +265,7 @@ namespace BodyMonitorApp
 
                 AccountModel account = new AccountModel
                 {
-                    UserLogin = UserLogin.Trim(),
-                    UserPassword = password,
+                    UserLogin = UserLogin.Trim(),                 
                     UserBirthday = UserBirthday,
                     UserHeight = UserHeight,
                     UserName = UserName,
