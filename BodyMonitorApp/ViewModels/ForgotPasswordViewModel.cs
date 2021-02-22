@@ -186,9 +186,8 @@ namespace BodyMonitorApp
         #region methods
 
         public void GetSecretQuestion()
-        {
-            var queries = new Queries();
-            var results = queries.GetSecretQuestion(UserLogin);
+        {      
+            var results = Queries.GetSecretQuestion(UserLogin);
             SecretQuestion = results.Question;
             SecretAnswer = results.Answer;
 
@@ -234,11 +233,9 @@ namespace BodyMonitorApp
             else
             {
                 //hashing data
-                var hashSalt = HashSalt.GenerateSaltedHash(64, password);
-                var queries = new Queries();
-                queries.UpdatePassword(UserLogin, password, hashSalt);
-            }                 
-                          
+                var hashSalt = HashSalt.GenerateSaltedHash(64, password);          
+                Queries.UpdatePassword(UserLogin, password, hashSalt);
+            }                                           
         }
 
         #endregion 

@@ -27,7 +27,7 @@ namespace Helpers.ValidationRules
 
             if (string.IsNullOrWhiteSpace(strValue))
             {
-                return new ValidationResult(false, "Login cannot be empty!");
+                return new ValidationResult(false, "Field cannot be empty!");
             }
             else
             {

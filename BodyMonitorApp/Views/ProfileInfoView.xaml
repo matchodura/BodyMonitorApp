@@ -73,7 +73,7 @@
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
 
             <TextBlock  Margin="5" Width="150"
-                            Text="{Binding CurrentAccount.UserAge}"
+                            Text="{Binding CurrentAccount.UserBirthday}"
                             Visibility="{Binding TextBlockVisibility}"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             />
@@ -92,7 +92,8 @@
 
             <TextBox.Text >
                 <Binding
-                    Path="CurrentAccount.UserAge" 
+                    Path="CurrentAccount.UserBirthday" 
+                    StringFormat="{}{0:MM/dd/yyyy}"
                     UpdateSourceTrigger="PropertyChanged">
 
                     <Binding.ValidationRules>

@@ -51,8 +51,6 @@
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
 
-
-
                         <TextBox
                         Style="{StaticResource MaterialDesignFilledTextBox}"
                         VerticalAlignment="Top"
@@ -73,10 +71,7 @@
                                     </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
-                        </TextBox>
-
-
-                        
+                        </TextBox>                        
 
                         <PasswordBox 
                                 x:Name="pwdBox"
@@ -96,70 +91,6 @@
                                 IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledPasswordFieldPasswordBoxEnabledComboBox}"
                                 materialDesign:HintAssist.Hint="Repeat Password">
                         </PasswordBox>
-
-                        <!--<TextBox
-                        Style="{StaticResource MaterialDesignFilledTextBox}"
-                        VerticalAlignment="Top"
-                        AcceptsReturn="True"
-                        TextWrapping="Wrap"
-                        Grid.Column="0" Grid.Row="3"
-                        materialDesign:HintAssist.Hint="Password"
-                        FontFamily="pack://application:,,,/Assets/#password"
-                        Name="txtPassword">
-
-                            <TextBox.InputBindings>
-                                --><!--Disable CTRL+C --><!--
-                                <KeyBinding Command="ApplicationCommands.NotACommand"
-                              Key="C"                             
-                              Modifiers="Control" />
-                                <KeyBinding Command="ApplicationCommands.NotACommand"
-                              Key="X"                             
-                              Modifiers="Control" />
-                            </TextBox.InputBindings>
-                            <TextBox.Text>
-
-                                <Binding StringFormat="*"
-                                  Path="UserPassword"
-                                  UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <c:InvalidPassword 
-                                                         ValidatesOnTargetUpdated="True" />
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>-->
-
-                        <!--<TextBox
-                        Style="{StaticResource MaterialDesignFilledTextBox}"
-                        VerticalAlignment="Top"
-                        AcceptsReturn="True"
-                        TextWrapping="Wrap"
-                        Grid.Column="0" Grid.Row="5"
-                        materialDesign:HintAssist.Hint="Repeat Password"
-                        FontFamily="pack://application:,,,/Assets/#password"
-                        Name="txtRepeatPassword">
-
-                            <TextBox.InputBindings>
-                                --><!--Disable CTRL+C --><!--
-                                <KeyBinding Command="ApplicationCommands.NotACommand"
-                              Key="C"                             
-                              Modifiers="Control" />
-                                <KeyBinding Command="ApplicationCommands.NotACommand"
-                              Key="X"                             
-                              Modifiers="Control" />
-                            </TextBox.InputBindings>
-                            <TextBox.Text>
-
-                                <Binding 
-                                  Path="UserPasswordConfirmation"
-                                  UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <c:InvalidPassword ValidatesOnTargetUpdated="True" />
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>-->
-
 
                         <TextBox
                         Style="{StaticResource MaterialDesignFilledTextBox}"
@@ -205,8 +136,6 @@
                             </TextBox.Text>
                         </TextBox>
 
-
-
                         <TextBox
                         Style="{StaticResource MaterialDesignFilledTextBox}"
                         VerticalAlignment="Top"
@@ -227,7 +156,6 @@
                             </TextBox.Text>
                         </TextBox>
 
-
                         <TextBox
                         Style="{StaticResource MaterialDesignFilledTextBox}"
                         VerticalAlignment="Top"
@@ -245,7 +173,6 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-
 
                         <TextBox
                             
@@ -269,9 +196,6 @@
                             </TextBox.Text>
                         </TextBox>
 
-
-
-
                         <ComboBox VerticalAlignment="Bottom" HorizontalAlignment="Center"
                                   x:Name="cbxHistory"
                                   ItemsSource="{Binding ComboBoxChoices}"
@@ -280,7 +204,6 @@
                                   IsSynchronizedWithCurrentItem="True"
                                   Width="300"
                                   Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="3" />
-
 
                         <TextBox
                         Style="{StaticResource MaterialDesignFilledTextBox}"

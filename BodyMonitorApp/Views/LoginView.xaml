@@ -79,11 +79,6 @@
                             <Binding
                                   Path="UserLogin" 
                                   UpdateSourceTrigger="PropertyChanged">
-
-                                <!--<Binding.ValidationRules>
-                                    <c:CannotBeEmptyRule ErrorMessage="Login box cannot be empty!"
-                                                         ValidatesOnTargetUpdated="True" />
-                                </Binding.ValidationRules>-->
                             </Binding>
                         </TextBox.Text>
                     </TextBox>

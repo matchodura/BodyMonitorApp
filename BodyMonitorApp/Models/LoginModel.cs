@@ -15,7 +15,7 @@ namespace BodyMonitorApp
         private string _salt;
         private string _userName;
         private string _userPassword;
-        private bool _loggedIn;
+        private bool _isValidated;
         private int _userId;
         private HashSalt _hashSalt;
        
@@ -104,15 +104,15 @@ namespace BodyMonitorApp
             }
         }
 
-        public bool LoggedIn
+        public bool IsValidated
         {
-            get { return _loggedIn; }
+            get { return _isValidated; }
             set
             {
-                if (value != _loggedIn)
+                if (value != _isValidated)
                 {
-                    _loggedIn = value;
-                    OnPropertyChanged("LoggedIn");
+                    _isValidated = value;
+                    OnPropertyChanged("IsValidated");
                 }
             }
         }

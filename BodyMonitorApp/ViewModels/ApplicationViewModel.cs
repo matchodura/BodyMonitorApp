@@ -165,27 +165,30 @@ namespace BodyMonitorApp
             HomeVM = new HomeViewModel();
             LoginVM = new LoginViewModel();
             AboutVM = new AboutViewModel();
-            LoggedInVM = new LoggedInViewModel();   
-            ProfileInfoVM = new ProfileInfoViewModel();
-            ProgressVM = new ProgressViewModel();
+            LoggedInVM = new LoggedInViewModel();
             WorkoutVM = new WorkoutViewModel();
-            ChartsVM = new ChartsViewModel();
+
+           
 
             // Add available pages
             PageViewModels.Add(HomeVM);     
             PageViewModels.Add(AboutVM);
 
-         
+
             // Add user pages - displayed when logged on
+            UserPageViewModels.Add(WorkoutVM);
+
+            ProfileInfoVM = new ProfileInfoViewModel();
+            ProgressVM = new ProgressViewModel();
+            ChartsVM = new ChartsViewModel();
+
             UserPageViewModels.Add(ProfileInfoVM);
             UserPageViewModels.Add(ProgressVM);
-            UserPageViewModels.Add(WorkoutVM);
             UserPageViewModels.Add(ChartsVM);
 
             // Set starting page
             OverlayViewModel = LoginVM;
             CurrentPageViewModel = PageViewModels[0];
-
 
             LoginUserCommand = new RelayCommand((p) => LoginUserTool(p));       
             CreateAccountViewCommand = new RelayCommand((p) => CreateAccountView());
@@ -213,12 +216,12 @@ namespace BodyMonitorApp
             CurrentPageViewModel = PageViewModels
                 .FirstOrDefault(vm => vm == viewModel);
         }
-          
+                 
         public void ForgotPasswordView()
         {
             LoginVM.ForgotPassword();
         }
-
+           
         public void CreateAccountView()
         {      
             LoginVM.CreateAccount();
@@ -270,21 +273,25 @@ namespace BodyMonitorApp
             var password = pwdBox.Password;
 
             //validation of user credentials
-            bool isValidated = LoginVM.LoginUser(password);
-                        
-            if (isValidated)
-            {
-                int userId = LoginVM.CurrentLogin.UserId;
-                OverlayViewModel = null;                
 
+
+            var loginModel = LoginVM.LoginUser(password);
+
+            string userName = loginModel.UserName;
+           
+            if (loginModel.IsValidated)
+            {
+                int userId = loginModel.UserId;
+                OverlayViewModel = null;
+                             
                 //sets current logged user as name on dashboard page
-                HomeVM.UserName = LoginVM.CurrentLogin.UserName;
+                HomeVM.UserName = userName;               
                 UpdateDashboard();
 
                 CurrentPageViewModel = HomeVM;
 
                 ButtonVisibility = Visibility.Visible;
-                SetUserPageVisibility(isValidated);                                             
+                SetUserPageVisibility(loginModel.IsValidated);                                             
                 SendUserId(userId);
             }                       
         }
@@ -302,7 +309,6 @@ namespace BodyMonitorApp
                 WorkoutVM.Visibility = Visibility.Visible;
                 ChartsVM.Visibility = Visibility.Visible;
                 LoginVM.Visibility = Visibility.Hidden;
-
             }
 
             else
@@ -341,8 +347,8 @@ namespace BodyMonitorApp
             {
                 SetUserPageVisibility(false);
                               
-                LoginVM.UserLogin = null;
-                OverlayViewModel = LoginVM;
+                LoginVM.UserLogin = null;            
+                OverlayViewModel = LoginVM;             
                 CurrentPageViewModel = PageViewModels[0];
                 ButtonVisibility = Visibility.Hidden;
             }

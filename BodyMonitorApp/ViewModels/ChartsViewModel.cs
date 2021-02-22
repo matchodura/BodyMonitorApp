@@ -35,6 +35,7 @@ namespace BodyMonitorApp
 
         private ComboBoxHistory _selectedItem;
 
+        private bool _enoughValues = true;
 
         private Visibility _visibility = Visibility.Hidden;
 
@@ -47,6 +48,20 @@ namespace BodyMonitorApp
         {
             get { return "Charts"; }
             set {; }
+        }
+
+        public bool EnoughValues
+        {
+            get { return _enoughValues; }
+            set
+            {
+                if (value != _enoughValues)
+
+                {
+                    _enoughValues = value;
+                    OnPropertyChanged("EnoughValues");
+                }
+            }
         }
 
         public bool[] ModeArray
@@ -121,8 +136,18 @@ namespace BodyMonitorApp
 
                     OnPropertyChanged("SelectedItem");
 
-                    SetChartValues(SelectedItem.Symbol);
-                    SetTimeRange(SelectedMode);
+                    CheckForEnoughValues();
+
+                    if (EnoughValues)
+                    {
+                        SetChartValues(SelectedItem.Symbol);
+                        SetTimeRange(SelectedMode);
+                    }
+
+                    else
+                    {
+                        MessageBox.Show("Add more values!");
+                    }
 
                 }
             }
@@ -191,9 +216,31 @@ namespace BodyMonitorApp
         /// </summary>
         /// <param name="userId"></param>
         public void SetUserValues(int userId)
-        {            
-            Queries query = new Queries(userId);
-            ChartModel = query.GetUserValues();
+        {     
+            ChartModel = Queries.GetUserValues(userId);
+        }
+
+        /// <summary>
+        /// checks if chart can display enough datapoints
+        /// </summary>
+        public void CheckForEnoughValues()
+        {
+            if (ChartModel != null)
+            {
+                var noElements = ChartModel.DateAdded.Count;
+
+                if (noElements > 1)
+                {
+                    EnoughValues = true;
+                }
+
+                else
+                {
+                    EnoughValues = false;
+                }
+
+            }
+            
         }
 
         /// <summary>
@@ -279,7 +326,7 @@ namespace BodyMonitorApp
         }
 
         /// <summary>
-        /// Updates chart with filtered by date values
+        /// Updates chart with filtered values by date 
         /// </summary>
         /// <param name="filteredValues"></param>
         public void UpdateChart(List<ChartValueDate> filteredValues)

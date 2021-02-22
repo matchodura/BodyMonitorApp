@@ -17,16 +17,14 @@ namespace BodyMonitorApp
     {
         #region fields
 
-        private string _userLogin;
-        private string _userPassword;
-        private string _name;
+        private string _userLogin;    
+        private string _name = "Login";
         private bool _isCheckedCreateAccount = false;
         private bool _isCheckedForgotPassword = false;
-        private LoginModel _currentLogin;
-        private ICommand _loginUserCommand;
+        private LoginModel _currentLogin;        
         private IPageViewModel _currentPageViewModel;
         private Visibility _visibility = Visibility.Hidden;
-
+     
         #endregion           
     
         #region properties
@@ -133,145 +131,57 @@ namespace BodyMonitorApp
             }
         }
 
-        #endregion
+        #endregion              
 
         public LoginViewModel()
         {
-            CreateAccountVM = new CreateAccountViewModel();
-            ForgotPasswordVM = new ForgotPasswordViewModel();
-            _name = "Login";
-            LoginModel login = new LoginModel();
-            login.LoggedIn = false;
-            CurrentLogin = login;
+            CurrentLogin = new LoginModel();
         }
 
         #region methods
 
-        public bool LoginUser(string password)
+        public LoginModel LoginUser(string password)
         {
-
             LoginModel login = new LoginModel
             {
                 UserName = UserLogin,
                 UserPassword = password,
-                UserId = 0,
-            
-                LoggedIn = false
+                IsValidated = false
             };
-
-            var userName = login.UserName;
-
-
-
-
+                    
             if (string.IsNullOrWhiteSpace(login.UserName))
             {
-
-                MessageBox.Show("Missing Login!");
-                return false;
-
+                MessageBox.Show("Missing Login!");            
             }
 
             else if (string.IsNullOrEmpty(login.UserPassword))
             {
-
-                MessageBox.Show("Missing Password!");
-                return false;
-
+                MessageBox.Show("Missing Password!");              
             }
 
-
             else
-            {
-
-                //Queries queries = new Queries();
-
-
-                //queries.GetUserId(login.UserName);
-
-                LoginModel user = Queries.GetUser(userName);
-
+            {             
+                LoginModel user = Queries.GetUser(login.UserName);
 
                 bool isValidated = HashSalt.VerifyPassword(password, user.Hash, user.Salt);
 
                 if (isValidated)
                 {
-                    MessageBox.Show("Login Sucessfull!");
-                    return true;
+                    login.UserId = user.UserId;
+                    CurrentLogin.UserId = login.UserId;
+                    login.IsValidated = true;
+                    MessageBox.Show("Login Sucessfull!");                  
                 }
+
                 else
                 {
-                    MessageBox.Show("Wrong Password!");
-                    return false;
+                    login.IsValidated = false;
+                    MessageBox.Show("Wrong Password!");                  
                 }
                
             }
 
-            //    try
-            //    {
-
-            //        SqlConnection conn = new SqlConnection(Connections.ConnectionString);
-
-
-            //        string sql = "SELECT UserId FROM dbo.Users WHERE UserLogin=@UserLogin;
-
-
-
-            //        conn.Open();
-
-            //        SqlCommand cmd = new SqlCommand(sql, conn);
-            //        cmd.Parameters.Add("@UserLogin", SqlDbType.VarChar).Value = login.UserName;
-            //        cmd.Parameters.Add("@UserPassword", SqlDbType.VarChar).Value = login.UserPassword;
-
-
-
-            //        using (SqlDataReader reader = cmd.ExecuteReader())
-            //        {
-            //            // if the result set is not NULL
-            //            if (reader.HasRows)
-            //            {
-            //                while (reader.Read())
-            //                {
-
-            //                    var UserId = reader.GetInt32(0);
-            //                    login.UserId = UserId;
-            //                    login.LoggedIn = true;
-            //                    CurrentLogin = login;
-
-            //                    MessageBox.Show($"Login Succesfull!");
-                            
-            //                    return true;
-            //                }
-
-                            
-            //                // update the existing value + the value from the text file
-            //            }
-
-
-
-            //            else 
-            //            {
-            //                MessageBox.Show("Wrong Data!");
-            //                return false;
-            //            }
-                                                
-            //        }
-                                                           
-            //    }
-
-            //    catch (SqlException ex)
-            //    {
-            //        string errorMessage = $"Error: {ex}";
-            //        MessageBox.Show(errorMessage);
-            //        return false;
-            //    }
-
-
-            //    return false;
-                
-            //}
-
-            
+            return login;
         }
            
         public void CreateAccount()
@@ -280,10 +190,12 @@ namespace BodyMonitorApp
 
             if (IsCheckedCreateAccount)
             {
+                CreateAccountVM = new CreateAccountViewModel();
                 CurrentPageViewModel = CreateAccountVM;
             }
             else
             {
+                CreateAccountVM = null;
                 CurrentPageViewModel = null;
             }
         }
@@ -294,10 +206,13 @@ namespace BodyMonitorApp
          
             if (IsCheckedForgotPassword)
             {
+                ForgotPasswordVM = new ForgotPasswordViewModel();
                 CurrentPageViewModel = ForgotPasswordVM;
             }
+
             else
             {
+                ForgotPasswordVM = null;
                 CurrentPageViewModel = null;
             }
         }

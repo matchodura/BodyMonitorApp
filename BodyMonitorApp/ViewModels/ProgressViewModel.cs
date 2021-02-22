@@ -22,8 +22,7 @@ namespace BodyMonitorApp
                
         private ComboBoxHistory _selectedItem;
         private ProgressModel _currentProgress;
-        private DateTime _calendarDate = DateTime.Now;
-        private ICommand _addItemCommand;
+        private DateTime _calendarDate = DateTime.Now;  
         private bool _isChecked = false;
         private bool _recordExists = false;
         private Visibility _visibility = Visibility.Hidden;
@@ -288,124 +287,32 @@ namespace BodyMonitorApp
         {
             var progress = new ProgressModel();
             progress = CurrentProgress;
-      
-            try
+            progress.UserId = UserId;
+            progress.DateAdded = CalendarDate;
+
+            bool isAdded = Queries.AddNewRecord(progress);
+
+            if (isAdded)
             {
+                MessageBox.Show("Record Added!");
 
-                // DateTime currentTime = DateTime.Now.Time;
-
-
-                // get connection string from Connections Helper Class
-                SqlConnection conn = new SqlConnection(Connections.ConnectionString);
-
-                string sql = "INSERT INTO dbo.UserBodyValues (UserId,DateAdded,Weight,Neck,Chest,Stomach,Waist,Hips,Thigh,Calf,Biceps) values (@UserId,@DateAdded,@Weight,@Neck,@Chest,@Stomach,@Waist,@Hips,@Thigh,@Calf,@Biceps)";
-
-
-                conn.Open();
-
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = UserId;
-                cmd.Parameters.Add("@Weight", SqlDbType.Decimal).Value = progress.Weight;
-                cmd.Parameters.Add("@Neck", SqlDbType.Decimal).Value = progress.Neck;
-                cmd.Parameters.Add("@Chest", SqlDbType.Decimal).Value = progress.Chest;
-                cmd.Parameters.Add("@Stomach", SqlDbType.Decimal).Value = progress.Stomach;
-                cmd.Parameters.Add("@Waist", SqlDbType.Decimal).Value = progress.Waist;
-                cmd.Parameters.Add("@Hips", SqlDbType.Decimal).Value = progress.Hips;
-                cmd.Parameters.Add("@Thigh", SqlDbType.Decimal).Value = progress.Thigh;
-                cmd.Parameters.Add("@Calf", SqlDbType.Decimal).Value = progress.Calf;
-                cmd.Parameters.Add("@Biceps", SqlDbType.Decimal).Value = progress.Biceps;
-                cmd.Parameters.Add("@DateAdded", SqlDbType.DateTime).Value = CalendarDate;
-
-
-
-                int result = cmd.ExecuteNonQuery();
-
-                if (result > 0)
-                {
-                    MessageBox.Show("Record Added!");
-
-                    TextBlockVisibility = Visibility.Visible;
-                    EditBoxVisibility = Visibility.Hidden;
-                    AddButtonVisibility = Visibility.Hidden;
-
-
-                }
-
-
+                TextBlockVisibility = Visibility.Visible;
+                EditBoxVisibility = Visibility.Hidden;
+                AddButtonVisibility = Visibility.Hidden;
             }
 
-            catch (SqlException ex)
+            else
             {
-                string errorMessage = $"Error: {ex}";
-                MessageBox.Show(errorMessage);
+                MessageBox.Show("Record Not Added!");
             }
+            
         }
 
         public void GetUserValues()
         {
-          
-            //TODO add method to queries class
-            //sql
-
-            try
-            {
-
-                SqlConnection conn = new SqlConnection(Connections.ConnectionString);
-
-
-                string sql = "SELECT * FROM dbo.UserBodyValues WHERE UserId=@UserId AND DateAdded=@DateAdded";
-
-
-
-                conn.Open();
-
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = UserId;
-                cmd.Parameters.Add("@DateAdded", SqlDbType.DateTime).Value = CalendarDate;
-
-
-
-
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    // if the result set is not NULL
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-
-                            CurrentProgress.Weight = reader.GetDecimal(4);
-                            CurrentProgress.Neck = reader.GetDecimal(5);
-                            CurrentProgress.Chest = reader.GetDecimal(6);
-                            CurrentProgress.Stomach = reader.GetDecimal(7);
-                            CurrentProgress.Waist = reader.GetDecimal(8);
-                            CurrentProgress.Hips = reader.GetDecimal(9);
-                            CurrentProgress.Thigh = reader.GetDecimal(10);
-                            CurrentProgress.Calf = reader.GetDecimal(11);
-                            CurrentProgress.Biceps = reader.GetDecimal(12);                                               
-
-                        }
-
-                        RecordExists = true;
-                    }
-                    else
-                    {
-                        RecordExists = false;
-                        MessageBox.Show("Record doesn't exist!");
-                    }
-
-                }
-                conn.Close();
-
-            }
-
-            catch (SqlException ex)
-            {
-                string errorMessage = $"Error: {ex}";
-                MessageBox.Show(errorMessage);
-
-            }
-                                }
+            RecordExists = Queries.CheckIfRecordExists(UserId, CalendarDate);                       
+            CurrentProgress = Queries.GetUserProgress(UserId, CalendarDate);
+        }
 
         public void SetUserValues(int userId)
         {
@@ -414,9 +321,7 @@ namespace BodyMonitorApp
 
         public void EditData()
         {
-
             IsChecked = !IsChecked;
-
 
             if (IsChecked && SelectedItem.Symbol == "Edit Record" )
             {
@@ -446,36 +351,25 @@ namespace BodyMonitorApp
                 EditBoxVisibility = Visibility.Hidden;
                 AddButtonVisibility = Visibility.Hidden;
             }
-
-
         }
-
-        //TO:DO
-        public void DeleteRecord()
-        {
-
-        }
-
+            
         public void UpdateRecord()
         {
-
             CurrentProgress.UserId = UserId;
-            var query = new Queries();
-
-
-            if (query.UpdateRecord(CurrentProgress,CalendarDate))
+          
+            if (Queries.UpdateRecord(CurrentProgress,CalendarDate))
             {
                 TextBlockVisibility = Visibility.Visible;
                 EditBoxVisibility = Visibility.Hidden;
                 UpdateButtonVisibility = Visibility.Hidden;
             }
+
             else
             {
                 TextBlockVisibility = Visibility.Hidden;
                 EditBoxVisibility = Visibility.Visible;
             }
-
-           
+            
         }
 
         #endregion methods

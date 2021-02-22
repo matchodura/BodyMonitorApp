@@ -25,7 +25,7 @@ namespace BodyMonitorApp
         private string _userLogin;
         private string _userPassword;
         private string _userPasswordConfirmation;
-        private DateTime _userBirthday;
+        private DateTime _userBirthday = DateTime.Now;
         private int _userHeight;
         private string _userName;
         private string _userMail;
@@ -213,9 +213,10 @@ namespace BodyMonitorApp
                 return _createAccountCommand;
             }
         }
+          
 
         #endregion properties
-               
+
         public CreateAccountViewModel()
         {
             ComboBoxChoices = new ObservableCollection<ComboBoxHistory>();
@@ -246,8 +247,6 @@ namespace BodyMonitorApp
             
             var password = pwdBox.Password;
             var passwordRepeat = pwdBoxRepeat.Password;
-                        
-            Queries query = new Queries();                             
 
             if (string.IsNullOrEmpty(password))
             {
@@ -276,11 +275,11 @@ namespace BodyMonitorApp
                     SecretQuestion = SelectedItem.Symbol,
                     SecretAnswer = SecretAnswer,
                     HashSalt = hashSalt
-
                 };
 
-                Queries.CreateUserAccount(account);
-            }          
+                Queries.CreateUserAccount(account);            
+            }
+              
             
             return true;
         }       

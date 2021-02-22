@@ -161,11 +161,10 @@ namespace BodyMonitorApp
         #region methods
 
         public void PopulateDashboard()
-        {
-            var queries = new Queries();
-            Height = queries.GetHeight(UserName);
-            Weight = queries.GetLastWeight(UserName);
-            BodyValue = queries.GetBodyPart(UserName, SelectedItem.Symbol);
+        {       
+            Height = Queries.GetHeight(UserName);
+            Weight = Queries.GetLastWeight(UserName);
+            BodyValue = Queries.GetBodyPart(UserName, SelectedItem.Symbol);
             CalculateBMI(Height, Weight);
         }
 

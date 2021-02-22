@@ -11,25 +11,14 @@ using System.Windows;
 namespace BodyMonitorApp
 {
     class Queries
-    {
-        public int UserId { get; set; }
-        
-
-        public Queries()
-        {
-
-        }
-
-
-        public Queries(int userId)
-        {
-            UserId = userId;
-        }
-
-        
+    {       
+        /// <summary>
+        /// gets user credientals - hash and salt from table
+        /// </summary>
+        /// <param name="userLogin"></param>
+        /// <returns></returns>
         public static LoginModel GetUser(string userLogin)
         {
-
             LoginModel user = new LoginModel()
             {
 
@@ -38,12 +27,8 @@ namespace BodyMonitorApp
             };
 
             try
-            {
-
-               
+            {               
                 SqlConnection conn = new SqlConnection(Connections.ConnectionString);
-
-
                 string sql = $"SELECT UserId,UserLogin,Hash,Salt FROM dbo.Users WHERE UserLogin=@UserLogin";
 
                 conn.Open();
@@ -57,26 +42,22 @@ namespace BodyMonitorApp
                     {
                         while (reader.Read())
                         {
-
                             user.UserId = reader.GetInt32(0);
                             user.UserName = reader.GetString(1);
                             user.Hash = reader.GetString(2);
                             user.Salt = reader.GetString(3);
-
-
                         }
 
                     }
+
                     else
                     {
                         MessageBox.Show("Record doesn't exist!");
-
                     }
 
                 }
 
             }
-
 
             catch (SqlException ex)
             {
@@ -88,14 +69,13 @@ namespace BodyMonitorApp
             return user;
         }
               
-
-        public void GetUserId(string userLogin)
+        public static int GetUserId(string userLogin)
         {
+            int userId = 0;
+
             try
             {
                 SqlConnection conn = new SqlConnection(Connections.ConnectionString);
-
-
                 string sql = $"SELECT UserId FROM dbo.Users WHERE UserLogin=@UserLogin";
 
                 conn.Open();
@@ -104,44 +84,37 @@ namespace BodyMonitorApp
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-
-                            UserId = reader.GetInt32(0);
-                          
-
+                            userId = reader.GetInt32(0);                          
                         }
 
                     }
+
                     else
                     {
                         MessageBox.Show("Record doesn't exist!");
-
                     }
 
                 }
 
             }
 
-
             catch (SqlException ex)
             {
                 string errorMessage = $"Error: {ex}";
                 MessageBox.Show(errorMessage);
-
             }
 
-
+            return userId;
         }
 
-
-        public void UpdatePassword(string userLogin, string newUserPassword, HashSalt hashSalt)
+        public static void UpdatePassword(string userLogin, string newUserPassword, HashSalt hashSalt)
         {
+            int userId = GetUserId(userLogin);
 
-            GetUserId(userLogin);
             try
             {
 
@@ -155,13 +128,11 @@ namespace BodyMonitorApp
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = UserId;
+                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
                 cmd.Parameters.Add("@UserPassword", SqlDbType.VarChar).Value = newUserPassword;
                 cmd.Parameters.Add("@Hash", SqlDbType.VarChar).Value = hashSalt.Hash;
                 cmd.Parameters.Add("@Salt", SqlDbType.VarChar).Value = hashSalt.Salt;
                
-
-
                 int result = cmd.ExecuteNonQuery();
 
                 if (result > 0)
@@ -179,23 +150,20 @@ namespace BodyMonitorApp
 
         }
 
-
-        public double GetHeight(string userLogin)
+        public static double GetHeight(string userLogin)
         {
-
-            GetUserId(userLogin);
+            int userId = GetUserId(userLogin);
             int height = 0;
 
             try
             {
                 SqlConnection conn = new SqlConnection(Connections.ConnectionString);
 
-
                 string sql = $"SELECT UserHeight FROM dbo.UserData WHERE Id=@UserId";
 
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = UserId;
+                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -204,39 +172,40 @@ namespace BodyMonitorApp
                     {
                         while (reader.Read())
                         {
-
                             height = reader.GetInt32(0);
-
-
                         }
 
                     }
+
                     else
                     {
                         MessageBox.Show("Record doesn't exist!");
-
                     }
 
                 }
 
             }
 
-
             catch (SqlException ex)
             {
                 string errorMessage = $"Error: {ex}";
                 MessageBox.Show(errorMessage);
-
             }
 
             return (double)height;
         }
 
-
-        public double GetBodyPart(string userLogin, string bodyPart)
+        /// <summary>
+        /// gets value of selected body part
+        /// </summary>
+        /// <param name="userLogin"></param>
+        /// <param name="bodyPart"></param>
+        /// <returns></returns>
+        public static double GetBodyPart(string userLogin, string bodyPart)
         {
-            GetUserId(userLogin);
+            int userId = GetUserId(userLogin);
             decimal bodyValue = 0;
+
             try
             {
                 SqlConnection conn = new SqlConnection(Connections.ConnectionString);
@@ -246,7 +215,7 @@ namespace BodyMonitorApp
 
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = UserId;
+                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
              
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -256,51 +225,49 @@ namespace BodyMonitorApp
                     {
                         while (reader.Read())
                         {
-
                             bodyValue = reader.GetDecimal(0);
-
-
                         }
 
                     }
+
                     else
                     {
                         MessageBox.Show("Record doesn't exist!");
-
                     }
 
                 }
 
             }
 
-
             catch (SqlException ex)
             {
                 string errorMessage = $"Error: {ex}";
                 MessageBox.Show(errorMessage);
-
             }
 
             return (double)bodyValue;
         }
 
-
-        public double GetLastWeight(string userLogin)
+        /// <summary>
+        /// gets last inserted weight
+        /// </summary>
+        /// <param name="userLogin"></param>
+        /// <returns></returns>
+        public static double GetLastWeight(string userLogin)
         {
 
-            GetUserId(userLogin);
+            int userId = GetUserId(userLogin);
             decimal weight = 0;
 
             try
             {
                 SqlConnection conn = new SqlConnection(Connections.ConnectionString);
 
-
                 string sql = $"SELECT TOP (1) Weight FROM dbo.UserBodyValues WHERE UserId=@UserId ORDER BY DateAdded DESC";
 
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = UserId;
+                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -309,15 +276,13 @@ namespace BodyMonitorApp
                     {
                         while (reader.Read())
                         {
-                            weight = reader.GetDecimal(0);
-                           
+                            weight = reader.GetDecimal(0);                           
                         }
 
                     }
                     else
                     {
                         MessageBox.Show("Record doesn't exist!");
-
                     }
 
                 }
@@ -329,29 +294,31 @@ namespace BodyMonitorApp
             {
                 string errorMessage = $"Error: {ex}";
                 MessageBox.Show(errorMessage);
-
             }
 
             return (double)weight;
         }
             
-
-        public SecretQuestion GetSecretQuestion(string userLogin)
+        /// <summary>
+        /// Selectes secret question
+        /// </summary>
+        /// <param name="userLogin"></param>
+        /// <returns></returns>
+        public static SecretQuestion GetSecretQuestion(string userLogin)
         {
 
-            GetUserId(userLogin);
+            int userId = GetUserId(userLogin);
             var secrets = new SecretQuestion();
 
             try
             {
                 SqlConnection conn = new SqlConnection(Connections.ConnectionString);
 
-
                 string sql = $"SELECT SecretQuestion, SecretAnswer FROM dbo.UserData WHERE Id=@UserId";
 
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = UserId;
+                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -360,45 +327,37 @@ namespace BodyMonitorApp
                     {
                         while (reader.Read())
                         {
-
                             secrets.Question = reader.GetString(0);
                             secrets.Answer = reader.GetString(1);
-
                         }
 
                     }
+
                     else
                     {
                         MessageBox.Show("Record doesn't exist!");
-
                     }
 
                 }
 
             }
 
-
             catch (SqlException ex)
             {
                 string errorMessage = $"Error: {ex}";
                 MessageBox.Show(errorMessage);
-
             }
 
             return secrets;
-        }
-                     
+        }                  
 
         /// <summary>
         /// Updates data of body user values based on selected date
         /// </summary>
-        public bool UpdateRecord(ProgressModel progressModel, DateTime calendarDate)
+        public static bool UpdateRecord(ProgressModel progressModel, DateTime calendarDate)
         {
-
             try
             {
-
-
                 // get connection string from Connections Helper Class
                 SqlConnection conn = new SqlConnection(Connections.ConnectionString);
 
@@ -421,8 +380,6 @@ namespace BodyMonitorApp
                 cmd.Parameters.Add("@Biceps", SqlDbType.Decimal).Value = progressModel.Biceps;
                 cmd.Parameters.Add("@DateAdded", SqlDbType.DateTime).Value = calendarDate;
       
-
-
                 int result = cmd.ExecuteNonQuery();
 
                 if (result > 0)
@@ -446,14 +403,12 @@ namespace BodyMonitorApp
 
         }
 
-
         /// <summary>
         /// gets body values as list from db for current logged in user
         /// </summary>
         /// <returns></returns>
-        public ChartModel GetUserValues()
-        {
-
+        public static ChartModel GetUserValues(int userId)
+        {           
             ChartModel results = new ChartModel() { DateAdded = new List<DateTime>(), Weight = new List<decimal>(),
                 Neck = new List<decimal>(), Chest = new List<decimal>(),
                 Stomach = new List<decimal>(), Waist = new List<decimal>(),
@@ -470,7 +425,7 @@ namespace BodyMonitorApp
 
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = UserId;
+                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -494,6 +449,7 @@ namespace BodyMonitorApp
                         }
                                                
                     }
+
                     else
                     {
                         MessageBox.Show("Record doesn't exist!");
@@ -516,14 +472,12 @@ namespace BodyMonitorApp
 
         }
 
-
         /// <summary>
         /// creates user account based on credentials specified in viewmodel
         /// </summary>
         /// <returns></returns>
-        public static void CreateUserAccount(AccountModel account)
-        {
-           
+        public static bool CreateUserAccount(AccountModel account)
+        {           
             try
             {
                 DateTime currentTime = DateTime.Now;
@@ -557,84 +511,259 @@ namespace BodyMonitorApp
                 if (result > 0)
                 {
                     MessageBox.Show("Account Created!");
+                    return true;
                 }
 
+                else
+                {
+                    return false;
+                }
             }
 
             catch (SqlException ex)
             {
                 string errorMessage = $"Error: {ex}";
                 MessageBox.Show(errorMessage);
+                return false;
             }
 
         }
-
-
+               
         /// <summary>
-        /// Checks for secret password and it's answer
+        ///fFills user profile data 
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-
-        
-        //TODO: return profile info - ProfileInfoViewModel has base for it
-        public AccountModel GetAccountModel(int userId)
+        public static AccountModel GetProfileData(int userId)
         {
-            var account = new AccountModel();
+            AccountModel currentAccount = new AccountModel();
 
             try
             {
-                DateTime currentTime = DateTime.Now;
+                SqlConnection conn = new SqlConnection(Connections.ConnectionString);
 
+                string sql = "SELECT * FROM dbo.UserData WHERE Id=@UserId";
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    // if the result set is not NULL
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {                                                
+                            currentAccount.UserBirthday = reader.GetDateTime(1);
+                            currentAccount.UserHeight = reader.GetInt32(2);
+                            currentAccount.UserName = reader.GetString(3);
+                            currentAccount.UserMail = reader.GetString(4);
+                            currentAccount.UserGender = reader.GetString(5);
+                            currentAccount.AccountCreated = reader.GetDateTime(6);
+                        }
+                    }
+
+                    else
+                    {
+                        MessageBox.Show("Wrong Data!");
+                    }
+
+                }
+            }
+
+            catch (SqlException ex)
+            {
+                string errorMessage = $"Error: {ex}";
+                MessageBox.Show(errorMessage);
+
+            }
+
+            return currentAccount;
+        }
+
+        public static void UpdateProfileData(AccountModel account, int userId)
+        {
+         
+
+            try
+            {
                 // get connection string from Connections Helper Class
                 SqlConnection conn = new SqlConnection(Connections.ConnectionString);
 
-               
-                string sqlAccount = "Select * FROM dbo.UserData WHERE @userId == Id";
-
-                string sql = "INSERT INTO dbo.Users (UserLogin,UserPassword) values (@UserLogin,@UserPassword);" +
-                    "INSERT INTO dbo.UserData(id,UserHeight,UserName,UserAge,UserMail,UserGender,AccountCreated,SecretQuestion,SecretAnswer) values ((SELECT SCOPE_IDENTITY()),@UserHeight,@UserName,@UserAge,@UserMail,@UserGender,@AccountCreated,@SecretQuestion,@SecretAnswer)";
+                string sql = "UPDATE dbo.UserData " +
+                   "SET UserName=@UserName,UserBirthday=@UserBirthday,UserHeight=@UserHeight, UserMail=@UserMail, UserGender=@UserGender" +
+                   " WHERE Id=@UserId";
 
                 conn.Open();
 
-               
-
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.Add("@UserLogin", SqlDbType.VarChar).Value = account.UserLogin;
-                cmd.Parameters.Add("@UserPassword", SqlDbType.VarChar).Value = account.UserPassword;
-                cmd.Parameters.Add("@UserBirthday", SqlDbType.Int).Value = account.UserBirthday;
-                cmd.Parameters.Add("@UserHeight", SqlDbType.Int).Value = account.UserHeight;
+                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
+                cmd.Parameters.Add("@UserBirthday", SqlDbType.DateTime).Value = account.UserBirthday;
                 cmd.Parameters.Add("@UserName", SqlDbType.VarChar).Value = account.UserName;
+                cmd.Parameters.Add("@UserHeight", SqlDbType.Int).Value = account.UserHeight;
                 cmd.Parameters.Add("@UserMail", SqlDbType.VarChar).Value = account.UserMail;
                 cmd.Parameters.Add("@UserGender", SqlDbType.Char).Value = account.UserGender;
-                cmd.Parameters.Add("@AccountCreated", SqlDbType.DateTime).Value = currentTime;
-                cmd.Parameters.Add("@SecretQuestion", SqlDbType.VarChar).Value = account.SecretQuestion;
-                cmd.Parameters.Add("@SecretAnswer", SqlDbType.VarChar).Value = account.SecretAnswer;
 
 
                 int result = cmd.ExecuteNonQuery();
 
                 if (result > 0)
                 {
-                    MessageBox.Show("Account Created!");
-                  
+                    MessageBox.Show("Data Updated!");
                 }
 
-               
             }
 
             catch (SqlException ex)
             {
                 string errorMessage = $"Error: {ex}";
                 MessageBox.Show(errorMessage);
-               
+            }
+        }
+
+        public static bool AddNewRecord(ProgressModel progress)
+        {
+            try
+            {
+                // get connection string from Connections Helper Class
+                SqlConnection conn = new SqlConnection(Connections.ConnectionString);
+
+                string sql = "INSERT INTO dbo.UserBodyValues (UserId,DateAdded,Weight,Neck,Chest,Stomach,Waist,Hips,Thigh,Calf,Biceps) values (@UserId,@DateAdded,@Weight,@Neck,@Chest,@Stomach,@Waist,@Hips,@Thigh,@Calf,@Biceps)";
+
+
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = progress.UserId;
+                cmd.Parameters.Add("@Weight", SqlDbType.Decimal).Value = progress.Weight;
+                cmd.Parameters.Add("@Neck", SqlDbType.Decimal).Value = progress.Neck;
+                cmd.Parameters.Add("@Chest", SqlDbType.Decimal).Value = progress.Chest;
+                cmd.Parameters.Add("@Stomach", SqlDbType.Decimal).Value = progress.Stomach;
+                cmd.Parameters.Add("@Waist", SqlDbType.Decimal).Value = progress.Waist;
+                cmd.Parameters.Add("@Hips", SqlDbType.Decimal).Value = progress.Hips;
+                cmd.Parameters.Add("@Thigh", SqlDbType.Decimal).Value = progress.Thigh;
+                cmd.Parameters.Add("@Calf", SqlDbType.Decimal).Value = progress.Calf;
+                cmd.Parameters.Add("@Biceps", SqlDbType.Decimal).Value = progress.Biceps;
+                cmd.Parameters.Add("@DateAdded", SqlDbType.DateTime).Value = progress.DateAdded;
+
+
+                int result = cmd.ExecuteNonQuery();
+
+                if (result > 0)
+                {
+                    return true;
+
+                }
+
             }
 
+            catch (SqlException ex)
+            {
+                string errorMessage = $"Error: {ex}";
+                MessageBox.Show(errorMessage);
+                return false;
+            }
 
-            return account;
+            return false;
         }
 
 
+        public static bool CheckIfRecordExists(int userId, DateTime calendarDate)
+        {
+
+            bool recordExists = false;
+
+            try
+            {
+                SqlConnection conn = new SqlConnection(Connections.ConnectionString);
+                string sql = "SELECT * FROM dbo.UserBodyValues WHERE UserId=@UserId AND DateAdded=@DateAdded";
+
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
+                cmd.Parameters.Add("@DateAdded", SqlDbType.DateTime).Value = calendarDate;
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    // if the result set is not NULL
+                    if (reader.HasRows)
+                    {       
+                        recordExists = true;
+                    }
+
+                    else
+                    {
+                        recordExists = false;
+                        MessageBox.Show("Record doesn't exist!");
+                    }
+
+                }
+
+                conn.Close();
+
+            }
+
+            catch (SqlException ex)
+            {
+                string errorMessage = $"Error: {ex}";
+                MessageBox.Show(errorMessage);
+
+            }
+
+            return recordExists;
+        }
+
+        public static ProgressModel GetUserProgress(int userId, DateTime calendarDate)
+        {
+            var progress = new ProgressModel();
+
+            try
+            {
+                SqlConnection conn = new SqlConnection(Connections.ConnectionString);
+                string sql = "SELECT * FROM dbo.UserBodyValues WHERE UserId=@UserId AND DateAdded=@DateAdded";
+
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
+                cmd.Parameters.Add("@DateAdded", SqlDbType.DateTime).Value = calendarDate;
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    // if the result set is not NULL
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            progress.Weight = reader.GetDecimal(4);
+                            progress.Neck = reader.GetDecimal(5);
+                            progress.Chest = reader.GetDecimal(6);
+                            progress.Stomach = reader.GetDecimal(7);
+                            progress.Waist = reader.GetDecimal(8);
+                            progress.Hips = reader.GetDecimal(9);
+                            progress.Thigh = reader.GetDecimal(10);
+                            progress.Calf = reader.GetDecimal(11);
+                            progress.Biceps = reader.GetDecimal(12);
+                        }                     
+                    }
+                 
+
+                }
+
+                conn.Close();
+            }
+
+            catch (SqlException ex)
+            {
+                string errorMessage = $"Error: {ex}";
+                MessageBox.Show(errorMessage);
+
+            }
+
+            return progress;
+        }
+    
     }
     
 }
