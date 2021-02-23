@@ -20,6 +20,8 @@ namespace BodyMonitorApp
             ApplicationViewModel context = new ApplicationViewModel();
             app.DataContext = context;
             app.Show();
-        }       
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+        }
     }
 }

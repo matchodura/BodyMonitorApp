@@ -234,7 +234,7 @@ namespace BodyMonitorApp
             {
                 //hashing data
                 var hashSalt = HashSalt.GenerateSaltedHash(64, password);          
-                Queries.UpdatePassword(UserLogin, password, hashSalt);
+                Queries.UpdatePassword(UserLogin, hashSalt);
             }                                           
         }
 
