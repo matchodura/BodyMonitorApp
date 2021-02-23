@@ -11,8 +11,7 @@ namespace BodyMonitorApp
     public class AccountModel : ObservableObject
     {
         #region Fields
-        private string _userLogin;
-        private string _userPassword;
+        private string _userLogin;      
         private DateTime _userBirthday;
         private int _userHeight;
         private string _userName;

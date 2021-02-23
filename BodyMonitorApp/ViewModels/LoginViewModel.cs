@@ -163,21 +163,24 @@ namespace BodyMonitorApp
             {             
                 LoginModel user = Queries.GetUser(login.UserName);
 
-                bool isValidated = HashSalt.VerifyPassword(password, user.Hash, user.Salt);
-
-                if (isValidated)
+                if (user.UserName != null)
                 {
-                    login.UserId = user.UserId;
-                    CurrentLogin.UserId = login.UserId;
-                    login.IsValidated = true;
-                    MessageBox.Show("Login Sucessfull!");                  
-                }
+                    bool isValidated = HashSalt.VerifyPassword(password, user.Hash, user.Salt);
 
-                else
-                {
-                    login.IsValidated = false;
-                    MessageBox.Show("Wrong Password!");                  
-                }
+                    if (isValidated)
+                    {
+                        login.UserId = user.UserId;
+                        CurrentLogin.UserId = login.UserId;
+                        login.IsValidated = true;
+                        MessageBox.Show("Login Sucessfull!");
+                    }
+
+                    else
+                    {
+                        login.IsValidated = false;
+                        MessageBox.Show("Wrong Password!");
+                    }
+                }                          
                
             }
 
