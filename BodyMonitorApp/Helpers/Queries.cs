@@ -111,25 +111,23 @@ namespace BodyMonitorApp
             return userId;
         }
 
-        public static void UpdatePassword(string userLogin, string newUserPassword, HashSalt hashSalt)
+        public static void UpdatePassword(string userLogin, HashSalt hashSalt)
         {
             int userId = GetUserId(userLogin);
 
             try
             {
-
                 // get connection string from Connections Helper Class
                 SqlConnection conn = new SqlConnection(Connections.ConnectionString);
 
                 string sql = "UPDATE dbo.Users " +
-                   "SET UserPassword=@UserPassword, Hash=@Hash, Salt=@Salt" +
+                   "SET UserPassword, Hash=@Hash, Salt=@Salt" +
                    " WHERE UserId=@UserId";
 
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
-                cmd.Parameters.Add("@UserPassword", SqlDbType.VarChar).Value = newUserPassword;
                 cmd.Parameters.Add("@Hash", SqlDbType.VarChar).Value = hashSalt.Hash;
                 cmd.Parameters.Add("@Salt", SqlDbType.VarChar).Value = hashSalt.Salt;
                

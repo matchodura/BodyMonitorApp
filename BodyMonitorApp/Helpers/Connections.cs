@@ -8,9 +8,7 @@ namespace Helpers
 {
     class Connections
     {
-
         private static string _connectionString = @"Data Source = (localdb)\MSSQLLocalDB;Database=BodyMonitorDB; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False";
         public static string ConnectionString { get { return _connectionString; } }
-
     }
 }

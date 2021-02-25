@@ -73,7 +73,7 @@
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
 
             <TextBlock  Margin="5" Width="150"
-                            Text="{Binding CurrentAccount.UserBirthday}"
+                            Text="{Binding CurrentAccount.UserBirthday,StringFormat='{}{0:MM/dd/yyyy}'}"
                             Visibility="{Binding TextBlockVisibility}"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             />
@@ -84,7 +84,7 @@
                         AcceptsReturn="True"
                         TextWrapping="Wrap"
                         Grid.Column="3" Grid.Row="2"  Margin="5" Width="200"
-                        materialDesign:HintAssist.Hint="Age"
+                        materialDesign:HintAssist.Hint="Birthday"
                         Visibility="{Binding EditBoxVisibility}"
                         HorizontalAlignment="Center" VerticalAlignment="Center"
                         Name="txtName"
@@ -109,7 +109,7 @@
               materialDesign:ShadowAssist.ShadowEdges="Bottom,Right">
 
             <TextBlock  Margin="5" Width="150"
-                            Text="{Binding CurrentAccount.UserHeight}"
+                            Text="{Binding CurrentAccount.UserHeight,StringFormat= ' {0} cm'}"
                             Visibility="{Binding TextBlockVisibility}"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             />
@@ -122,12 +122,14 @@
                         Grid.Column="3" Grid.Row="3"  Margin="5" Width="200"
                         materialDesign:HintAssist.Hint="Height"
                         Visibility="{Binding EditBoxVisibility}"
+                    
                         HorizontalAlignment="Center" VerticalAlignment="Center"
                         Name="txtHeight"
                         MaxLength="20">
 
             <TextBox.Text >
                 <Binding
+                    
                     Path="CurrentAccount.UserHeight" 
                     UpdateSourceTrigger="PropertyChanged">
 
