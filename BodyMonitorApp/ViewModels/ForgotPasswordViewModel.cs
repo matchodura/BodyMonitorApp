@@ -199,15 +199,15 @@ namespace BodyMonitorApp
     
         public void ChangePassword()
         {
-            if(SecretAnswerCheck== SecretAnswer)
+            if(SecretAnswerCheck == SecretAnswer)
             {
-                MessageBox.Show("Gites!");
+                MessageBox.Show("Answer okay!");
                 ChangePasswordOption = Visibility.Visible;
             }
 
             else
             {
-                MessageBox.Show("smuteczek");
+                MessageBox.Show("Wrong Answer!");
             }
         }
 
